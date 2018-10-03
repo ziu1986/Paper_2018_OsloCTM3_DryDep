@@ -7,5 +7,5 @@
 **.toc
 **.pdf
 # Ignore all "picture" subdirectories in Papers
-pictures/
+#**/pictures/
 
