@@ -1,1 +1,1 @@
-../make
+latex_setup/make
