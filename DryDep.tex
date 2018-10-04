@@ -118,21 +118,24 @@
 
 %\copyrightstatement{TEXT}
 \introduction  %% \introduction[modified heading if necessary]
-Ozone is an important trace gas for all lifeforms on Earth. Depending on the place of its occurrence it has either a positive or negative connotation. In the stratosphere, ozone absorbs most of the ultraviolet (UV)-light from the sun in the range of 100--315\,\unit{nm}, thus shielding the Earth's surface from the most harmful UV-radiation. In addition, ozone is a potent greenhouse gas in both, stratosphere and troposphere. With a radiative forcing of $0.40 \pm 0.20\,\unit{Wm^{-2}}$, it is placed third, only surpassed by \chem{CO_2} and \chem{CH_4} \citep[Chapter 8]{IPCC2013}. In the troposphere and in particular in ambient air, ozone is considered as a highly toxic pollutant. Continuously high concentrations of ambient air ozone are hazardous to the whole ecosystem. It is estimated that ozone is cause to an increase in pre-mature deaths \citep{WHO2008}, an average global loss of yield in the four major crops (wheat, rice, maize, and soybean) of about 3--15\,\unit{\%} \citep{PJ:Ainsworth2017} as well as 7\,\unit{\%} loss in primary production in forestry \citep{GCB:Wittig2009,EP:Matyssek2012}. The impact of ozone damage on vegetation and agricultural plants in particular may even affect food security in the future especially in Asia \citep{GCB:Tang2013,NCC:Tai2014,AE:Chuwah2015} and might be an important additional feedback to climate change \citep{Nat:Sitch2007}. Since ozone is highly reactive, its global mean life-time in the troposphere is roughly 22 days \citep{JGR:Stevenson2005,ACP:Young2013}. It is mainly produced photochemically in situ from precursor gases such as hydrocarbons (e.g., \chem{CH_4}) in the presents of nitrogen oxides (\chem{NO_x}), carbon monoxide (\chem{CO}):
+Ozone is an important trace gas for all lifeforms on Earth. Depending on the place of its occurrence it has either a positive or negative connotation. In the stratosphere, ozone absorbs most of the ultraviolet (UV)-light from the sun within the range of 100--315\,\unit{nm}, thus shielding the Earth's surface from the most harmful UV-radiation. In addition, ozone is a potent greenhouse gas in both, stratosphere and troposphere. With a radiative forcing of $0.40 \pm 0.20\,\unit{Wm^{-2}}$, it is placed third, only surpassed by \chem{CO_2} and \chem{CH_4} \citep[Chapter 8]{IPCC2013}.\\
+In the troposphere and in particular in ambient air, ozone is considered as a highly toxic pollutant. Continuously high concentrations of ambient air ozone are hazardous to the whole ecosystem. It is estimated that ozone is cause to an increase in pre-mature deaths \citep{WHO2008}, an average global loss of yield in the four major crops (wheat, rice, maize, and soybean) of about 3--15\,\unit{\%} \citep{PJ:Ainsworth2017} as well as 7\,\unit{\%} loss in primary production in forestry \citep{GCB:Wittig2009,EP:Matyssek2012}. The impact of ozone damage on vegetation and agricultural plants in particular may even affect food security in the future especially in Asia \citep{GCB:Tang2013,NCC:Tai2014,AE:Chuwah2015} and might be an important additional feedback to climate change \citep{Nat:Sitch2007}.\\
+Tropospheric ozone is mainly produced in situ in complex photochemical cycles involving precursor gases such as carbon monoxide (\chem{CO}) or volatile organic substances (VOCs) and hydrocarbons (e.g., \chem{CH_4}) in the presents of nitrogen oxides (\chem{NO_x}). A typical reaction cylce for \chem{CO} is sketched below. In a sequence of rapid reactions a peroxy radical \chem{HO_2^\bullet} is formed through an initial reaction of \chem{CO} with a hydroxyl radical \chem{^\bullet OH}
 \begin{reaction}
   ^\bullet\chem{OH} + \chem{CO} \rightarrow {^\bullet\chem{HOCO}}\\
-  ^\bullet\chem{HOCO} + \chem{O_2} \rightarrow \chem{H_2O} + \chem{CO_2}
- \end{reaction}
+  ^\bullet\chem{HOCO} + \chem{O_2} \rightarrow \chem{HO_2^\bullet} + \chem{CO_2}.
+\end{reaction}
+Via a reaction between \chem{HO_2^\bullet} and \chem{NO}, \chem{NO_2} is formed which is then photolysed. The resulting atomic oxygen reacts then with \chem{O_2} to form an ozone molecule
 \begin{reaction}
-  ^\bullet\chem{HO_2} + \chem{NO} \rightarrow {^\bullet\chem{OH}} + \chem{NO_2}\\
+  \chem{HO_2^\bullet} + \chem{NO} \rightarrow {^\bullet\chem{OH}} + \chem{NO_2}\\
   \chem{NO_2} + h\nu \rightarrow \chem{NO} + \chem{O(^3{P})}\\
-  ^\bullet\chem{O(^3P)} + \chem{O_2} \rightarrow \chem{O_3}
+  ^\bullet\chem{O(^3P)} + \chem{O_2} \rightarrow \chem{O_3}.
 \end{reaction}
-This leads to a net production via:
+Such a cycle leads to a net production via:
 \begin{reaction}
-  \chem{CO} + 2\chem{O_2} + h\nu \rightarrow \chem{CO_2} + \chem{O_3}
+  \chem{CO} + 2\chem{O_2} + h\nu \rightarrow \chem{CO_2} + \chem{O_3}.
 \end{reaction}
-A part from these, additional reaction pathways involving volatile organic compounds (VOCs) exist. Another possible source of tropospheric ozone transportation down from the stratosphere via stratosphere-troposphere exchange (STE) \citep{WMO2014}. Major sinks are photolytical destruction, de-nitration via
+A part from this, additional reaction pathways involving volatile organic compounds (VOCs) exist. Another possible source of tropospheric ozone is downward transport from the stratosphere via stratosphere-troposphere exchange (STE) \citep{WMO2014}. Major sinks are photolysis to \chem{O({^1{D}})} followed by a reaction with water vapor, reaction with \chem{HO_2} \citep{ACP:Seinfeld2006}, and de-nitration via
 \begin{reaction}
   \chem{NO} + \chem{O_3} \rightarrow \chem{NO_2} + \chem{O_2}
 \end{reaction}
@@ -140,38 +143,50 @@ and
 \begin{reaction}
   \chem{NO_2} + \chem{O_3} \rightarrow \chem{NO_3} + \chem{O_2},
 \end{reaction}
-and dry deposition processes. The global abundance of tropospheric ozone is highly variable and it changes, e.g., with time of the day ($\sim$15:00 local time), season (mid-June), altitude, and location \citep{ACP:Schnell2015}. Typical concentrations of surface ozone reach from 10\,\unit{ppb} over the tropical Pacific to 100\,\unit{ppb} in the surrounding areas of high emitting sources \citep[Chapter 8]{IPCC2013}. This variability poses a challenge on both trend analysis from observation as well as validation and intercomparison of models. From the observational side, there is only a limited number of long-term ozone observations, mainly restricted to European sites. From these only three display a statistical significant trend, indicating a doubling of tropospheric ozone since the onset of the industrialization \citep[Chapter 2]{IPCC2013}. But especially the the very low pre-industrial ozone values cannot be reproduced by the likes of most models \citep[Chapter 8]{IPCC2013}. 
+and scavenging processes, in particular dry deposition. A very special sink which is linked to dry deposition are so called ozone depleting events. They occure in spring-time in the polar boundary layer where an outburst of bromine monoxid \chem{BrO} (so called bromine explosion) leads to a rapid depletion of surface ozone \citep{JGR:Oltmans1981,GRL:Bottenheim1986,Nat:Barrie1988,JGR:Bottenheim2006}. Various schemes have been sucessfully applied to different types of atmospheric models \citep[e.g.][]{ACP:Yang2010,ACP:Toyota2011,ACP:Toyota2014a,GMD:Falk2018}. Although these events are important to understand surface ozone abundance in Arctic regions, we have not implemented any parameterization of these processes, yet.\\
+Since ozone is highly reactive, its global mean life-time in the troposphere is roughly 22 days but ranges between a few days in the tropical boundary layer to up to one year in the upper troposphere \citep{JGR:Stevenson2005,ACP:Young2013}. The abundance of tropospheric ozone therefore varies, e.g., with time of the day (maximum $\sim$15:00 local time), season (mid-June maximum), altitude, and location \citep{ACP:Schnell2015} or weather conditions in general \citep{ACP:Otero2018}. Typical concentrations of surface ozone range from 10\,\unit{ppb} over the tropical Pacific to 100\,\unit{ppb} in the downwind areas of highly emitting sources \citep[Chapter 8]{IPCC2013}. This variability poses a challenge on both, trend analysis from observation as well as validation and intercomparison of models. At the observational side, there is only a limited number of long-term ozone observations, mainly restricted to European sites. Amongst these, only three display a statistical significant trend, indicating a doubling of tropospheric ozone since the onset of the industrialization \citep[Chapter 2]{IPCC2013}. But especially the very low pre-industrial ozone abundance cannot be reproduced by the likes of most models, while there is a general tendency to underestimate tropospheric ozone among the participating models in the Atmospheric Chemistry and Climate Model Intercomparison Project (ACCMIP) \citep[Chapter 8]{IPCC2013}.\\
+Removal of any gas through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. Dry deposition velocities $v^i_d$ (also refered to as contuctances $G^i$) for any gaseous specie $i$ are typically calculated following a resistance-analogous approach
+\begin{equation}
+  v^i_d = \frac{1}{R_a + R^i_b + R^i_c},
+\end{equation}
+wherein aerodynamic $R_a$, quasi laminar $R^i_b$, and canopy resistances $R^i_c$ are key components \citep{AE:Wesely1989}. For all gases $R_a$ is the same, while $R^i_b$ and $R^i_c$ vary from gaseous specie to specie and also depend on landuse types (e.g., ice/snow, water, urban, desert, agricultural land, deciduous forest, coniferous forest etc.). In its original formulation, fixed seasonal average dry deposition resistances have been used for each landuse type. For all three types of resistances in this Wesely-type parameterization, more process-oriented formulations have been developed and validated over the years, e.g., dry deposition of ozone to ocean \citep{ACP:Luhar2017} and stomatal conductance as part of canopy conductance \citep{PP:Buckley2017} or updates on the parameters have been provided from model validation with observation \citep[e.g., $v^\chem{O_3}_{ice/snow} = 1/10000\,\unit{cm s^{-1}}$,][]{ACP:Helmig2007}. 
 
-, relation to weather \citep{ACP:Otero2018}
-Dry deposition in detail, conductance sum \citep{AE:Wesely1989}, stomatal conductance \citep{PP:Buckley2017}, snow/ice \citep{ACP:Helmig2007,AE:Oltmans2008} and water \citep{JGR:Helmig2012,ACP:Luhar2017}.
 
-What is the status and what are the challenges in the dry deposition of ozone - we do not include bromine explosion in the polar regions which are tremendously reducing surface ozone in polar spring \citep{JGR:Oltmans1981,GRL:Bottenheim1986,Nat:Barrie1988,JGR:Bottenheim2006}.
-simple plant function type (PFT)-based scheme. In this scheme, an average canopy resistance is computed from stomatal conductance of fractional PFTs in a grid cell.
 
-Convention on Long-Range Transboundary Air Pollution (CLRTAP) -> European Monitoring and Evaluation Programme (EMEP),
 
-Ozone accumulated over long periods of time inflicts damage on vegetation which leads to loss of primary production in agriculture and forestry.
+What is the status and what are the challenges in the dry deposition of ozone.
+
 
 Impact of ocean? Although it is a low number there is 2\/3 ocean on earth... (Think, I read this in Hardacre paper... -> Luhar)
 
 
+
+
 \section{Model description}
 General model description followed by detailed dry deposition scheme \citep{ACP:Simpson2012,ICP:MappingManual2017}. This is followed by the necessary pre-processing of files. Old scheme \citep{AE:Wesely1989, JGR:Hough1991}
+
+historical anthropogenic and biomass burning emissions \citep{Lamarque2010}, meteorological driver \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF - OpenIFS version cy38r1nc4}, Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018}
+
 \citet{GMD:Sovde2012,GMD:Lund2018}
 \subsection{Ozone dry deposition scheme}
-\citet{ACP:Simpson2012} \citet{ICP:MappingManual2017}
+\label{subsec:DryDep}
+Convention on Long-Range Transboundary Air Pollution (CLRTAP) -> European Monitoring and Evaluation Programme (EMEP),
+simple plant function type (PFT)-based scheme. In this scheme, an average canopy resistance is computed from stomatal conductance of fractional PFTs in a grid cell.
+\citep{ACP:Simpson2012} \citet{ICP:MappingManual2017}
 \subsection{Greening season and photoactive radiation}
 
 \section{Evaluation}
 
 \subsection{Sensitivity tests}
 Include table of all sensitivity runs.
+\citep[e.g., $v^\chem{O_3}_{ice/snow} = 1/10000\,\unit{cm s^{-1}}$,][]{ACP:Helmig2007}
+dry dep velocity over water \citep{JGR:Helmig2012}
 
 \subsection{Comparison with recent multi-model evaluation}
 Compare to \citet{ACP:Hardacre2015} as well as \citet{ACP:Luhar2017}.
 
 \subsection{Comparison with observations}
-The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from satellites and sondes (http://bodekerscientific.com/).
+The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from satellites and sondes (\url{http://bodekerscientific.com/}).
 
 \section{Discussion}
 
@@ -233,7 +248,8 @@ What did we gain?
 \begin{acknowledgements}
   This work was supported by the Norwegian Research Council (NRC) through the project The double punch: Ozone and climate stresses on vegetation (OzoNorClim).\\
   We would like to thank Greg Bodeker, Stefanie Kremser (Bodeker Scientific) and Birgit Hassler (DLR) for providing the combined vertical ozone profile database (\url{http://www.bodekerscientific.com}.
-  The used Leaf Area Index (LAI) and roughness length ($Z_0$) are available online from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, U.S.A. (\doi{10.3334/ORNLDAAC/970}).
+  The used Leaf Area Index (LAI) and roughness length ($Z_0$) are available online from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, U.S.A. (\doi{10.3334/ORNLDAAC/970}).\\
+  Community Emission Data System (CEDS) historical emission inventory is provided by the Joint Global Research Institute project (\url{http://www.globalchange.umd.edu/ceds/}.)
 \end{acknowledgements}
 
 
