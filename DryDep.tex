@@ -161,21 +161,21 @@ In Section~\ref{sec:model_des}, we will briefly describe the OsloCTM3, give a de
 
 \section{Model description}
 \label{sec:model_des}
-General model description followed by detailed dry deposition scheme \citep{ACP:Simpson2012,ICP:MappingManual2017}. This is followed by the necessary pre-processing of files. Old scheme \citep{AE:Wesely1989, JGR:Hough1991}
-
+The OsloCTM3 is a three dimensional global chemistry transort model (CTM). The key components of the OsloCTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the OsloCTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. \emph{The OsloCTM3 can also be coupled to MEGAN \citep{ACP:Guenther2006}. A publication focussing on this is planed.}
+Technical: Partly parallelized (low number of effective cores 16, huge memory consumption if run on T159 resolution, code has been ported to fortran90 keeping the dynamical core UCI-CTM mainly intact.)
 historical anthropogenic and biomass burning emissions \citep{ACP:Lamarque2010}, meteorological driver \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF - OpenIFS version cy38r1nc4}, Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018}
-
-\citet{GMD:Sovde2012,GMD:Lund2018}
 
 \subsection{Ozone dry deposition scheme}
 \label{subsec:DryDep}
-Convention on Long-Range Transboundary Air Pollution (CLRTAP) -> European Monitoring and Evaluation Programme (EMEP),
-simple plant function type (PFT)-based scheme. In this scheme, an average canopy resistance is computed from stomatal conductance of fractional PFTs in a grid cell.
-\citep{ACP:Simpson2012} \citet{ICP:MappingManual2017}
+
+{\bf TODO: Some words about the old scheme \citep{AE:Wesely1989, JGR:Hough1991}...}
+
+We follow the Convention on Long-Range Transboundary Air Pollution (CLRTAP) implemented in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{ACP:Simpson2012,ICP:MappingManual2017}. It is a more physical approach compared to \citet{AE:Wesely1989, JGR:Hough1991}. The scheme is used for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in the EMEP scheme, the old OsloCTM2 parameterization is kept. In adition to the gaseous species, some of the aerosol deposition rates have also been modified, namely black carbon (BC) and organic carbon (OC), sulphuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA).
 
 \subsection{Greening season and photosynthetic photon flux density}
 \label{subsec:pre-pro}
-
+      {\bf TODO: The neccessary pre-processing routines...}
+      
 \section{Evaluation}
 \label{sec:eval}
 
