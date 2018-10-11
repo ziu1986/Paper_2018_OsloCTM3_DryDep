@@ -169,13 +169,13 @@ historical anthropogenic and biomass burning emissions \citep{ACP:Lamarque2010},
 \subsection{Ozone dry deposition scheme}
 \label{subsec:DryDep}
 
-{\bf TODO: Some words about the old scheme \citep{AE:Wesely1989, JGR:Hough1991}...}
+The original dry deposition scheme of the OsloCTM2 and OsloCTM3 was not based on actual calculation of the deposition velocities from equations taking the state of the atmosphere into account, but rather paramerterized following the original work of \citet{AE:Wesely1989} with paramerter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land use types (water, forest, grass, tundra/desert, and ice and snow) had been used. Day was distiquished from night by solar zenith angles below 90\,\unit{^\circ}. Winter was defined by temperatures below 273.15\,\unit{K} for gridboxes containing land masses. Since winter and summer parameters for ocean are equal in this parameterization, no distinquct treatment was needed for ocean gridboxes. In addition, reduced uptake due to snow cover above 1\,\unit{m} and 10\,\unit{cm} for forest and grass/tundra, respectively, was taken into account. In the following, we will refer to this static parameterization as \emph{Wesley scheme}.\\
 
-We follow the Convention on Long-Range Transboundary Air Pollution (CLRTAP) implemented in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{ACP:Simpson2012,ICP:MappingManual2017}. It is a more physical approach compared to the previous used Wesely scheme. The EMEP scheme is used for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in the EMEP scheme, the old OsloCTM2 \citep{OsloCTM2} parameterization is kept. In adition to the gaseous species, some of the aerosol deposition rates have also been modified, namely black carbon (BC) and organic carbon (OC), sulphuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). In Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is splitted into three different parts which will be addressed in the following.
+Getting away from the Wesely schme, we follow the Convention on Long-Range Transboundary Air Pollution (CLRTAP) implemented in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{Simpson2003,ACP:Simpson2012}. We will refere to this as \emph{EMEP scheme} thoughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previous used Wesely scheme. It is used for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{Simpson2003,ACP:Simpson2012}, the old OsloCTM2 \citep{OsloCTM2} parameterization is kept. In adition to the gaseous species, some of the aerosol deposition rates have also been modified, namely black carbon (BC) and organic carbon (OC), sulphuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically splitted into three different contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$) which will be addressed seperately in the following.
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
-The aerodynamical resistance $R_a$ as described in \citet{Simpson2003,ACP:Simpson2012}
+The aerodynamical resistance $R_a$ in \citet{Simpson2003,ACP:Simpson2012} is described as
 \begin{equation}
   R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{z_0}\right)-\Psi_m\left(\frac{z_0}{L}\right)}\right],
 \end{equation}
@@ -184,7 +184,7 @@ The sensible heat flux $\Phi_{Q_\text{sensible}}$ can be written as
 \begin{equation}
 \Phi_{Q_\text{sensible}} = \rho_\text{air} c_P \cdot \frac{\partial_z T}{\partial_z R_a},
 \end{equation}
-wherein $\rho_\text{air}$ is the air density, $c_P$ the specific heat at constant pressure $P$, $\partial_z T$ is the difference between the surface temperature $T_0$ and the temperature at reference height $T_z$, and $\partial_z R_a$ the diffusion resistance to sensible heat between surface and the reference height. From the eddy diffusion theorem, a similar formulation can be derived
+wherein $\rho_\text{air}$ is the air density, $c_P$ the specific heat at constant pressure $P$, $\partial_z T$ is the difference between the surface temperature $T_0$ and the temperature at reference height $T_z$, and $\partial_z R_a$ the diffusion resistance to sensible heat between surface ($z_0 = 0$) and the reference height $z$. From the eddy diffusion theorem, a similar formulation can be derived
 \begin{equation}
   \Phi_{Q_\text{sensible}} = \rho_\text{air} c_P \cdot \frac{\partial_z T}{\partial_z u} \cdot u_*^2.
 \end{equation}
@@ -196,17 +196,17 @@ As reference height $z$ we use the height at midlevel of the lowermost model lev
 
 \subsubsection{Quasi-laminar layer resistance}
 \label{subsubsec:Rb}
-$R_b^i$ is species specific, as already mentioned, and its definition differs over land and ocean. In case a gridbox contains both land and ocean, a weighted mean is calculated using the land and ocean conductances, respectively.\\
-
+$R_b^i$ is species specific, as already mentioned, and its definition differs over land and ocean. In case a gridbox contains both land and ocean, a weighted mean is calculated using the land and ocean conductances, respectively.
+\subsection*{Land}
 Over land we use
 \begin{equation}
   R_b^i = \frac{2}{\kappa u_*} \cdot \left(\frac{\text{Sc}_i}{\text{Pr}}\right)^{\frac{2}{3}},
 \end{equation}
-wherein $\text{Pr}$ is the Prandtl number (typically 0.72 for air and other gases) and $\text{Sc}_i$ is the Schmidt number for a gas $i$. Assuming a constant kinetic viscosity of air $\nu_\text{air}$, $\nu_\text{air}$ can be calculated from the Schmidt number for water $\text{Sc}_\chem{H_2O}=0.6$ and a molecular diffusivity of $D_\chem{H_2O}=0.21\cdot10^{-4}\,\unit{m^2s^{-1}}$
+wherein $\text{Pr}$ is the Prandtl number (typically 0.72 for air and other gases) and $\text{Sc}_i$ is the Schmidt number for a gas $i$. From the definition of $\text{Sc}_i = \nu/D_i$, with the kinematic viscosity of air $\nu$, $\text{Sc}_i $ can be derived as water equivalent:
 \begin{equation}
   \text{Sc}_i = \frac{\nu}{D_i} = \text{Sc}_\chem{H_2O}\cdot\frac{D_\chem{H_2O}}{D_i},
 \end{equation}
-with $D_i$ the molecular diffusivity for a gas $i$. The ration $D_\chem{H_2O}/D_i$ is given in Table~\ref{tab:diffusivity}.\\
+with the molecular diffusivity for any gas $D_i$, the Schmidt number of water $\text{Sc}_\chem{H_2O}=0.6$ and a its molecular diffusivity $D_\chem{H_2O}=0.21\cdot10^{-4}\,\unit{m^2s^{-1}}$. The ratios $D_\chem{H_2O}/D_i$ are given in Table~\ref{tab:diffusivity}.
 %
 \begin{table}[t]
   \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$.}
@@ -226,19 +226,26 @@ with $D_i$ the molecular diffusivity for a gas $i$. The ration $D_\chem{H_2O}/D_
   %\belowtable{} % Table Footnotes
   \label{tab:diffusivity}
 \end{table}
-
+%
+\subsection*{Ocean}
 Over ocean we use
 \begin{equation}
   R_b^i = \frac{1}{\kappa u_*}\cdot\ln\left({\frac{z_0}{D_i}\cdot \kappa u_*}\right)
 \end{equation}
-with a minimum auf 10\,\unit{ms^{-1}} and a maximum of 1000\,\unit{ms^{-1}}. The computation of roughneth length $z_0$ over ocean is devided into a \emph{calm} and a \emph{rough} ocean case, where windspeeds above 3\,\unit{ms^{-1}} are considered as boundary between the cases. Calm sea follows \citet{Hinze1975,Garrat1992}:
+with a lower threashold of 10\,\unit{ms^{-1}} and an upper limit of 1000\,\unit{ms^{-1}}. The computation of roughness length $z_0$ over ocean is devided into a \emph{calm} and a \emph{rough} sea case, where windspeeds above 3\,\unit{ms^{-1}} are considered as boundary between both cases. Calm sea follows \citet{Hinze1975,Garrat1992} with a slightly increased coefficient:
 \begin{equation}
-  z_0^\text{calm water} = \text{min}\left(2\cdot10^{-3}, 0.135 \frac{\nu}{u_*}\right),
+  z_0^\text{calm} = \text{min}\left(2\cdot10^{-3}, 0.135 \frac{\nu}{u_*}\right).
 \end{equation}
-where $\nu$ is the kinematic viscosity of air, computed from surface pressure $P_0$, 2\,\unit{m} temperature $T\text{2M}$, and universal gas constant for air $R_\text{air}$
+The kinematic viscosity of air $\nu = \mu/\rho$ can be computed from the absolute viscosity of air $\mu$, and substituting $\rho$ uising the gas equation by surface pressure $P_0$, 2\,\unit{m} temperature $T_\text{2M}$, and the universal gas constant for air $R_\text{air}$
 \begin{equation}
-  \nu = \frac{6.2\cdot 10^{-8} \cdot T_\text{2M}}{\frac{P_0}{T_\text{2M}\cdot R_\text{air}}}.
+  \nu = \frac{6.2\cdot 10^{-8}\,\unit{kg \cdot m^{-1}\cdot s^{-1} \cdot T^{-1}} \cdot T_\text{2M}}{\frac{P_0}{T_\text{2M}\cdot R_\text{air}}}.
 \end{equation}
+The rough sea case follows the method of \citet{Charnock1955,Wu1980}:
+\begin{equation}
+  z_0^\text{rough} = \text{min}\left(2\cdot10^{-3}, 0.018 \frac{u^2_*}{g}\right).
+\end{equation}
+The allowed maximum roughness length in both cases is set to 2\,\unit{mm}. Since the $z_0$ computed with this paramterization is very small, the resulting $R^i_b$ is often defined by its imposed lower limit of 10\,\unit{sm^{-1}}.
+
 \subsubsection{Surface resistance}
 \label{subsubsec:Rc}
 %\begin{figure}[t]
@@ -250,6 +257,7 @@ where $\nu$ is the kinematic viscosity of air, computed from surface pressure $P
 %\end{figure}
 Mapping of pft landuse types from either ISLSCP2 MODIS or CML2 categories to 9 classical biosphere types used in the EMEP scheme. EMEP categories: Forests, Mediterranean scrub, Crops, Moorland (savanna++), Grassland, Wetlands, Tundra, Desert, Water, Urban
 Weighting of conductance with landuse fraction and sum. Inverse of this is gridbox average resistance.
+-> \citep{ICP:MappingManual2017}
 
 \subsection{Greening season and photosynthetic photon flux density}
 \label{subsec:pre-pro}
