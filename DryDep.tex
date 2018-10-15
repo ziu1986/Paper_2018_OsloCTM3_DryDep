@@ -112,15 +112,15 @@
 
 
 \begin{abstract}
- High concentrations of ozone in ambient air are hazardous not only to humans but to the ecosystem in general. The impact of ozone damage on vegetation and agricultural plants in combination with advancing climate change may affect food security in the future. While the future scenarios in themselves are uncertain, there are limiting factors constraining the accuracy of surface ozone modeling also at present: The distribution and amount of precursor/decomposing species, the stratosphere-troposphere exchange as well as scavenging processes. Removal of any gas through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. The conceptual dry deposition velocities are calculated following a resistance-analogous approach wherein aerodynamic, quasi laminar, and canopy resistances are key components, but these are hard to measure explicitly. In this paper, we present the update from an empirical dry deposition parameterization to a more process based implementation in the OsloCTM3. Our focus lies mainly on a stomatal conductance-based description of the canopy resistance. We evaluate the resulting modeled ozone dry deposition with respect to observations and multi-model studies. We will also estimate the impact of a set of parameters on the modeled ozone concentrations, both at the surface and in the free troposphere. We show that ozone dry deposition decreases with respect to the previous version, leading to an increase in surface ozone of up to ??\,\unit{\%}. {\bf TODO: Finish the results section as soon as there are results.}
+ High concentrations of ozone in ambient air are hazardous not only to humans but to the ecosystem in general. The impact of ozone damage on vegetation and agricultural plants in combination with advancing climate change may affect food security in the future. While the future scenarios in themselves are uncertain, there are limiting factors constraining the accuracy of surface ozone modeling also at present: The distribution and amount of ozone precursor/depleting substances, the stratosphere-troposphere exchange as well as scavenging processes. Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. The conceptual dry deposition velocities are calculated following a resistance-analogous approach wherein aerodynamic, quasi laminar, and canopy resistances are key components, but these are hard to measure explicitly. In this paper, we present an update of the dry deposition scheme implemented in the OsloCTM3. We change from an empirical dry deposition parameterization to a more process-based one which is taking the state of the atmosphere into account. Examining the sensitivity of the scheme to certain parameters, our focus lies mainly on the stomatal conductance-based description of the canopy resistance. We evaluate the resulting modeled ozone dry deposition with respect to observations and multi-model studies. We will also estimate the impact on the modeled ozone concentrations, both at the surface and in the free troposphere. We show that ozone dry deposition decreases with respect to the previous version, leading to an increase in surface ozone of up to ??\,\unit{\%}. {\bf TODO: Finish the results section as soon as there are results.}
 \end{abstract}
 
 
 %\copyrightstatement{TEXT}
 \introduction  %% \introduction[modified heading if necessary]
 Ozone is an important trace gas for all lifeforms on Earth. Depending on the place of its occurrence it has either a positive or negative connotation. In the stratosphere, ozone absorbs most of the ultraviolet (UV)-light from the sun within the range of 100--315\,\unit{nm}, thus shielding the Earth's surface from the most harmful UV-radiation. In addition, ozone is a potent greenhouse gas in both, stratosphere and troposphere. With a radiative forcing of $0.40 \pm 0.20\,\unit{Wm^{-2}}$, it is placed third, only surpassed by \chem{CO_2} and \chem{CH_4} \citep[Chapter 8]{IPCC2013}.\\
-In the troposphere and in particular in ambient air, ozone is considered as a highly toxic pollutant. Since the industrial revolution, tropospheric background ozone concentrations have been increasing in the northern hemisphere. In recent years, the number of episodes of peak concentrations has been decreasing in North America and Europe due to the implementation of air quality regulations. At the same time, fast developing countries, like e.g., China or India, saw a significant increase in ozone related air pollution. Continuously high concentrations of ambient air ozone are hazardous to the whole ecosystem. It is estimated that ozone is cause to an increase in pre-mature deaths \citep{WHO2008}, an average global loss of yield in the four major crops (wheat, rice, maize, and soybean) of about 3--15\,\unit{\%} \citep{PJ:Ainsworth2017} as well as 7\,\unit{\%} loss in primary production in forestry \citep{GCB:Wittig2009,EP:Matyssek2012}. The impact of ozone damage on vegetation and agricultural plants may affect food security in the future especially in Asia \citep{GCB:Tang2013,NCC:Tai2014,AE:Chuwah2015} and might be an important additional feedback to climate change \citep{Nat:Sitch2007}.\\
-Tropospheric ozone is mainly produced in situ in complex photochemical cycles involving precursor gases such as carbon monoxide (\chem{CO}) or volatile organic substances (VOCs - also known as hydrocarbons) in the presents of nitrogen oxides (\chem{NO_x}). A typical reaction mechanism for \chem{CO} is sketched below. In a sequence of rapid reactions a peroxyl radical \chem{HO_2^\bullet} is formed through an initial reaction of \chem{CO} with a hydroxyl radical \chem{^\bullet OH}.
+In the troposphere and in particular in ambient air, ozone is considered as a highly toxic pollutant. Since the industrial revolution, tropospheric background ozone concentrations have been increasing in the northern hemisphere \citep[Chapter 2]{IPCC2013}. In recent years, the number of episodes of peak concentrations has been decreasing in North America and Europe due to the implementation of air quality regulations \citep[e.g.,][]{ACP:Wilson2012}. At the same time, fast developing countries, like e.g., China or India, saw a significant increase in ozone related air pollution. Continuously high concentrations of ambient air ozone are hazardous to the whole ecosystem. It is estimated that ozone is cause to an increase in pre-mature deaths \citep{WHO2008}, an average global loss of yield in the four major crops (wheat, rice, maize, and soybean) of about 3--15\,\unit{\%} \citep{PJ:Ainsworth2017} as well as 7\,\unit{\%} loss in primary production in forestry \citep{GCB:Wittig2009,EP:Matyssek2012}. The impact of ozone damage on vegetation and agricultural plants may affect food security in the future especially in Asia \citep{GCB:Tang2013,NCC:Tai2014,AE:Chuwah2015} and might be an important additional feedback to climate change \citep{Nat:Sitch2007}.\\
+Tropospheric ozone is mainly produced in situ in complex photochemical cycles involving precursor gases such as carbon monoxide (\chem{CO}) or volatile organic substances (VOCs - also known as hydrocarbons) in the presents of nitrogen oxides (\chem{NO_x}). A typical reaction mechanism for \chem{CO} is sketched in the following. In a sequence of rapid reactions a peroxyl radical \chem{HO_2^\bullet} is formed through an initial reaction of \chem{CO} with a hydroxyl radical \chem{^\bullet OH}.
 %\begin{reaction}
 %  ^\bullet\chem{OH} + \chem{CO} \rightarrow {^\bullet\chem{HOCO}}\\
 %  ^\bullet\chem{HOCO} + \chem{O_2} \rightarrow \chem{HO_2^\bullet} + \chem{CO_2}.
@@ -135,12 +135,12 @@ Such a cycle leads to a net production via:
 \begin{reaction}
   \chem{CO} + 2\chem{O_2} + h\nu \rightarrow \chem{CO_2} + \chem{O_3}.
 \end{reaction}
-Similar cycles involving volatile organic compounds (VOCs) exist \citep{ACP:Monks2015}. Another source of tropospheric ozone is downward transport from the stratosphere via stratosphere-troposphere exchange (STE) \citep{WMO2014}. Based on observations, STE might only amount to roughly 10\,\unit{\%} ($550 \pm 140$\,\unit{Tg a^{-1}}) of the total global ozone budget in the troposphere, while ozone from chemical production is estimated to be 5000\,\unit{Tg a^{-1}} \citep{ACP:Monks2015}. Ozone is removed from the atmosphere by photochemical reactions or scavenging processes. Major sinks are photolysis followed by a reaction with water vapor to from \chem{OH},
+Similar cycles involving VOCs exist \citep{ACP:Monks2015}. Another source of tropospheric ozone is downward transport from the stratosphere via stratosphere-troposphere exchange (STE) \citep{WMO2014}. Based on observations, STE might only amount to roughly 10\,\unit{\%} ($550 \pm 140$\,\unit{Tg a^{-1}}) of the total global ozone budget in the troposphere, while ozone from chemical production is estimated to be 5000\,\unit{Tg a^{-1}} \citep{ACP:Monks2015}. Ozone is removed from the atmosphere by photochemical reactions or scavenging processes. Major sinks are photolysis followed by a reaction with water vapor to from \chem{OH},
 %\begin{reaction}
 %  \chem{O_3} + h\nu \rightarrow \chem{O(^1D)} + \chem{O_2})\\
 %  \chem{O(^1D)} + \chem{H_2O} \rightarrow 2\chem{OH},
 %\end{reaction}
-reactions with \chem{HO_2} \citep{ACP:Seinfeld2006},
+reactions with \chem{HO_2},
 %\begin{reaction}
 %  {\bf TODO: Reaction},
 %\end{reaction}
@@ -148,30 +148,30 @@ de-nitration reactions,
 %\begin{reaction}
 %  \chem{NO_x} + \chem{O_3} \rightarrow \chem{NO_{x+1}} + \chem{O_2},
 %\end{reaction}
-and dry deposition. We will come back to the latter later in this section and cover the implemented scheme in more detail in Section~\ref{subsec:DryDep}. A dry deposition related sink limited to Arctic regions are so called ozone depleting events. They occur in spring-time in the polar boundary layer where an outburst of bromine monoxide \chem{BrO} (so called bromine explosion) leads to a rapid depletion of surface ozone \citep{JGR:Oltmans1981,GRL:Bottenheim1986,Nat:Barrie1988,JGR:Bottenheim2006}. Various schemes ranging from bulk-snow parameterization \citep{ACP:Toyota2011,GMD:Falk2018} to detailed in-snow \citep{ACP:Toyota2014a}, and aerosol chemistry \citep{ACP:Yang2010} have been successfully applied to different types of atmospheric models but do not yet cover the full range of observed events. Although these ozone depleting events are important to understand surface ozone abundance in Arctic regions, we have not implemented any parameterization of these processes in the OsloCTM3 as of now.\\
-Since ozone is highly reactive, its global mean life-time in the troposphere is roughly 22 days but ranges between a few days in the tropical boundary layer to up to one year in the upper troposphere \citep{JGR:Stevenson2005,ACP:Young2013}. The abundance of tropospheric ozone therefore varies, e.g., with time of the day (maximum $\sim$15:00 local time), season (mid-June maximum), altitude, location \citep{ACP:Schnell2015}, or weather conditions in general \citep{ACP:Otero2018}. Typical concentrations of surface ozone range from 10\,\unit{ppb} over the tropical Pacific to 100\,\unit{ppb} in the downwind areas of highly emitting sources \citep[Chapter 8]{IPCC2013}. This variability poses a challenge on both, trend analysis from observation as well as validation and intercomparison of models. At the observational side, there is only a limited number of long-term ozone observations, mainly restricted to European sites. Amongst these, only three display a statistical significant trend, indicating a doubling of tropospheric ozone since the onset of the industrialization \citep[Chapter 2]{IPCC2013}. But especially the very low pre-industrial ozone abundance cannot be reproduced by the likes of most models. Among the participating models in the Atmospheric Chemistry and Climate Model Intercomparison Project (ACCMIP), there is a general tendency to underestimate tropospheric ozone burden (e.g., $10-20$\,\unit{\%} negative bias at 250\,\unit{hPa} in the southern hemisphere (SH) tropical region) \citep[Chapter 8]{IPCC2013}. With respect to surface ozone, \citet{ACP:Schnell2015} conclude that all ACCMIP models, which reported hourly surface ozone, tend to overestimate surface ozone values in North America and Europe in comparison with available observations. A key to fathom these slightly contradicting results may lie in the used dry deposition schemes.\\
-Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. It is estimated that about $1000 \pm 200$\,\unit{Tg a^{-1}} of ozone are removed from the atmosphere by dry deposition processes \citep{ACP:Monks2015}. Conceptually, dry deposition is a product between surface ozone concentration \chem{[O_3](h_0)} and a dry deposition velocity $v^\chem{O_3}_d$. Dry deposition velocities $v^i_d$ (also referred to as conductance $G^i$) for any gaseous species $i$ are typically calculated following a resistance-analogous approach
+and dry deposition. We will come back to the latter later in this section and cover the implemented scheme in more detail in Section~\ref{subsec:DryDep}. A dry deposition related sink limited to Arctic regions are so called ozone depleting events. They occur in spring-time in the polar boundary layer where an outburst of bromine monoxide \chem{BrO} (so called bromine explosion) leads to a rapid depletion of surface ozone \citep{JGR:Oltmans1981,GRL:Bottenheim1986,Nat:Barrie1988,JGR:Bottenheim2006}. Various schemes ranging from bulk-snow parameterization \citep{ACP:Toyota2011,GMD:Falk2018} to detailed in-snow \citep{ACP:Toyota2014a}, and aerosol chemistry \citep{ACP:Yang2010} have been successfully applied to different types of atmospheric models but do not yet cover the full range of observed events. Although these ozone depleting events are important to understand surface ozone abundance in Arctic regions, we have not implemented any parameterization of these processes in the OsloCTM3 as of now. We also do not consider the contribution of very short-lived ozone depleting substances (VSLS), that affect stratospheric ozone \citep{JGR:Warwick2006, ACP:Ziska2013, ACP:Hossaini2016, ACP:Falk2017}, to the tropospheric ozone abundance.\\
+Since ozone is highly reactive, its global mean life-time in the troposphere is roughly 22 days but ranges between a few days in the tropical boundary layer to up to one year in the upper troposphere \citep{JGR:Stevenson2005,ACP:Young2013}. The abundance of tropospheric ozone therefore varies, e.g., with time of the day (maximum $\sim$15:00 local time), season (mid-June maximum), altitude, location \citep{ACP:Schnell2015}, or weather conditions in general \citep{ACP:Otero2018}. Typical concentrations of surface ozone range from 10\,\unit{ppb} over the tropical Pacific to 100\,\unit{ppb} in the downwind areas of highly emitting sources \citep[Chapter 8]{IPCC2013}. This variability poses a challenge on both, trend analysis from observation as well as validation and intercomparison of models. At the observational side, there is only a limited number of long-term ozone observations, mainly restricted to European sites. Most of these indicate a doubling of tropospheric ozone since the 1950s \citep[Chapter 2]{IPCC2013}. But especially the very low pre-industrial ozone abundance cannot be reproduced by the likes of most models. Among the participating models in the Atmospheric Chemistry and Climate Model Intercomparison Project (ACCMIP), there is a general tendency to underestimate tropospheric ozone burden (e.g., $10-20$\,\unit{\%} negative bias at 250\,\unit{hPa} in the southern hemisphere (SH) tropical region) \citep[Chapter 8]{IPCC2013}. With respect to surface ozone, \citet{ACP:Schnell2015} conclude that all ACCMIP models, which reported hourly surface ozone, tend to overestimate surface ozone values in North America and Europe in comparison with available observations. A key to fathom these slightly contradicting results may lie in the used dry deposition schemes.\\
+Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. It is estimated that about $1000 \pm 200$\,\unit{Tg a^{-1}} of ozone are removed from the atmosphere by dry deposition processes \citep{ACP:Monks2015}. Conceptually, dry deposition is a product between surface ozone concentration \chem{[O_3](z_0)} and a dry deposition velocity $v^\chem{O_3}_d$. Dry deposition velocities $v^i_d$, which later on are synonymously referred to as conductance $G^i$, for any gaseous species $i$ are typically calculated following a resistance-analogous approach
 \begin{equation}
   v^i_d = \frac{1}{R_a + R^i_b + R^i_c},
   \label{eq:drydep_velo}
 \end{equation}
-wherein aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$ are key components \citep{AE:Wesely1989}. For all gases $R_a$ is the same, while $R^i_b$ and $R^i_c$ vary from gas to gas and also depend on land surface types (e.g., ice/snow, water, urban, desert, agricultural land, deciduous forest, coniferous forest etc.). Originally, \citet{AE:Wesely1989} used fixed seasonal average dry deposition resistances for each land surface type. For all three types of resistances in this Wesely-type parameterization, more process-oriented formulations have been developed and validated over the years. \citet{ACP:Luhar2017} have validated ozone dry deposition to the ocean with respect to three different formulations of surface resistances. An update on the ozone surface resistance over snow and ice covered surfaces has been provided from combined model and observation studies \citep[e.g., $v^\chem{O_3}_\text{ice/snow} = 1/10000\,\unit{cm s^{-1}}$,][]{ACP:Helmig2007}. Canopy conductance is formulated at the single-leave level (stomatal conductance) for various plant function types (PFT) as well as single species based on empirical studies \citep{PTRS:Jarvis1976, BallBerry1987, ACP:Simpson2012, ICP:MappingManual2017}. But progress has also been made on process oriented modeling of stomatal conductance \citep{PP:Buckley2017}. The variety of differing formulations and choices of parameters leads to a wide spread in model intercomparisons \citep{ACP:Hardacre2015} and about 20\,\unit{\%} uncertainty on the resulting total dry deposition \citep{ACP:Monks2015}.\\
+wherein aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$ are key components \citep{AE:Wesely1989}. For all gases $R_a$ is the same, while $R^i_b$ and $R^i_c$ vary from gas to gas and also depend on land surface types (e.g., ice/snow, water, urban, desert, agricultural land, deciduous forest, coniferous forest etc.). Originally, \citet{AE:Wesely1989} used fixed seasonal average dry deposition resistances for each land surface type. For all three types of resistances in this Wesely-type parameterization, more process-oriented formulations have been developed and validated over the years. \citet{ACP:Luhar2017} have validated ozone dry deposition to the ocean with respect to three different formulations of surface resistances. An update on the ozone surface resistance over snow and ice covered surfaces has been provided from combined model and observation studies \citep[][$v^\chem{O_3}_\text{ice/snow} = 1/10000\,\unit{cm s^{-1}}$]{ACP:Helmig2007}. Canopy conductance is parameterized at the single-leave level (stomatal conductance) for various plant function types (PFT) as well as single species based on empirical studies \citep{PTRS:Jarvis1976, BallBerry1987, ACP:Simpson2012, ICP:MappingManual2017}. But progress has also been made on process oriented modeling of stomatal conductance \citep{AFM:Anderson2000,PP:Buckley2017}. The variety of differing formulations and choices of parameters leads to a wide spread in model intercomparisons \citep{ACP:Hardacre2015,AE:Derwent2018} and about 20\,\unit{\%} uncertainty on the resulting total dry deposition \citep{ACP:Monks2015}.\\
 
 In Section~\ref{sec:model_des}, we will briefly describe the OsloCTM3, give a detailed account of the new dry deposition scheme (Section~\ref{subsec:DryDep}) as well as present pre-processing of meteorological input data to compute necessary input to the dry deposition scheme such as begin and duration of greening season (GDAY, GLEN) and photosynthetic photon flux density (PPFD) (Section~\ref{subsec:pre-pro}). In Section~\ref{sec:eval}, we present sensitivity tests with respect to a manifold of parameters in the dry deposition scheme (Section~\ref{subsec:sens}) and validate our results with results from the multi-model intercomparison of \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}) and to observations both at the surface as well as in the free troposphere (Section~\ref{subsec:obs}). In Section~\ref{sec:disc}, we will summarize our results and draw conclusions for further development of the model (Section~\ref{sec:conc}).
 {\bf TODO: Precise outlook on paper when writing is done.}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model description}
 \label{sec:model_des}
 The OsloCTM3 is a three dimensional global chemistry transport model (CTM). The key components of the OsloCTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the OsloCTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. \emph{The OsloCTM3 can also be coupled to MEGAN \citep{ACP:Guenther2006}. A publication focusing on this is planed.}
-Technical: Partly parallelized (low number of effective cores 16, huge memory consumption if run on T159 resolution, code has been ported to fortran90 keeping the dynamical core UCI-CTM mainly intact.)
-historical anthropogenic and biomass burning emissions \citep{ACP:Lamarque2010}, meteorological driver \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF - OpenIFS version cy38r1nc4}, Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018}
-
+{\bf TODO: Technical: Partly parallelized (low number of effective cores 16, huge memory consumption if run on T159 resolution, code has been ported to fortran90 keeping the dynamical core UCI-CTM mainly intact.)
+historical anthropogenic and biomass burning emissions \citep{ACP:Lamarque2010}, meteorological driver \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF - OpenIFS version cy38r1nc4}, Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ozone dry deposition scheme}
 \label{subsec:DryDep}
-
 In the original dry deposition scheme of the OsloCTM3, the state of the atmosphere was not taken into account. Dry deposition velocities were rather parameterized following the work of \citet{AE:Wesely1989} with parameter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land use types (water, forest, grass, tundra/desert, and ice and snow) were in use. Day was distinguished from night by solar zenith angles below 90\,\unit{^\circ}. Winter was defined by temperatures below 273.15\,\unit{K} for gridboxes containing land masses. Since winter and summer parameters for ocean are equal in this parameterization, no distinctive treatment was needed for ocean gridboxes. In addition, a reduced uptake due to snow cover above 1\,\unit{m} for forest and 10\,\unit{cm} for grass/tundra, respectively, was taken into account. In the following, we will refer to this static parameterization as \emph{Wesely scheme}.\\
 
-For the new dry deposition scheme, we follow the Convention on Long-Range Transboundary Air Pollution (CLRTAP) implemented in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{WASP:Simpson2003,ACP:Simpson2012}. We will refer to this as \emph{EMEP scheme} throughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature) as well as dynamics (e.g., wind stress) of the atmosphere into account and also acknowledges to a certain degree the global variety of plants and the variability throughout the seasons. It is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, some of the aerosol deposition rates are also modified, namely black carbon (BC) and organic carbon (OC), sulfuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$) which will be addressed separately in the following.
+For the new dry deposition scheme, we follow the Convention on Long-Range Transboundary Air Pollution (CLRTAP) implemented in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{WASP:Simpson2003,ACP:Simpson2012}. We will refer to this as \emph{EMEP scheme} throughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature) as well as dynamics (e.g., wind stress) of the atmosphere into account and also acknowledges to a certain degree the global variety of plants and the variability throughout the seasons. We implement it for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, some of the aerosol deposition rates are also modified, namely black carbon (BC) and organic carbon (OC), sulfuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$) which we will recap in the following.
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
@@ -179,7 +179,7 @@ The aerodynamic resistance $R_a$ in \citet{WASP:Simpson2003,ACP:Simpson2012} is 
 \begin{equation}
   R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{z_0}\right)-\Psi_m\left(\frac{z_0}{L}\right)}\right],
 \end{equation}
-with $\kappa$ the K\'{a}rm\'{a}n constant, $u_*$ the friction velocity, $\Psi_m$ the integrated stability equations for momentum, $d$ a constant (typically 0.7\,\unit{m}), and $L$ the Obukhov length. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the EMEP scheme at this point and follow the method of \citet{Monteith1973}.
+with $\kappa$ the K\'{a}rm\'{a}n constant (about $0.40$), $u_*$ the friction velocity, $\Psi_m$ the integrated stability equations for momentum, $d$ a constant (typically 0.7\,\unit{m}), and $L$ the Obukhov length. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the EMEP scheme at this point and fall back to the method of \citet{Monteith1973}.
 The sensible heat flux $\Phi_{Q_\text{sensible}}$ can be written as
 \begin{equation}
   \Phi_{Q_\text{sensible}} = \rho_\text{air} c_P \cdot \frac{\partial_z T}{\partial_z R_a},
@@ -195,25 +195,26 @@ Comparing Eq.~(\ref{eq:sens_heat}) and Eq.~(\ref{eq:eddy_theo}) and assuming $\p
   R_a = \frac{u_z}{u_*^2}.
 \end{equation}
 As reference height $z$, we use the height at mid-level of the lowermost model level (roughly 8\,\unit{m}), while $u_z$ and $u_*$ are available from the meteorological input fields.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Quasi-laminar layer resistance}
 \label{subsubsec:Rb}
-
-$R_b^i$ is species specific, as already mentioned, and its definition differs over land and ocean. In case a gridbox contains both land and ocean, a weighted mean is calculated using the land and ocean conductances, respectively.
-\subsection*{Land}
-Over land we use the definition \citep[Eq.~(53),][]{ACP:Simpson2012}
+The quasi-laminar layer resistance $R_b^i$ is species specific and differs over land and ocean surfaces. In case a gridbox contains both, a weighted mean is calculated using both conductances, respectively.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Land}
+Over land we use \citep[Eq.~(53),][]{ACP:Simpson2012}
 \begin{equation}
   R_b^i = \frac{2}{\kappa u_*} \cdot \left(\frac{\text{Sc}_i}{\text{Pr}}\right)^{\frac{2}{3}},
+  \label{eq:Rb}
 \end{equation}
-wherein $\text{Pr}$ is the Prandtl number (typically 0.72 for air and other gases) and $\text{Sc}_i$ is the Schmidt number for a gas $i$. From the definition of $\text{Sc}_i = \nu/D_i$, with the kinematic viscosity of air $\nu$, $\text{Sc}_i $ can be derived as water equivalent:
+wherein $\text{Pr}$ is the Prandtl number (typically 0.72 for air and other gases) and $\text{Sc}_i$ is the Schmidt number for a gas $i$. Eq.~(\ref{eq:Rb}) differs from a similar formulation in \citet{ACP:Seinfeld2006} by a factor of roughly $1.25$. From $\text{Sc}_i = \nu/D_i$, with the kinematic viscosity of air $\nu$, we derive a Schmidt number in water equivalent:
 \begin{equation}
-  \text{Sc}_i = \frac{\nu}{D_i} = \text{Sc}_\chem{H_2O}\cdot\frac{D_\chem{H_2O}}{D_i},
+  \text{Sc}_i = \frac{D_\chem{H_2O}}{D_i} \cdot \text{Sc}_\chem{H_2O},
 \end{equation}
 with the molecular diffusivity for any gas $D_i$, the Schmidt number of water $\text{Sc}_\chem{H_2O}=0.6$ and a its molecular diffusivity $D_\chem{H_2O}=0.21\cdot10^{-4}\,\unit{m^2s^{-1}}$. The ratios $D_\chem{H_2O}/D_i$ are given in Table~\ref{tab:diffusivity}.
 %
 \begin{table}[t]
   \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$, reactivity $f^i_0$, and effective Henry's Law constant $H^i_*$.}
-  \begin{tabular}{lcrr}
+  \begin{tabular}{lcrc}
     \tophline
     & $D_\chem{H_2O}/D_i$ & $f^i_0$ & $H^i_*$\\
     & & & (\unit{M\cdot atm^{-1}})\\
@@ -230,29 +231,29 @@ with the molecular diffusivity for any gas $D_i$, the Schmidt number of water $\
   %\belowtable{} % Table Footnotes
   \label{tab:diffusivity}
 \end{table}
-%
-\subsection*{Ocean}
-Over ocean we use the definition \citep[Eq.~(54),][]{ACP:Simpson2012}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Ocean}
+Over ocean we use \citep[Eq.~(54),][]{ACP:Simpson2012}
 \begin{equation}
   R_b^i = \frac{1}{\kappa u_*}\cdot\ln\left({\frac{z_0}{D_i}\cdot \kappa u_*}\right)
 \end{equation}
-with an imposed a lower threshold of 10\,\unit{sm^{-1}} and an upper limit of 1000\,\unit{sm^{-1}}. The computation of roughness length $z_0$ over ocean is divided into a \emph{calm} and a \emph{rough} sea case, where wind speeds above 3\,\unit{ms^{-1}} are considered as boundary between both cases. Calm sea follows \citet{Hinze1975,Garratt1992} with a slightly increased coefficient:
+with an imposed lower threshold of 10\,\unit{sm^{-1}} and an upper limit of 1000\,\unit{sm^{-1}}. The computation of roughness length $z_0$ over ocean is divided into \emph{calm} and a \emph{rough} sea, where wind speeds above 3\,\unit{ms^{-1}} are considered as boundary between both cases. For calm sea, we apply the limit \citep[][with a slightly higher coefficient of $0.135$]{Hinze1975,Garratt1992}
 \begin{equation}
   z_0^\text{calm} = \text{min}\left(2\cdot10^{-3}, 0.135 \cdot \frac{\nu}{u_*}\right).
 \end{equation}
-The kinematic viscosity of air $\nu = \mu/\rho$ can be computed from the absolute viscosity of air $\mu$, and substituting $\rho$ with surface pressure $P_0$ using the ideal gas law, 2\,\unit{m} temperature $T_\text{2M}$, and the universal gas constant for air $R_\text{air}$
+The kinematic viscosity of air $\nu$ herein can be computed from 
 \begin{equation}
-  \nu = \frac{T_\text{2M}}{\frac{P_0}{T_\text{2M}\cdot R_\text{air}}} \cdot 6.2\cdot 10^{-8}\,\unit{kg m^{-1} s^{-1} K^{-1}}.
+  \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T_\text{2M}\cdot R_\text{air}}},
 \end{equation}
+with a temperature dependent absolute viscosity of air $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg m^{-1} s^{-1} K^{-1}} \cdot T_\text{2M}$ and substituting the air density $\rho$ using the ideal gas law. $P_0$ is the surface pressure, $T_\text{2M}$ the 2\,\unit{m} temperature and $R_\text{air}$ the universal gas constant for air.
 The rough sea case follows the method of \citet{QJRMS:Charnock1955,JPO:Wu1980}:
 \begin{equation}
   z_0^\text{rough} = \text{min}\left(2\cdot10^{-3}, 0.018 \cdot \frac{u^2_*}{g}\right).
 \end{equation}
 The allowed maximum roughness length in both cases is set to 2\,\unit{mm}. Since the $z_0$ computed with this parameterization is very small, the resulting $R^i_b$ is often defined by its imposed lower limit of 10\,\unit{sm^{-1}}.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Surface resistance}
 \label{subsubsec:Rc}
-
 The surface resistance $R_c^i$ consists of both, stomatal and non-stomatal resistances. When computing gridbox averages, we use the sum of conductances (deposition velocities)
 \begin{equation}
   G_c^i = \text{LAI} \cdot G_\text{sto}^i + G_\text{ns}^i, 
@@ -260,48 +261,80 @@ The surface resistance $R_c^i$ consists of both, stomatal and non-stomatal resis
 wherein $\text{LAI}$ is the leaf area index (zero for non-vegetated surfaces), $G_\text{sto}^i$ the stomatal conductance, and $G_\text{ns}^i$ the non-stomatal conductance.
 
 {\bf TODO: Mapping of pft land surface types from either ISLSCP2 MODIS or CML2 categories to 9 classical biosphere types used in the EMEP scheme. EMEP categories: Forests, Mediterranean scrub, Crops, Moorland (savanna++), Grassland, Wetlands, Tundra, Desert, Water, Urban. Weighting of conductance with land surface fraction and sum. Inverse of this is gridbox average resistance.}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Stomatal conductance}
 -> \citep{ICP:MappingManual2017}
 {\bf TODO: Write about latitude dependent vegetation height and EMEP algorithm in general.}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Non-stomatal conductance}
-In the EMEP scheme, non-stomatal conductances are explicitly calculated for \chem{O_3}, \chem{SO_2}, \chem{HNO_3}, and \chem{NH_3}. For all other species, an interpolation between \chem{O3} and \chem{SO_2} values is carried out.
+In the EMEP scheme, non-stomatal conductances are explicitly calculated for \chem{O_3}, \chem{SO_2}, \chem{HNO_3}, and \chem{NH_3}. For all other species, an interpolation between \chem{O_3} and \chem{SO_2} values is carried out.
 
 The non-stomatal conductance for \chem{O_3} consists of two terms, one depending on vegetation type and one depending in the soil/surface. For a land surface type $N$, we can write
 \begin{equation}
   G_\text{ns}^\chem{O_3}(N) = \frac{\text{SAI}(N)}{r_\text{ext}} + \frac{1}{R_\text{inc}(N) + R_\text{gs}^\chem{O_3}(N)}.
 \end{equation}
-$\text{SAI}(N)$ is the surface area index for vegetation type $N$, which is $\text{LAI}$ plus some value representing cuticles and others surfaces. The external leaf resistance $r_\text{ext} = 2000\,\unit{sm^{-1}}\cdot F_T$. Below $-1\,\unit{^\circ C}$,s a temperature correction factor $F_T$ is used
+$\text{SAI}(N)$ is the surface area index for vegetation type $N$, which is $\text{LAI}$ plus some value representing cuticles and others surfaces. The external leaf resistance is defined by
 \begin{equation}
-  F_T = \exp{(-2\cdot(1+T_0))}.
+  r_\text{ext} = 2000\cdot F_T\,\unit{sm^{-1}}.
 \end{equation}
-It ranges between 1--2.
+Herein $F_T$ is a temperature correction factor for temperatures below $-1\,\unit{^\circ C}$ ranging between $1-2$
+\begin{equation}
+  F_T = \exp{(-2\cdot(1+\theta_0))}\text{, for }1 \leq F_T \leq 2.
+\end{equation}
+$\theta_0$ is the surface or 2\,\unit{m} temperature in \unit{^\circ C}. In general, $\text{SAI} \equiv \text{LAI}$ for all land types, except for: 
+%
+\begin{equation}
+  \text{SAI} = 
+  \begin{cases}
+    \text{LAI}+1 & \text{\emph{forest / wetland}},\\
+    \text{LAI}\cdot 5/3.5 & \text{\emph{cropland, I. part of growing season}},\\
+    \text{LAI} + 1.5 & \text{\emph{cropland, II. part of growing season}},\\
+    0 & \text{\emph{cropland, winter}}.
+  \end{cases}
+\end{equation}
+%
+Extending the EMEP scheme to the southern hemisphere, the growing season for crops is defined as:
+\begin{itemize}
+\item[] NH: I. day 90--140; II. day 141--270
+\item[] SH: I. day 272--322; II. day 323--452 (day 87)
+\end{itemize}
+
+In this way, vegetation affects the conductance also by being there not only by uptake through the stomata. The in canopy resistance $R_\text{inc}$ is defined for each vegetated land type $N$ as
+\begin{equation}
+  R_\text{inc} = b \cdot \text{SAI}(N) \cdot \frac{h(N)}{u_*},
+\end{equation}
+where $h(N)$ is the canopy height and $b = 14\,\unit{s^{-1}}$ is an empirical constant. According to \citet{ACP:Simpson2012}, the canopy resistance in EMEP does not take temperature and snow into account and is zero for non-vegetated surfaces. $R_\text{gs}^\chem{O_3}(N)$ is tabulated and corrected for temperature by $F_T$ and snow $f_\text{snow}$:
+\begin{equation}
+  \frac{1}{R_\text{gs}^\chem{O_3}(N)} = \frac{1-f_\text{snow}}{\hat{R}_\text{gs}^\chem{O_3}(N)} + \frac{f_\text{snow}}{R_\text{snow}^\chem{O_3}}.
+\end{equation}
+$f_\text{snow}$ ranges between $1-2$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Pre-processing}
 \label{subsec:pre-pro}
       {\bf TODO: The necessary pre-processing routines...}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \subsubsection{Greening season}
-
+      \label{subsubsection:greening}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \subsubsection{Photosynthetic photon flux density (PPFD)}
-      
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 \section{Evaluation}
 \label{sec:eval}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensitivity tests}
 \label{subsec:sens}
 Include table of all sensitivity runs.
 \citep[e.g., $v^\chem{O_3}_{ice/snow} = 1/10000\,\unit{cm s^{-1}}$,][]{ACP:Helmig2007}
 dry dep velocity over water \citep{JGR:Helmig2012} Impact of ocean? Although it is a low number there is 2\/3 ocean on earth... (Think, I read this in Hardacre paper... -> Luhar)
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with recent multi-model comparison}
 \label{subsec:model}
 Compare to \citet{ACP:Hardacre2015} as well as \citet{ACP:Luhar2017}. \citep{AE:Derwent2018} Uncertainties in surface ozone sources and sinks larger than in formulations? -> Need to read this one...
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with observations}
 \label{subsec:obs}
 The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from satellites and sondes (\url{http://bodekerscientific.com/}). \citep{AE:Hu2017} -> need to look into this one...
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
 \label{sec:disc}
 
