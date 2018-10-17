@@ -163,13 +163,13 @@ In Section~\ref{sec:model_des}, we will briefly describe the OsloCTM3, give a de
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model description}
 \label{sec:model_des}
-The OsloCTM3 is a three dimensional global chemistry transport model (CTM). The key components of the OsloCTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the OsloCTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. The OsloCTM3 can also be coupled to the Model of Emissions of Gases and Aerosols from Nature (MEGAN) \citep{ACP:Guenther2006}. A publication focusing on this is planed. Parallelization of the OsloCTM3 has not been optimized as of now. It is possible to run the model in resolution of at least T159N80L60, but it is not very time and memory efficient. Therefore, we run with a reduced horizontal resolution of $2.25^\circ\times2.25^\circ$. In the following, we will give a detailed account of the new dry deposition scheme. Although some of the equations in this section may be \emph{textbook knowledge}, for the sake of completeness, it is important to summerize them, non the less.
+The OsloCTM3 is a three dimensional global chemistry transport model (CTM). The key components of the OsloCTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the OsloCTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. The OsloCTM3 can also be coupled to the Model of Emissions of Gases and Aerosols from Nature (MEGAN) \citep{ACP:Guenther2006}. A publication focusing on this is planed. Parallelization of the OsloCTM3 has not been optimized as of now. It is possible to run the model in resolution of at least T159N80L60, but it is not very time and memory efficient. Therefore, we run with a reduced horizontal resolution of $2.25^\circ\times2.25^\circ$. In the following, we will give a detailed account of the new dry deposition scheme. Although some of the equations in this section may be \emph{textbook knowledge}, for the sake of completeness, it is important to summarize them, non the less.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ozone dry deposition scheme}
 \label{subsec:DryDep}
 In the original dry deposition scheme of the OsloCTM3, the state of the atmosphere was not taken into account. Dry deposition velocities were rather parameterized following the work of \citet{AE:Wesely1989} with parameter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land surface types (water, forest, grass, tundra/desert, and ice and snow) were in use. Day was distinguished from night by solar zenith angles below 90\,\unit{^\circ}. Winter was defined by temperatures below 273.15\,\unit{K} for gridboxes containing land masses. For ocean, winter and summer parameters are equal in this parameterization, therefore no distinctive treatment is needed for ocean gridboxes. In addition, a reduced uptake due to snow cover above 1\,\unit{m} for forest and 10\,\unit{cm} for grass/tundra, respectively, was taken into account. In the following, we will refer to this parameterization as \emph{Wesely scheme}.\\
 
-Regarding the new dry deposition scheme, we follow the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{WASP:Simpson2003,ACP:Simpson2012}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to this as \emph{EMEP scheme} throughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The EMEP scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, some of the aerosol deposition rates are also modified, namely black carbon (BC) and organic carbon (OC), sulfuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$) which we will recap in the following.
+Regarding the new dry deposition scheme, we follow the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{WASP:Simpson2003,ACP:Simpson2012}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to this as \emph{EMEP scheme} throughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The EMEP scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, some of the aerosol deposition velocities are also modified, namely black carbon (BC) and organic carbon (OC), sulfuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$) which we will recap in the following.
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
@@ -243,7 +243,7 @@ The kinematic viscosity of air $\nu$ herein can be computed from
 \begin{equation}
   \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T\cdot R_\text{air}}},
 \end{equation}
-with a temperature dependent absolute viscosity of air $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg m^{-1} s^{-1} K^{-1}} \cdot T$ and substituting the air density $\rho$ using the ideal gas law. $P_0$ is the surface pressure, as $T$ the 2\,\unit{m} temperature is chosen, and $R_\text{air}$ the universal gas constant for air.
+with a temperature dependent absolute viscosity of air $\mu(T) = 6.2\cdot 10^{-8}\,\unit{mol \, m^{-2} s^{-1} K^{-1}} \cdot T$ \citep{PBL} ($\{T \in \mathbb{R} | (233 < T < 303)\,\unit{K}\}$) and substituting the air density $\rho$ using the ideal gas law. $P_0$ is the surface pressure, as $T$ the 2\,\unit{m} temperature is chosen, and $R_\text{air}$ the universal gas constant for air.
 The rough sea case follows the method of \citet{QJRMS:Charnock1955,JPO:Wu1980}:
 \begin{equation}
   z_0^\text{rough} = \text{min}\left(2\cdot10^{-3}, 0.018 \cdot \frac{u^2_*}{g}\right).
@@ -262,6 +262,42 @@ wherein $\text{LAI}$ is the leaf area index (zero for non-vegetated surfaces), $
 \subsubsection*{Stomatal conductance}
 -> \citep{ICP:MappingManual2017}
 
+\begin{equation}
+  g_\text{STO} = g^\text{m}_\text{max} \cdot f_\text{phen} \cdot f_\text{light} \cdot \max{(f_\text{min}, f_\text{T} \cdot f_\text{D} \cdot f_\text{SW})}
+\end{equation}
+
+\begin{equation}
+  f_\text{T} = \frac{T_\text{2m}-T_\text{min}}{T_\text{opt}-T_\text{min}} \cdot \left(\frac{T_{\text{max}}-T_\text{2m}}{T_{\text{max}}-T_\text{opt}}\right)^\beta, 
+\end{equation}
+with $\beta = \frac{T_\text{max}-T_\text{opt}}{T_\text{opt}-T_\text{min}}$
+
+\begin{equation}
+  f_\text{D} = f_{\text{min}}+(1-f_{\text{min}}) \frac{D_{\text{min}} - D}{D_{\text{min}}-D_{\text{max}}}
+\end{equation}
+
+\begin{equation}
+  f_\text{SW} =
+  \begin{cases}
+    1 & \quad \text{if  SWVL1} \geq 0.5\\
+    2 \cdot \text{SWVL1}  & \quad \text{if SWVL1} < 0.5
+  \end{cases}
+\end{equation}
+
+\begin{equation}
+  f_\text{phen} =
+  \begin{cases}
+    0  & \quad \text{if  not growing season} \\
+    \max{(\phi_a, \phi_c)}  & \quad \text{if growing season} 
+  \end{cases}
+\end{equation}
+
+\begin{equation}
+  f_\text{light} = 1-\text{exp}(-\alpha_\text{light}\cdot \text{PPFD})
+\end{equation}
+
+\begin{equation}
+  g^\text{m}_{\text{max}} = g_{\text{max}} \cdot R \cdot \frac{T_\text{surf}}{P_\text{surf}}
+\end{equation} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Non-stomatal conductance}
 In the EMEP scheme, non-stomatal conductances are explicitly calculated for \chem{O_3}, \chem{SO_2}, \chem{HNO_3}, and \chem{NH_3}. For all other species, an interpolation between \chem{O_3} and \chem{SO_2} values is carried out.
@@ -274,9 +310,9 @@ $\text{SAI}(N)$ is the surface area index for vegetation type $N$, which is $\te
 \begin{equation}
   r_\text{ext} = 2000\cdot F_T\,\unit{sm^{-1}}.
 \end{equation}
-Herein $F_T$ is a temperature correction factor for temperatures below $-1\,\unit{^\circ C}$ ranging between $1-2$
+Herein $F_T$ is a temperature correction factor for temperatures below $-1\,\unit{^\circ C}$ and $\{F_T \in \mathbb{R} | (1 \leq F_T \leq 2)\}$
 \begin{equation}
-  F_T = \exp{(-2\cdot(1+\theta_0))}\text{, for }1 \leq F_T \leq 2.
+  F_T = \exp{(-2\cdot(1+\theta_0))}.
 \end{equation}
 $\theta_0$ is the surface or 2\,\unit{m} temperature in \unit{^\circ C}. In general, $\text{SAI} \equiv \text{LAI}$ for all land types, except for: 
 %
@@ -311,22 +347,77 @@ In this way, vegetation affects the conductance also by being there not only by 
 \begin{equation}
   R_\text{inc} = b \cdot \text{SAI}(N) \cdot \frac{h(N, \text{lat})}{u_*},
 \end{equation}
-where $h(N, \text{lat})$ is the latitutde dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{s^{-1}}$ is an empirical constant. According to \citet{ACP:Simpson2012}, the canopy resistance in EMEP does not take temperature and snow into account and is zero for non-vegetated surfaces.\\
+where $h(N, \text{lat})$ is the latitude dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{s^{-1}}$ is an empirical constant. According to \citet{ACP:Simpson2012}, the canopy resistance in EMEP does not take temperature and snow into account and is zero for non-vegetated surfaces.\\
 $R_\text{gs}^\chem{O_3}(N)$ is tabulated and corrected for temperature by $F_T$ and snow cover fraction $f_\text{snow}$:
 \begin{equation}
   \frac{1}{R_\text{gs}^\chem{O_3}(N)} = \frac{1-f_\text{snow}}{\hat{R}_\text{gs}^\chem{O_3}(N)} + \frac{f_\text{snow}}{R_\text{snow}^\chem{O_3}}.
 \end{equation}
-As initially mentioned, the neccessary depth of snow to cover a certain type of vegetation, differs. Therefore, we calculate a snow cover fraction $f_\text{snow}$ using the snow depth $S_D$, which is available in units of meter of water equivalent from the meteorological input data, scaled to 10\,\unit{\%} of the vegetation height.\\
+As initially mentioned, the necessary depth of snow to cover a certain type of vegetation, differs. Therefore, we calculate a snow cover fraction $f_\text{snow}$ using the snow depth $S_D$, which is available in units of meter of water equivalent from the meteorological input data, scaled to 10\,\unit{\%} of the vegetation height.\\
 
 The total conductance $G_\text{ns}^\chem{O_3}$ in each gridbox is the sum of all $G_\text{ns}^\chem{O_3}(N)$ weighted by the land surface type fraction $f_L(N)$
 \begin{equation}
   G_\text{ns}^\chem{O_3} = \sum_{N=0}^{N_\text{max}}{G_\text{ns}^\chem{O_3}(N) \cdot f_L(N)}.
 \end{equation}
 
-For \chem{NH_3}, \chem{SO_2}, and \chem{HNO_3}, we follow exactly the treatment as described by \citet{ACP:Simpson2012}. Since the dry deposition rate for \chem{CO} is very small, we use a fixed dry deposition velocity $v_d^\chem{CO}$ of 0.03\,\unit{cms^{-1}}.
-
-The vegetation height $h(N, \text{lat})$ in the EMEP scheme is linearly decreasing with latitude between 60 and 74\,\unit{^\circ N}. To adapt this to a global model, we need to make a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the EMEP scheme is regarded as constant at mid latitudes (40--60\,\unit{^\circ}). Towards the pol, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of 74\,\unit{^\circ} a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of 10\,\unit{^\circ} a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presume a typical tree height of 20\,\unit{m} at mid latitudes, this step-wise function yields a height of 8\,\unit{m} at high latitudes and 40\,\unit{m} in the tropics which is not irrealistic. For four example PFTs, results are shown in the Supplement (Fig.~S.1). 
+\subsubsection*{Latitude dependent vegetation height}
+The vegetation height $h(N, \text{lat})$ in the EMEP scheme is linearly decreasing with latitude between 60 and 74\,\unit{^\circ N}. To adapt this to a global model, we need to make a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the EMEP scheme is regarded as constant at mid latitudes (40--60\,\unit{^\circ}). Towards the pol, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of 74\,\unit{^\circ} a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of 10\,\unit{^\circ} a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presume a typical tree height of 20\,\unit{m} at mid latitudes, this step-wise function yields a height of 8\,\unit{m} at high latitudes and 40\,\unit{m} in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (Fig.~S.1). 
 Land surface types from, e.g., \href{https://daac.ornl.gov/cgi-bin/dataset_lister.pl?p=29}{ISLSCP2} product from MODIS or Community Land Model (\href{http://www.cgd.ucar.edu/tss/clm/}{CLM}) 2 categories, have to be mapped to the nine land surface types used in the EMEP scheme (Fig.~\ref{fig:pft_mapping}). For both, MODIS and CLM2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category 'Barren or sparsely vegetated', everything polward from 60\,\unit{^\circ} is defined as tundra, while everything equatorward is categorized as desert.
+
+\subsection{Dry deposition scheme for other gases and aerosols}
+For \chem{NH_3}, \chem{SO_2}, and \chem{HNO_3}, we follow exactly the treatment as described by \citet{ACP:Simpson2012}. Since the dry deposition velocity for \chem{CO} is very small, we use a fixed value for $v_d^\chem{CO}$ of 0.03\,\unit{cms^{-1}}.
+
+The EMEP scheme for aerosols (BC, OC, \chem{SO_4}, \chem{MSA}, SOA) defines the surface deposition velocity $V_\text{ds}$ as
+\begin{equation}
+  \frac{V_\text{ds}}{u_*} =
+  \begin{cases}
+    a_1 &  L \ge 0\,\unit{m}, \\
+    a_1 \cdot F_N \left[ 1 + \left(\frac{a_2}{25}\right)^{2/3}\right]& -25\,\unit{m} < L < 0\,\unit{m}, \\
+    a_1 \cdot F_N \left[ 1 + \left(\frac{-a_2}{L}\right)^{2/3}\right]& L \le -25\,\unit{m}, \\
+  \end{cases}
+\end{equation}
+wherein $F_N = 3$ for fine nitrate and ammonium and $F_N = 1$ for all other species and $L$ is again the Obukhov length. $a_2 = 300\,\unit{m}$, while $a_1$ differes for forest and non-forest. To account for hydrophilic and hydrophobic BC/OC aerosols on dry and wet surfaces, we diverge slightly from the EMAP scheme in the definition of the parameter $a_1$. From pre-studies with an aerosol microphysic model, we find
+\begin{equation}
+  a_1^\text{hydrophob.} = 0.025\,\unit{cms^{-1}} \cdot \overline{u_*}
+\end{equation}
+and
+\begin{equation} 
+  a_1^\text{hydrophil.} = 0.2\,\unit{cms^{-1}} \cdot \overline{u_*},
+\end{equation}
+with the annual mean friction velocity $\overline{u_*}$. Our definition of $a_1$ is then:
+\begin{equation}
+  a_1 =
+  \begin{cases}
+    \emph{land} &
+    \begin{cases}
+      \emph{non-forest} &  a_1^\text{hydrophob.}\\
+      \emph{forest} &
+      \begin{cases}
+        \emph{dry} & \max{(a_1^\text{hydrophob.}, 0.008\cdot\frac{\text{SAI}}{10})}\\
+        \emph{wet} & 1.5\cdot\max{(a_1^\text{hydrophob.}, 0.008\cdot\frac{\text{SAI}}{10})}\\
+    \end{cases}\\
+    \end{cases}\\
+    \emph{ocean} &
+    \begin{cases}
+      a_1^\text{hydrophil.}\\
+      a_1^\text{hydrophob.}\\
+    \end{cases}\\
+    \emph{ice} &
+    \begin{cases}
+      \theta \le 0\,\unit{^\circ C} & a_1^\text{hydrophob.}\\
+      \theta > 0\,\unit{^\circ C} &
+      \begin{cases}
+        a_1^\text{hydrophil.}\\
+        a_1^\text{hydrophob.}\\
+      \end{cases}\\
+    \end{cases}\\
+  \end{cases}
+  \label{eq:dd_aerosol_a1}
+\end{equation}
+%
+The total aerosol surface deposition is then
+\begin{equation}
+ V_\text{ds}^\text{tot} = \sum_{N=0}^{N_\text{max}} V_\text{ds}(N) \cdot f_L(N).
+\end{equation}
 %
 \begin{figure*}[t]
   \includegraphics[width=12cm]{pictures/pft_landuse_mapping.pdf}
@@ -341,7 +432,7 @@ As mentioned in the previous section, there are two variables needed for computi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Greening season}
 \label{subsubsection:greening}
-The EMEP scheme is making extensive use of the time elapsed since the onset of the greening season (GDAY) and the total length of the greening season (GLEN). There is a latitude dependent parametrization for the greening season that may work well for all but high northern latitudes, especially in Europe, and is not taking meteorology into account.  
+The EMEP scheme is making extensive use of the time elapsed since the onset of the greening season (GDAY) and the total length of the greening season (GLEN). There is a latitude dependent parameterization for the greening season that may work well for all but high northern latitudes, especially in Europe, and is not taking meteorology into account.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Photosynthetic photon flux density (PPFD)}
 From OpenIFS an accumulated photoactive radiation (PAR) is available, but needs to be deaccumulated. Strictly speaking, since this field is already integrated over the whole spectrum, it is not the actual PAR but PPFD. 
