@@ -243,7 +243,7 @@ The kinematic viscosity of air $\nu$ herein can be computed from
 \begin{equation}
   \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T\cdot R_\text{air}}},
 \end{equation}
-with a temperature dependent absolute viscosity of air $\mu(T) = 6.2\cdot 10^{-8}\,\unit{mol \, m^{-2} s^{-1} K^{-1}} \cdot T$ \citep{PBL} ($\{T \in \mathbb{R} | (233 < T < 303)\,\unit{K}\}$) and substituting the air density $\rho$ using the ideal gas law. $P_0$ is the surface pressure, as $T$ the 2\,\unit{m} temperature is chosen, and $R_\text{air}$ the universal gas constant for air.
+with a temperature dependent dynamic viscosity of air $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg \, m^{-1} s^{-1} K^{-1}} \cdot T$ \citep{PBL} ($\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$) and substituting the air density $\rho$ using the ideal gas law. $P_0$ is the surface pressure, as $T$ the 2\,\unit{m} temperature is chosen, and $R_\text{air}$ the universal gas constant for air.
 The rough sea case follows the method of \citet{QJRMS:Charnock1955,JPO:Wu1980}:
 \begin{equation}
   z_0^\text{rough} = \text{min}\left(2\cdot10^{-3}, 0.018 \cdot \frac{u^2_*}{g}\right).
@@ -375,7 +375,7 @@ The EMEP scheme for aerosols (BC, OC, \chem{SO_4}, \chem{MSA}, SOA) defines the 
     a_1 \cdot F_N \left[ 1 + \left(\frac{-a_2}{L}\right)^{2/3}\right]& L \le -25\,\unit{m}, \\
   \end{cases}
 \end{equation}
-wherein $F_N = 3$ for fine nitrate and ammonium and $F_N = 1$ for all other species and $L$ is again the Obukhov length. $a_2 = 300\,\unit{m}$, while $a_1$ differes for forest and non-forest. To account for hydrophilic and hydrophobic BC/OC aerosols on dry and wet surfaces, we diverge slightly from the EMAP scheme in the definition of the parameter $a_1$. From pre-studies with an aerosol microphysic model, we find
+wherein $F_N = 3$ for fine nitrate and ammonium and $F_N = 1$ for all other species and $L$ is again the Obukhov length. $a_2 = 300\,\unit{m}$, while $a_1$ differs for forest and non-forest. To account for hydrophilic and hydrophobic BC/OC aerosols on dry and wet surfaces, we diverge slightly from the EMAP scheme in the definition of the parameter $a_1$. From pre-studies with an aerosol microphysic model, we find
 \begin{equation}
   a_1^\text{hydrophob.} = 0.025\,\unit{cms^{-1}} \cdot \overline{u_*}
 \end{equation}
