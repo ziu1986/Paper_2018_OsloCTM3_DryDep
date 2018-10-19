@@ -192,7 +192,7 @@ Comparing Eq.~(\ref{eq:sens_heat}) and Eq.~(\ref{eq:eddy_theo}) and assuming $\p
 \begin{equation}
   R_a = \frac{u_z}{u_*^2}.
 \end{equation}
-As reference height $z$, we use the height at mid-level of the lowermost model level (roughly 8\,\unit{m}), while $u_z$ and $u_*$ are available from the meteorological input fields.
+As reference height $z$, we use the height at mid-level of the lowermost model level (roughly 8\,\unit{m}), while $u_z$ and $u_*$ are computed directly from the meteorological input fields.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Quasi-laminar layer resistance}
 \label{subsubsec:Rb}
@@ -241,14 +241,15 @@ with an imposed lower threshold of 10\,\unit{sm^{-1}} and an upper limit of 1000
 \end{equation}
 The kinematic viscosity of air $\nu$ herein can be computed from 
 \begin{equation}
-  \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T\cdot R_\text{air}}},
+  \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T\cdot R_\text{air}}}.
+  \label{eq:kinematic_viscosity}
 \end{equation}
-with a temperature dependent dynamic viscosity of air $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg \, m^{-1} s^{-1} K^{-1}} \cdot T$ \citep{PBL} ($\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$) and substituting the air density $\rho$ using the ideal gas law. $P_0$ is the surface pressure, as $T$ the 2\,\unit{m} temperature is chosen, and $R_\text{air}$ the universal gas constant for air.
+For the temperature dependent dynamic viscosity of air $\mu(T)$, we chose a linear fit to Southerland's law through the origin within the temperature range $\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$: $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg \, m^{-1} s^{-1} K^{-1}} \cdot T$. In Eq.~(\ref{eq:kinematic_viscosity}), $\rho$ is substituted by the air density using the ideal gas law. $P_0$ is the surface pressure, as $T$ the 2\,\unit{m} temperature is chosen, and $R_\text{air}$ is the universal gas constant for air.
 The rough sea case follows the method of \citet{QJRMS:Charnock1955,JPO:Wu1980}:
 \begin{equation}
   z_0^\text{rough} = \text{min}\left(2\cdot10^{-3}, 0.018 \cdot \frac{u^2_*}{g}\right).
 \end{equation}
-The allowed maximum roughness length in both cases is set to 2\,\unit{mm}. Since the $z_0$ computed with this parameterization is very small, the resulting $R^i_b$ is often defined by its imposed lower limit of 10\,\unit{sm^{-1}}.
+The allowed maximum roughness length in both cases is set to 2\,\unit{mm}. Since the $z_0$ computed with this parameterization is rather small ($0 < z_0 < 1\cdot 10^{-4}\,\unit{m}$), $R^i_b$ is set to its lower limit of 10\,\unit{sm^{-1}} in about 91\,\unit{\%} of all cases (see Supplement S.1). For this reason, the choice of $\mu(T)$ has no large effect on $<R_b>$ (1.4\,\unit{\%}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Surface resistance}
 \label{subsubsec:Rc}
@@ -360,7 +361,9 @@ The total conductance $G_\text{ns}^\chem{O_3}$ in each gridbox is the sum of all
 \end{equation}
 
 \subsubsection*{Latitude dependent vegetation height}
-The vegetation height $h(N, \text{lat})$ in the EMEP scheme is linearly decreasing with latitude between 60 and 74\,\unit{^\circ N}. To adapt this to a global model, we need to make a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the EMEP scheme is regarded as constant at mid latitudes (40--60\,\unit{^\circ}). Towards the pol, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of 74\,\unit{^\circ} a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of 10\,\unit{^\circ} a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presume a typical tree height of 20\,\unit{m} at mid latitudes, this step-wise function yields a height of 8\,\unit{m} at high latitudes and 40\,\unit{m} in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (Fig.~S.1). 
+The vegetation height $h(N, \text{lat})$ in the EMEP scheme is linearly decreasing with latitude between 60 and 74\,\unit{^\circ N}. To adapt this to a global model, we need to make a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the EMEP scheme is regarded as constant at mid latitudes (40--60\,\unit{^\circ}). Towards the pol, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of 74\,\unit{^\circ} a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of 10\,\unit{^\circ} a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presume a typical tree height of 20\,\unit{m} at mid latitudes, this step-wise function yields a height of 8\,\unit{m} at high latitudes and 40\,\unit{m} in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (Fig.~S.2). 
+
+\subsubsection*{Mapping of land surface types}
 Land surface types from, e.g., \href{https://daac.ornl.gov/cgi-bin/dataset_lister.pl?p=29}{ISLSCP2} product from MODIS or Community Land Model (\href{http://www.cgd.ucar.edu/tss/clm/}{CLM}) 2 categories, have to be mapped to the nine land surface types used in the EMEP scheme (Fig.~\ref{fig:pft_mapping}). For both, MODIS and CLM2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category 'Barren or sparsely vegetated', everything polward from 60\,\unit{^\circ} is defined as tundra, while everything equatorward is categorized as desert.
 
 \subsection{Dry deposition scheme for other gases and aerosols}
