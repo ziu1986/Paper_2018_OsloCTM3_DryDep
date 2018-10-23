@@ -163,21 +163,21 @@ In Section~\ref{sec:model_des}, we will briefly describe the OsloCTM3, give a de
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model description}
 \label{sec:model_des}
-The OsloCTM3 is a three dimensional global chemistry transport model (CTM). The key components of the OsloCTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the OsloCTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. The OsloCTM3 can also be coupled to the Model of Emissions of Gases and Aerosols from Nature (MEGAN) \citep{ACP:Guenther2006}. A publication focusing on this is planed. Parallelization of the OsloCTM3 has not been optimized as of now. It is possible to run the model in resolution of at least T159N80L60, but it is not very time and memory efficient. Therefore, we run with a reduced horizontal resolution of $2.25^\circ\times2.25^\circ$. In the following, we will give a detailed account of the new dry deposition scheme. Although some of the equations in this section may be \emph{textbook knowledge}, for the sake of completeness, it is important to summarize them, non the less.
+The OsloCTM3 is a three dimensional global chemistry transport model (CTM). The key components of the OsloCTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the OsloCTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. All relevant information and papers can also be found on the \href{http://folk.uio.no/mariantl/osloctm3/}{OsloCTM3 webpage}. The OsloCTM3 can also be coupled to the Model of Emissions of Gases and Aerosols from Nature (MEGAN) \citep{ACP:Guenther2006}. A publication focusing on this is planed. Parallelization of the OsloCTM3 has not been optimized as of now. It is possible to run the model in resolution of at least T159N80L60, but it is not very time and memory efficient. Therefore, we run with a reduced horizontal resolution of $2.25^\circ\times2.25^\circ$. In the following, we will give a detailed account of the new dry deposition scheme. Although some of the equations in this section may be \emph{textbook knowledge}, for the sake of completeness, it is important to summarize them, non the less.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ozone dry deposition scheme}
 \label{subsec:DryDep}
-In the original dry deposition scheme of the OsloCTM3, the state of the atmosphere was not taken into account. Dry deposition velocities were rather parameterized following the work of \citet{AE:Wesely1989} with parameter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land surface types (water, forest, grass, tundra/desert, and ice and snow) were in use. Day was distinguished from night by solar zenith angles below 90\,\unit{^\circ}. Winter was defined by temperatures below 273.15\,\unit{K} for gridboxes containing land masses. For ocean, winter and summer parameters are equal in this parameterization, therefore no distinctive treatment is needed for ocean gridboxes. In addition, a reduced uptake due to snow cover above 1\,\unit{m} for forest and 10\,\unit{cm} for grass/tundra, respectively, was taken into account. In the following, we will refer to this parameterization as \emph{Wesely scheme}.\\
+In the original dry deposition scheme of the OsloCTM3, the state of the atmosphere was not taken into account. Dry deposition velocities were rather parameterized following the work of \citet{AE:Wesely1989} with parameter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land surface types (water, forest, grass, tundra/desert, and ice and snow) were in use. Day was distinguished from night by solar zenith angles below 90\,\unit{^\circ}. Winter was defined by temperatures below 273.15\,\unit{K} for gridboxes containing land masses. For ocean, winter and summer parameters are equal in this parameterization, therefore no distinctive treatment is needed for ocean gridboxes. In addition, a reduced uptake due to snow cover above 1\,\unit{m} for forest and 10\,\unit{cm} for grass/tundra, respectively, was taken into account. We will refer to this parameterization as \emph{Wesely scheme}.\\
 
-Regarding the new dry deposition scheme, we follow the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{WASP:Simpson2003,ACP:Simpson2012}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to this as \emph{EMEP scheme} throughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The EMEP scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, some of the aerosol deposition velocities are also modified, namely black carbon (BC) and organic carbon (OC), sulfuric (\chem{SO_4}, \chem{MSA}), and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy resistances $R^i_c$) which we will recap in the following.
+Regarding the new dry deposition scheme, we follow the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep{WASP:Simpson2003,ACP:Simpson2012}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to this as \emph{EMEP scheme} throughout the rest of the paper. The EMEP scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The EMEP scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, some of the aerosol deposition velocities are also modified, namely black carbon (BC) and organic carbon (OC), sulfuric (\chem{SO_4}, \chem{MSA}) and secondary organic aerosols (SOA). As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different resistance contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy $R^i_c$) which we will recap in the following.
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
-The aerodynamic resistance $R_a$ in \citet{WASP:Simpson2003,ACP:Simpson2012} is described as
+The aerodynamic resistance in \citet{WASP:Simpson2003,ACP:Simpson2012} is described as
 \begin{equation}
   R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{z_0}\right)-\Psi_m\left(\frac{z_0}{L}\right)}\right],
 \end{equation}
-with $\kappa$ the K\'{a}rm\'{a}n constant (about $0.40$), $u_*$ the friction velocity, $\Psi_m$ the integrated stability equations for momentum, $d$ a constant (typically 0.7\,\unit{m}), and $L$ the Obukhov length. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the EMEP scheme at this point and fall back to the method of \citet{Monteith1973}, wherein the sensible heat flux $\Phi_{Q_\text{sensible}}$ is written as
+with $\kappa = 0.40$ the K\'{a}rm\'{a}n constant, $u_*$ the friction velocity, $\Psi_m$ the integrated stability equations for momentum, $d$ a constant (typically 0.7\,\unit{m}), and $L$ the Obukhov length. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the EMEP scheme at this point and fall back to the method of \citet{Monteith1973}, wherein the sensible heat flux $\Phi_{Q_\text{sensible}}$ is written as
 \begin{equation}
   \Phi_{Q_\text{sensible}} = \rho_\text{air} c_P \cdot \frac{\partial_z T}{\partial_z R_a}.
   \label{eq:sens_heat}
@@ -252,7 +252,7 @@ The allowed maximum roughness length in both cases is set to 2\,\unit{mm}. Since
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Surface resistance}
 \label{subsubsec:Rc}
-The surface resistance $R_c^i$ consists of both, stomatal and non-stomatal resistances. When computing gridbox averages, we use the sum of conductances (deposition velocities)
+The surface resistance consists of both, stomatal and non-stomatal resistances. When computing gridbox averages, we use the sum of conductances (deposition velocities)
 \begin{equation}
   G_c^i = \text{LAI} \cdot G_\text{sto}^i + G_\text{ns}^i, 
 \end{equation}
@@ -260,44 +260,69 @@ wherein $\text{LAI}$ is the leaf area index (zero for non-vegetated surfaces), $
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Stomatal conductance}
-The stomatal conductance $g_\text{STO}$ in the EMAP scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
+The stomatal conductance is a measure of the rate of \chem{CO_2} entering or evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence their capability of respirationn (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}. To reflect part of the underlying mechanism, the stomatal conductance $g_\text{STO}$ in the EMAP scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
 %
 \begin{equation}
   g_\text{STO} = g^\text{m}_\text{max} \cdot f_\text{phen} \cdot f_\text{light} \cdot \max{(f_\text{min}, f_\text{T} \cdot f_\text{D} \cdot f_\text{SW})}.
 \end{equation}
 %
-The factors herein vary within the range $0-1$ and account for leaf phenology ($f_\text{phen}$), photoactive radiation ($f_\text{light}$), temperature ($f_\text{T}$), water vapor pressure deficit ($f_\text{D}$), and soil water content ($f_\text{SW}$).
-The temperature ajustment is computed from
+The factors herein are normalized and vary within the range $0-1$. They account for leaf phenology ($f_\text{phen}$), light ($f_\text{light}$), temperature ($f_\text{T}$), water vapor pressure deficit ($f_\text{D}$), and soil water content ($f_\text{SW}$).
+The temperature adjustment is computed from
 %
 \begin{equation}
   f_\text{T} = \frac{T_\text{2m}-T_\text{min}}{T_\text{opt}-T_\text{min}} \cdot \left(\frac{T_{\text{max}}-T_\text{2m}}{T_{\text{max}}-T_\text{opt}}\right)^\beta, 
 \end{equation}
-with $\beta = \frac{T_\text{max}-T_\text{opt}}{T_\text{opt}-T_\text{min}}$. The parameters $T_\text{min}$ and $T_\text{opt}$ are tabulated for various species of plants and can be found in the supplementary to \citet{ACP:Simpson2012} or in Supplement~S.2. 
+with $\beta = \frac{T_\text{max}-T_\text{opt}}{T_\text{opt}-T_\text{min}}$. The parameters $T_\text{min}$, $T_\text{max}$ and $T_\text{opt}$ are tabulated for various landsurface types and can be found in the supplementary to \citet{ACP:Simpson2012} or in Supplement~S.2. Since $f_\text{T}$ becomes negative outside its range defined by $T_\text{min}$, $T_\text{max}$, we impose a lower limit of $0.01$. The water vapor deficite (VPD) is proportional to the satuation partial pressure of water ($P_\chem{H_2O}^s$) and relative humidity ($\text{RH}$)
 %
 \begin{equation}
-  f_\text{D} = f_{\text{min}}+(1-f_{\text{min}}) \frac{D_{\text{min}} - D}{D_{\text{min}}-D_{\text{max}}}
+  \text{VPD} = P_\chem{H_2O}^s \cdot (1 - \text{RH}/100).
 \end{equation}
-
+%
+Using tabulated values of $f_\text{min}$, $D_\text{min}$, $D_\text{max}$ (Supplement \citet{ACP:Simpson2012} or Supplement~S.2), the water vapor pressure deficit penalty factor can be computed:
+%
+\begin{equation}
+  f_\text{D} = f_\text{min}+(1-f_\text{min}) \cdot \frac{D_\text{min} - \text{VPD}}{D_\text{min}-D_\text{max}}.
+\end{equation}
+%
+The penalty factor with respect to available water in soil $\text{SW}$ is defined as 
+%
 \begin{equation}
   f_\text{SW} =
   \begin{cases}
-    1 & \quad \text{if  SWVL1} \geq 0.5\\
-    2 \cdot \text{SWVL1}  & \quad \text{if SWVL1} < 0.5
+    1 & \quad \text{SW} \geq 0.5,\\
+    2 \cdot \text{SW}  & \quad \text{SW} < 0.5.
   \end{cases}
 \end{equation}
-
+\citet{ACP:Simpson2012} suggest using SW in soil depths below 1\,\unit{m} (SWVL4 in OpenIFS). Throughout most of our simulations (Section~\ref{sec:eval}), we have instead used the soil water contained in the top layer (SWVL1, $0-7\,\unit{cm}$), which makes the canopy conductance much more sensitive to precipitation than it would be otherwise. The phenology of a plant typically describes its lifecycle though out a year, e.g., in mid latitudes and for decideous species, it starts with the emergence of leafs in spring and ends in fall. In the EMEP scheme phenology is parametrized with respect to the begin of the greening season (GDAY) and its length (GLEN). Details about our choice of GDAY and GLEN are given in Section~\ref{subsubsec:greening}. In summary, the $f_\text{phen}$ parameterization reads as follows:
+%
 \begin{equation}
   f_\text{phen} =
   \begin{cases}
-    0  & \quad \text{if  not growing season} \\
-    \max{(\phi_a, \phi_c)}  & \quad \text{if growing season} 
+    \text{GDAY = 0}  & \quad 0 \\
+    \text{(GLEN $\ge$ 365} & \quad 1 \quad \emph{explicitly excluding Tropics}) \\
+    \emph{else}  & \quad 
+    \begin{cases}
+      \text{GDAY} \le \phi_\text{AS}  & \quad \phi_a \\
+      \text{GDAY} \le \phi_\text{AS} + \phi_e  & \quad \phi_b+(\phi_c-\phi_b)\cdot(\text{GDAY}-\phi_\text{AS})/\phi_e\\
+      \text{GDAY} \le \text{GLEN} - \phi_\text{AE} - \phi_f  & \quad \phi_c\\
+      \text{GDAY} \le \text{GLEN} - \phi_\text{AE}  & \quad \phi_d+(\phi_c-\phi_d)\cdot(\text{GLEN}-\phi_\text{AE}-\text{GDAY})/\phi_f\\
+      \emph{else} & \quad \phi_d
+    \end{cases}
   \end{cases}
 \end{equation}
-
+%
+The parameters $\phi_a$, $\phi_b$, $\phi_c$, $\phi_d$, $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ can as well be found in Supplement \citet{ACP:Simpson2012} or Supplement~S.2. If GDAY is zero we are most likely in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}$. Since the EMEP scheme is tuned to NH mid latitudes, the phenology does not apply to the tropics, hence, we later decided to set $f_\text{phen}$ to one if GLEN is greater or equal 365 which may be the case in the tropics and subtropics. The five phases described be the third case may dependent on surface type take a saddle or an trapezoidal shape (Fig.~\ref{fig:phenology}).
+%
+\begin{figure}[t]
+  \includegraphics[width=8.3cm]{pictures/phenology.pdf}
+  \caption{Scatch of the five different phases described in $f_\text{phen}$.}
+  \label{fig:phenology}
+\end{figure}
+%
 \begin{equation}
   f_\text{light} = 1-\text{exp}(-\alpha_\text{light}\cdot \text{PPFD})
 \end{equation}
-
+%
 \begin{equation}
   g^\text{m}_{\text{max}} = g_{\text{max}} \cdot R \cdot \frac{T_\text{surf}}{P_\text{surf}}
 \end{equation} 
@@ -323,9 +348,9 @@ $\theta_0$ is the surface or 2\,\unit{m} temperature in \unit{^\circ C}. In gene
   \text{SAI} = 
   \begin{cases}
     \text{LAI}+1 & \text{\emph{forest / wetland}},\\
-    \text{LAI}\cdot 5/3.5 & \text{\emph{cropland, I. part of growing season}},\\
-    \text{LAI} + 1.5 & \text{\emph{cropland, II. part of growing season}},\\
-    0 & \text{\emph{cropland, winter}}.
+    \text{LAI}\cdot 5/3.5 & \text{\emph{cropland}, I. part of growing season},\\
+    \text{LAI} + 1.5 & \text{\emph{cropland}, II. part of growing season},\\
+    0 & \text{\emph{cropland}, winter}.
   \end{cases}
 \end{equation}
 %
@@ -436,8 +461,8 @@ The total aerosol surface deposition is then
 As mentioned in the previous section, there are two variables needed for computing the stomatal conductance which are not directly available from the meteorological input data. The greening season, as the time of the year in the mid and high latitudes when it is most likely for plants to grow, and the photosynthetic photon flux density, as the varying amount of light plants can use to photosynthesize.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Greening season}
-\label{subsubsection:greening}
-The EMEP scheme is making extensive use of the time elapsed since the onset of the greening season (GDAY) and the total length of the greening season (GLEN). There is a latitude dependent parameterization for the greening season that may work well for all but high northern latitudes, especially in Europe, and is not taking meteorology into account.  
+\label{subsubsec:greening}
+The EMEP scheme is making extensive use of the time elapsed since the onset of the greening season and the total length of the greening season. There is a latitude dependent parameterization for the greening season that may work well for all but high northern latitudes, especially in Europe, and is not taking meteorology into account.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Photosynthetic photon flux density (PPFD)}
 From OpenIFS an accumulated photoactive radiation (PAR) is available, but needs to be deaccumulated. Strictly speaking, since this field is already integrated over the whole spectrum, it is not the actual PAR but PPFD. 
