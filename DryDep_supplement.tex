@@ -85,33 +85,202 @@
   \includegraphics[height=0.4\textheight]{pictures/tree_height.pdf}
 \end{center}
 
-\subsection*{S.4 Temperature dependent greening season 2005}
-\subsubsection*{S.4.1 GLEN: NH mid--high latitudes only}
-\appendixfigures
-\begin{center}
-  \includegraphics[height=0.4\textheight]{pictures/GLEN_2005.pdf}
-\end{center}
-\subsubsection*{S.4.1 GLEN: NH and SH mid--high latitudes}
-\appendixfigures
-\begin{center}
-  \includegraphics[height=0.4\textheight]{pictures/GLEN_2005_she.pdf}
-\end{center}
+\subsection*{S.4 Temperature dependent greening season}
+\subsubsection*{S.4.1 Python code snippets}
+\begin{verbatim}
+#----------------------------------------------------------------------------------
+import numpy as np
+import pandas as pd
+import xarray as xr
+#----------------------------------------------------------------------------------
+def start_growing_season_fixed(lat, **kwargs):
+    '''
+    Begin of growing season parameterization adapted from SMOKE-BEIS.
+    '''
+    bLeap = kwargs.pop('leap', False)
+    if (bLeap):
+       MAY31 = 152
+       NOV1  = 306
+       DEC31 = 366
+    else:
+       MAY31 = 151
+       NOV1  = 305
+       DEC31 = 365
+    
+    if lat < -65:
+        return((0,))
+    elif lat < -23:
+        return((NOV1,1))
+    elif lat <= 23:
+        return((1,))
+    elif lat < 65:
+        return(((lat-23)*4.5,))
+    else:
+        return((0,))
+#----------------------------------------------------------------------------------
+def end_growing_season_fixed(lat, **kwargs):
+    '''
+    End of growing season parameterization adapted from SMOKE-BEIS.
+    '''
+    bLeap = kwargs.pop('leap', False)
+    if (bLeap):
+       MAY31 = 152
+       NOV1  = 306
+       DEC31 = 366
+    else:
+       MAY31 = 151
+       NOV1  = 305
+       DEC31 = 365
+       
+    if lat < -65:
+        return((0,))
+    elif lat < -23:
+        return((DEC31,MAY31))
+    elif lat <= 23:
+        return((DEC31,))
+    elif lat < 65:
+        return((DEC31-(lat-23)*3.3,))
+    else:
+        return((0,))
+#----------------------------------------------------------------------------------
+def growing_season(temperature,**kwargs):
+    '''
+    Agricultural rule of thumb definition of growing season:
+    5 consecutive days above 5 degree Celsius 
+    and vice versa for end of growing season.
+    '''
+    # Shift start day of evaluation.
+    s_shift = kwargs.pop('s_shift',365/2)
+    # Number of days that need to fulfill temperature criteria
+    degree_days_crit = kwargs.pop('ddc', 5)
+    # Temperature criteria
+    temperature_crit = kwargs.pop('tc', 5)
+    # Switch to southern hemisphere evaluation
+    sh = kwargs.pop('sh', False)
+    # Activate verbose
+    verbose = kwargs.pop('verbose', False)
+    # Counters
+    count_gdd = 0
+    count_days = 0
+    start_gs = (0,False)
+    end_gs = (0,False)
+    
+    if sh:
+    # Shift the temperature by halve a year - shifted back later.
+        temp = temperature.roll(time=s_shift)
+    else:
+        temp = temperature
+    for itemp in temp:
+        count_days += 1
+        if not start_gs[1]:
+            if itemp > temperature_crit:
+                count_gdd += 1
+            else:
+                count_gdd = 0
+            if count_gdd == degree_days_crit:
+                if sh:
+                    start_gs = (count_days+s_shift, True)
+                else:
+                    start_gs = (count_days, True)
+                count_gdd = 0
+        elif start_gs[1] and not end_gs[1] and count_days>s_shift:
+            if itemp <= temperature_crit:
+                count_gdd += 1
+                if verbose:
+                    print(count_days, count_gdd)
+            else:
+                count_gdd = 0
+            if count_gdd == degree_days_crit:
+                if sh:
+                    end_gs = (count_days-s_shift, True)
+                else:
+                    end_gs = (count_days, True)
+                count_gdd = 0
+       
+    return({'sgs':start_gs,'egs':end_gs})
+#----------------------------------------------------------------------------------
+def growing_season_stadyn(xr_temp):
+    '''
+    Preprocess the greening season for OsloCTM3.
+    Setting using the 5deg-5days criteria and in case this fails
+    or is out of the defined bounds,
+    fall back to SMOKE-BEIS parameterization.
+    '''
+    # Fetch leap year from input data
+    bLeap = False
+    if xr_temp.time.size==366:
+       bLeap = True
+    # Use 5deg-5days criteria   
+    if (xr_temp.lat > 45 and xr_temp.lat < 85):
+        gs = growing_season(xr_temp)
+        sgs = (gs['sgs'][0],)
+        egs = (gs['egs'][0],)
+        if ( not gs['sgs'][1] or not gs['egs'][1] or sgs[0]>=egs[0]):
+            # Check for failing 5deg-5days criteria => Fall back to fixed
+            sgs = start_growing_season_fixed(xr_temp.lat.data, leap=bLeap)
+            egs = end_growing_season_fixed(xr_temp.lat.data, leap=bLeap)
+    elif (xr_temp.lat < -35 and xr_temp.lat >= -65):
+        gs = growing_season(xr_temp, sh=True)
+        sgs = (gs['sgs'][0],1)
+        egs = (xr_temp.size, gs['egs'][0])
+        # Check for failing 5deg-5days criteria => Fall back to fixed
+        if (not gs['sgs'][1] or not gs['egs'][1] or sgs[0]>=egs[0]):
+            sgs = start_growing_season_fixed(xr_temp.lat.data, leap=bLeap)
+            egs = end_growing_season_fixed(xr_temp.lat.data, leap=bLeap)
+    # Use SMOKE-BEIS parameterization
+    else:
+        sgs = start_growing_season_fixed(xr_temp.lat.data, leap=bLeap)
+        egs = end_growing_season_fixed(xr_temp.lat.data, leap=bLeap)
+    # Generate GDAY and GLEN fields
+    # in case no growing season has been allocated
+    if (sgs[0]==egs[0]==0):
+        gday = np.repeat(0,len(xr_temp.time))
+        glen = 0
+    # in normal cases
+    else:
+        # handle northern hemisphere
+        if len(sgs)==1:
+            gday = np.concatenate((np.repeat(0,int(sgs[0])-1),
+                                   np.arange(1,int(egs[0])-int(sgs[0])+1),
+                                   np.repeat(0,len(xr_temp.time)-
+                                   int(egs[0])+1)))
+            glen = int(egs[0])-int(sgs[0])+1
+        # handle southern hemisphere
+        else:
+            gday = np.concatenate((np.arange(1,int(egs[1])+1)+len(xr_temp.time)
+                                   -int(sgs[0])+1,
+                                   np.repeat(0,int(sgs[0])-int(egs[1])),
+                                   np.arange(1,len(xr_temp.time)-int(sgs[0])+1)))
+            glen = len(xr_temp.time)-(int(sgs[0])-int(egs[1]))+1
+    # This should not happen, but in case it does, print info.
+    if not(len(gday)==len(xr_temp.time)):
+        print(xr_temp, sgs, egs)
+    # Output
+    data_gday = xr.DataArray(gday.astype(int),[('time', xr_temp.time.data)])
+    return(data_gday, (int)(glen))
+#----------------------------------------------------------------------------------
+\end{verbatim}
+%\subsubsection*{S.4.2 GLEN: NH mid--high latitudes only}
+%\appendixfigures
+%\begin{center}
+%  \includegraphics[height=0.4\textheight, clip, trim={0.cm 1.75cm 0.cm 1.75cm}]{pictures/GLEN_2005.pdf}
+%\end{center}
 
-\subsection*{S.5 De-accumulation of photoactive radiation (PAR) from OpenIFS: January 1st 2005}
+\subsection*{S.5 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS: January 2nd 2005}
 \subsubsection*{S.5.1 Output from OpenIFS: Accumulated PAR}
 \appendixfigures
 \begin{center}
-  \includegraphics[height=0.4\textheight]{pictures/PAR_as_is.png}
+  \includegraphics[height=0.4\textheight, clip, trim={0.75cm 0.75cm 0.75cm 0.75cm}]{pictures/PAR_as_is.png}
 \end{center}
 \subsubsection*{S.5.2 Partly de-accumulated}
 \appendixfigures
 \begin{center}
-  \includegraphics[height=0.4\textheight]{pictures/PAR_partly_deaccumulated.png}
+  \includegraphics[height=0.4\textheight, clip, trim={0.75cm 0.75cm 0.75cm 0.75cm}]{pictures/PAR_partly_deaccumulated.png}
 \end{center}
 \subsubsection*{S.5.3 De-accumulation of hour 00}
 \appendixfigures
 \begin{center}
-  \includegraphics[height=0.4\textheight]{pictures/PAR_deaccumulating_00h.png}
+  \includegraphics[height=0.4\textheight, clip, trim={0.75cm 0.75cm 0.75cm 0.75cm}]{pictures/PAR_deaccumulating_00h.png}
 \end{center}
 
 \end{document}

@@ -310,6 +310,7 @@ The penalty factor with respect to available soil water ($\text{SW}$) is defined
       \emph{else} & \quad \phi_d
     \end{cases}
   \end{cases}
+  \label{eq:fphen}
 \end{equation}
 %
 The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end points in the five phases of phenology in the EMEP scheme, while $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ control the temporal timing (Fig.~\ref{fig:phenology}). If GDAY is zero we are most likely in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}=0$. Since the EMEP scheme is tuned to NH mid latitudes, this phenology does not apply to the tropics, after evaluation of the model results (Section~\ref{subsec:sens}), we decided to set $f_\text{phen}=1$ if GLEN is greater or equal 365 which is the case in the tropics.
@@ -320,9 +321,10 @@ The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end po
   \label{fig:phenology}
 \end{figure}
 %
-Light in the wavelength band $(400-700)$\,\unit{nm} to which the plant chlorophyll is sensitive is called photosynthetic active radiation (PAR). In the EMEP parameterization, an integrated photon flux -- photosynthetic photon flux density (PPFD) -- is used to mimic the time lag of the opening and closing of stomata with respect to light instead of a simple day-on/night-off treatment:
+Light in the wavelength band $(400-700)$\,\unit{nm} to which the plant chlorophyll is sensitive is called photosynthetic active radiation (PAR). In the EMEP parameterization, an integrated photon flux is used to mimic the time lag of the opening and closing of stomata with respect to light instead of a simple day-on/night-off treatment:
 \begin{equation}
   f_\text{light} = 1-\text{exp}(-\alpha_\text{light}\cdot \text{PPFD}).
+  \label{eq:flight}
 \end{equation}
 %
 Since $g_\text{max}$ in Eq.~(\ref{eq:stomatal}) is in units of \unit{mmol\,s^{-1}\,\,m^{-2}}, a unit conversion is done:
@@ -340,6 +342,7 @@ In the EMEP scheme, non-stomatal conductances are explicitly calculated for \che
 The non-stomatal conductance for \chem{O_3} consists of two terms, one depending on vegetation type and one depending in the soil/surface. For a land surface type $N$, we can write
 \begin{equation}
   G_\text{ns}^\chem{O_3}(N) = \frac{\text{SAI}(N)}{r_\text{ext}} + \frac{1}{R_\text{inc}(N) + R_\text{gs}^\chem{O_3}(N)}.
+  \label{eq:non-stomata-cond}
 \end{equation}
 $\text{SAI}(N)$ is the surface area index for vegetation type $N$, which is $\text{LAI}$ plus some value representing cuticles and others surfaces. The external leaf resistance is defined by
 \begin{equation}
@@ -359,6 +362,7 @@ $\theta_0$ is the surface or 2\,\unit{m} temperature in \unit{^\circ C}. In gene
     \text{LAI} + 1.5 & \emph{if} \quad \text{\emph{cropland}, II. part of growing season},\\
     0 & \emph{if} \quad \text{\emph{cropland}, winter}.
   \end{cases}
+  \label{eq:SAI}
 \end{equation}
 %
 Extending the EMEP scheme to the southern hemisphere, the used growing season for crops is defined in Table~\ref{tab:growing_season}.
@@ -469,15 +473,27 @@ As mentioned in the previous section, there are two variables needed for computi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Greening season}
 \label{subsubsec:greening}
-The original EMEP scheme uses fixed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ together with leapsrates ($d_\text{SGS}$, $d_\text{EGS}$, $\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$ in Supplement~S.2) to define phenology and dry deposition over agricultural areas. However this parameterization fails in a global model, therefor another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS) model. SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses leapsrates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. This parameterization works well, if the focus of the scientific work lies on mid latitudes and North America. In Europe, however, most of northern Scandinavia has no vegetation period according to this parameterization. 
+In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use fixed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ together with leaprates ($d_\text{SGS}$, $d_\text{EGS}$, $\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$) to define phenology and dry deposition over agricultural areas. For the growing season of crops in the computation of non-stomatal conductances, we use fixed values (Table~\ref{tab:growing_season}), while for the stomatal conductances, as shown in Eq.~(\ref{eq:fphen}), we use the SGS and EGS derived parameters: day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. Since the eurocentric EMEP parameterization of SGS and EGS is not applicable in a global model, another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS; \href{https://www.epa.gov/air-emissions-modeling/biogenic-emission-inventory-system-beis}{model webpage}). SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses leaprates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. As this parameterization is optimized for North America, it does not work well in Europe, e.g., most of northern Scandinavia has no allocated vegetation period. 
 
-In agriculture, there are differing empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after 5 consecutive days with a daily average temperature above 5\,\unit{^\circ C} and vice versa for EGS. If, within these 5 days, the temperature drops below / rises above 5\,\unit{^\circ C}, the counters are reset. With respect to model performance, we decided to preprocess our meteorological input date using this 5\,\unit{^\circ C}-days criteria for $45\,\unit{^\circ} < \text{lat} < 85\,\unit{^\circ}$ in the NH and $35\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$ in the SH. In all other cases and where the 5\,\unit{^\circ C}-days criterion fails, we use the SMOKE-BEIS parameterization. 
-
-Instead of SGS and EGS, we use the derived parameters day of greening season (GDAY), which is the time elapsed starting at the SGS, and the total length of the greening season (GLEN), which is the time between EGS and SGS. Example maps of the computed GLEN are shown in Supplement~S.4.
-
+In agriculture, there are different empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after 5 consecutive days with a daily average temperature above 5\,\unit{^\circ C} and vice versa for EGS. Based on this rule of thumb, we have pre-processed our meteorological input data offline. If, within these 5 days, the temperature drops below / rises above 5\,\unit{^\circ C}, the counters are reset, respectively. First, we used the 5\,\unit{^\circ C}-days criteria for $45\,\unit{^\circ} < \text{lat} < 85\,\unit{^\circ}$ in the NH, but extended it also to $35\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$ in the SH. In all other cases and where the 5\,\unit{^\circ C}-days criteria fails, we use the SMOKE-BEIS parameterization. The described algorithm written in python 2.7 has been included as Supplement~S.4.1. An example map of the computed GLEN using the 5\,\unit{^\circ C}-days criteria in both hemispheres is shown in Fig.~\ref{fig:glen_2015_she}.
+%
+\begin{figure}[t]
+  \includegraphics[width=8.3cm, clip, trim={0.cm 1.75cm 0.cm 1.75cm}]{pictures/GLEN_2005_she.pdf}
+  \caption{Pre-processing of greening season from meteorological surface temperature fields. Shown is the total length of the greening season (GLEN) for the year 2005. The 5\,\unit{^\circ C}-days criteria has been used in both hemispheres mid--high latitudes. Ocean has been shaded to indicate that greening season will only affect land.}
+  \label{fig:glen_2015_she}
+\end{figure}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Photosynthetic photon flux density (PPFD)}
-From OpenIFS an accumulated photosynthetic active radiation (PAR) is available, but needs to be deaccumulated. Strictly speaking, since this field is already integrated over the whole spectrum, it is not the actual PAR but PPFD. 
+\subsubsection{Photosynthetic photon flux density}
+From OpenIFS an accumulated photosynthetic active radiation is available, but for practical use in Eq.~(\ref{eq:flight}) it needs to be deaccumulated. Since this field is already integrated over the spectrum $(400-700)\,\unit{nm}$, it is not PAR but PPFD. Therefor, we will refer to the deaccumulated field as PPFD. An example PAR for January 2nd 2005 is shown in Supplement~S.5.1. Deaccumulation of hour 3 till 21, simply means
+\begin{equation}
+  \text{PPFD}(t_i) = \text{PAR}(t_{i+1})-\text{PAR}(t_i).
+\end{equation}
+If everything was right in the OpenIFS output, we would not need to do any further processing, however the first timestep of each day has already accumulated PAR from some other date and time in addition to the actual hour 0 data (see Supplement~S.5.2), so it is impossible to accurately deaccumulate this time step. The best choice is subtracting the difference between hour 21 and 12 of the previous day (Supplement~S.5.3)
+\begin{equation}
+  \text{PPFD}(t=0) = \text{PAR}(t=0) - \left[\text{PAR}(t=21\,\unit{h}-1\,\unit{day})-\text{PAR}(=12\,\unit{h}-1\,\unit{day})\right].
+\end{equation}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 \section{Evaluation}
 \label{sec:eval}
@@ -533,7 +549,7 @@ What did we gain?
   \centering
   \includegraphics[width=8.3cm]{pictures/pft_categories.pdf}\\
   \includegraphics[width=8.3cm]{pictures/pft_categories_zonal.pdf}
-  \caption{Plant functional types (PFT). (a) CML2 dynamic land surface 0.5x0.5\,\unit{^\circ}}
+  \caption{Plant functional types (PFT). (a) CML2 dynamic land surface (0.5x0.5)\,\unit{^\circ}; (b) Zonal distribution of land surface types.}
   \label{fig:pft_landsurface}
 \end{figure}
 \subsection{}     %% Appendix A1, A2, etc.
