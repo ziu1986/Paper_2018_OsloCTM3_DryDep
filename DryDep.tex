@@ -508,16 +508,51 @@ For meteorological input, we use \href{https://www.ecmwf.int/en/forecasts/docume
 \subsection{Sensitivity tests}
 \label{subsec:sens}
 Include table of all sensitivity runs.
-\citep[e.g., $v^\chem{O_3}_{ice/snow} = 1/10000\,\unit{cm\,s^{-1}}$,][]{ACP:Helmig2007}
+\citep[e.g., $v^\chem{O_3}_\text{ice/snow} = 1/10000\,\unit{cm\,s^{-1}}$,][]{ACP:Helmig2007}
 dry dep velocity over water \citep{JGR:Helmig2012} Impact of ocean? Although it is a low number there is 2\/3 ocean on earth... (Think, I read this in Hardacre paper... -> Luhar)
+
+\begin{figure}[t]
+  \includegraphics[width=8.3cm]{pictures/final-ozone_diff_maps}
+  \caption{Relative difference between the sensitivity simulation emep\_psgsssh and the Wesely scheme in (a) surface ozone concentration; (b) ozone dry deposition velosity; (c) amount of ozone removed from the atmosphere by dry deposition.}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with recent multi-model comparison}
 \label{subsec:model}
 Compare to \citet{ACP:Hardacre2015} as well as \citet{ACP:Luhar2017}. \citep{AE:Derwent2018} Uncertainties in surface ozone sources and sinks larger than in formulations? -> Need to read this one...
+\begin{figure*}[t]
+  \includegraphics[width=12cm]{pictures/final-total_ozone_drydep}\\
+  \includegraphics[width=12cm]{pictures/final-total_ozone_drydepvelo}
+  \caption{Comparison of various model runs with the OsloCTM3 and the multi-model-mean results by \citet{ACP:Hardacre2015}. (a) total annual ozone drydeposition; (b) annual average ozone dry depositon velocity.}
+\end{figure*}
+%
+\begin{figure}[t]
+  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep_hem}
+  \caption{Seasonal cycle of total amount of ozone removed from the atmosphere through dry deposition seperated into northern hemisphere (NH), tropics (TR), and southern hemisphere (SH). Comparison with results from \citet{ACP:Hardacre2015}.}
+\end{figure}
+%
+\begin{figure}[t]
+  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep_monthly}\\
+  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydepvelo_monthly}
+  \caption{Comparison of monthly zonal distributions to results from \citep{ACP:Hardacre2015}. (a) Total amount of ozone removed from the atmosphere; (b) average ozone dry deposition velocitys.}
+\end{figure}
+%
+\begin{figure}[t]
+  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydepvelo_monthly_pft_nh}
+  \caption{Average ozone dry deposition velocitys seperated by land use type and compared to results from \citep{ACP:Hardacre2015}.}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with observations}
 \label{subsec:obs}
 The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from satellites and sondes (\url{http://bodekerscientific.com/}). \citep{AE:Hu2017} -> need to look into this one...
+
+\begin{figure}[t]
+  \includegraphics[width=8.3cm]{pictures/final-monthly_ozone_drydep_stations_True}\\
+  \includegraphics[width=8.3cm]{pictures/final-monthly_drydep_divergence_True}
+  \caption{Ozone dry deposition velocities at different observation sites. Comparison between Weseley scheme and average result from all sensitivity tests to observations and multi-model-mean from \citet{ACP:Hardacre2015}.}
+\end{figure}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
 \label{sec:disc}
