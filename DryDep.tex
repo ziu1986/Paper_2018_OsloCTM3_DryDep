@@ -503,11 +503,33 @@ If everything was right in the OpenIFS output, we would not need to do any furth
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 \section{Evaluation}
 \label{sec:eval}
-For meteorological input, we use \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF - OpenIFS version cy38r1nc4}. CEDS historical emission inventory is used for emissions.
+In this section, we present results from a manifold of OsloCTM3 model runs testing different parameters of the EMEP scheme. We focus on the change in total ozone dry deposition, ozone dry deposition velocities, and surface ozone concentration related to the stomatal conductance part of the surface resistance. We evaluate the results in the context of the multi-model comparison and observations
+in\citet{ACP:Hardacre2015} (Section~\ref{subsec:model}-\ref{subsec:obs}). The OsloCTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF - OpenIFS version cy38r1nc4}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered by NASA's Global Fire Emissions Database, Version4 (GFEDv4). In the following, we will discuss the various model sensitivity studies.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensitivity tests}
 \label{subsec:sens}
-Include table of all sensitivity runs.
+A summary of specifications of all simulations discussed in this section is given in Table~\ref{tab:simsum}. For simplicity, we only list the tested parameters. An x in the table denotes that the model was run exactly in the configuration as has been decribed in Section~\ref{sec:model_des}. With respect to the sensitivity on light (PPFD), $f_\text{light}\equiv 1$ has been tested. Regarding the phenology, we have tested three different options: No phenology ($f_\text{phen}\equiv 1$), phenology including / excluding the Tropics (TR). Diverging from \citet{ACP:Simpson2012}, the simulations inititally ran with the uppermost soil water level (SWVL1). One sensitivity test was conducted using SWVL4. The meteorological year used in all simulations is 2005. Most of the simulations were run with CEDS emissions for 2014. One test has been conducted to look at the impact of the emissions.
+\begin{table*}[t]
+  \caption{Summary of specifications of all simulations discussed in this section. For simplicity, only the tested parameters are listed. An x denotes that the model was run exactly in the configuration as has been decribed in Section~\ref{sec:model_des}.}
+  \begin{tabular}{lccccccccc}
+    \tophline
+    Simulation & Wesely scheme & \multicolumn{3}{c}{EMEP scheme} & \multicolumn{2}{c}{Greening season} & $v^\chem{O_3}_\text{ice/snow}$ & Forcings\\
+    & & $f_\text{phen}$ & $f_\text{light}$ & $f_\text{SW}$ & SMOKE-BEIS & 5\,\unit{^\circ C}-days & (\unit{cm\,s^{-1}}) & (year)\\
+    \middlehline
+    Wesely type       & x & \multicolumn{3}{c}{n/a}  & x &       & 1/2000  & 2014 \\
+    EMEP\_full        &   & incl. TR & x & SWLV1     & x &       & 1/2000  & 2014 \\
+    EMEP\_offLight    &   & incl. TR & 1 & SWLV1     & x &       & 1/2000  & 2014 \\
+    EMEP\_offPhen     &   & 1        & x & SWLV1     & x &       & 1/2000  & 2014 \\
+    EMEP\_SWVL4       &   & incl. TR & x & SWLV4     & x &       & 1/2000  & 2014 \\
+    EMEP\_ppgs        &   & incl. TR & x & SWLV1     &   & NH    & 1/2000  & 2014 \\
+    EMEP\_ppgssh      &   & excl. TR & x & SWLV1     &   & NH+SH & 1/2000  & 2014 \\
+    EMEP\_ppgssh\_ice &   & excl. TR & x & SWLV1     &   & NH+SH & 1/10000 & 2014 \\
+    EMEP\_ppgs\_2005  &   & incl. TR & x & SWLV1     &   & NH    & 1/2000  & 2005 \\
+    \bottomhline
+  \end{tabular}
+  \label{tab:simsum}
+  %\belowtable{} % Table Footnotes
+\end{table*}
 \citep[e.g., $v^\chem{O_3}_\text{ice/snow} = 1/10000\,\unit{cm\,s^{-1}}$,][]{ACP:Helmig2007}
 dry dep velocity over water \citep{JGR:Helmig2012} Impact of ocean? Although it is a low number there is 2\/3 ocean on earth... (Think, I read this in Hardacre paper... -> Luhar)
 
@@ -525,10 +547,10 @@ Compare to \citet{ACP:Hardacre2015} as well as \citet{ACP:Luhar2017}. \citep{AE:
   \caption{Comparison of various model runs with the OsloCTM3 and the multi-model-mean results by \citet{ACP:Hardacre2015}. (a) total annual ozone drydeposition; (b) annual average ozone dry depositon velocity.}
 \end{figure*}
 %
-\begin{figure}[t]
-  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep_hem}
+\begin{figure*}[t]
+  \includegraphics[width=12cm]{pictures/final-total_ozone_drydep_hem}
   \caption{Seasonal cycle of total amount of ozone removed from the atmosphere through dry deposition seperated into northern hemisphere (NH), tropics (TR), and southern hemisphere (SH). Comparison with results from \citet{ACP:Hardacre2015}.}
-\end{figure}
+\end{figure*}
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep_monthly}\\
@@ -622,9 +644,10 @@ What did we gain?
 
 \begin{acknowledgements}
   This work was supported by the Norwegian Research Council (NRC) through the project The double punch: Ozone and climate stresses on vegetation (OzoNorClim).\\
-  We would like to thank Greg Bodeker, Stefanie Kremser (Bodeker Scientific) and Birgit Hassler (DLR) for providing the combined vertical ozone profile database (\url{http://www.bodekerscientific.com}.
+  %We would like to thank Greg Bodeker, Stefanie Kremser (Bodeker Scientific) and Birgit Hassler (DLR) for providing the combined vertical ozone profile database (\url{http://www.bodekerscientific.com}.
   The used Leaf Area Index (LAI) and roughness length ($Z_0$) are available online from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, U.S.A. (\doi{10.3334/ORNLDAAC/970}).\\
   Community Emission Data System (CEDS) historical emission inventory is provided by the Joint Global Research Institute project (\url{http://www.globalchange.umd.edu/ceds/}.)
+  Randerson, J.T., G.R. van der Werf, L. Giglio, G.J. Collatz, and P.S. Kasibhatla. 2018. Global Fire Emissions Database, Version 4, (GFEDv4). ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1293
 \end{acknowledgements}
 
 
