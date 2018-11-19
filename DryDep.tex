@@ -303,7 +303,7 @@ The penalty factor with respect to available soil water ($\text{SW}$) $f_\text{S
 \end{equation}
 \citet{ACP:Simpson2012} suggest using SW in soil depths below $1\,\unit{m}$ (SWVL4 in OpenIFS). Throughout most of our simulations (Section~\ref{sec:eval}), we have, however, used the soil water contained in the top layer (SWVL1, $0-7\,\unit{cm}$), which makes the canopy conductance more sensitive to precipitation than it would be otherwise.
 
-The phenology of a plant typically describes its lifecycle through out a year, e.g., in mid latitudes and for deciduous species, it starts with the emergence of leafs in spring and ends in fall. In the EMEP scheme, phenology is parameterized with respect to the start of the greening season (SGS) and its end (EGS). Details about our treatment of these are given in Section~\ref{subsubsec:greening}. In summary, our adaption of the $f_\text{phen}$ parameterization reads as follows:
+The phenology of a plant typically describes its life-cycle through out a year, e.g., in mid latitudes and for deciduous species, it starts with the emergence of leafs in spring and ends in fall. In the EMEP scheme, phenology is parameterized with respect to the start of the greening season (SGS) and its end (EGS). Details about our treatment of these are given in Section~\ref{subsubsec:greening}. In summary, our adaption of the $f_\text{phen}$ parameterization reads as follows:
 %
 \begin{equation}
   f_\text{phen} =
@@ -330,7 +330,7 @@ Herein, we use the SGS and EGS derived parameters day of greening season (GDAY),
   \label{fig:phenology}
 \end{figure}
 
-Light in the wavelength band $(400-700)\,\unit{nm}$ to which the plant chlorophyll is sensitive is called photosynthetic active radiation (PAR). The integral of PAR over these wavelengths is the photosynthetic photon flux denisty (PPFD). In the EMEP parameterization, this integrated photon flux is used to mimic the time lag of the opening and closing of stomata with respect to light instead of a simple day-on/night-off treatment:
+Light in the wavelength band $(400-700)\,\unit{nm}$ to which the plant chlorophyll is sensitive is called photosynthetic active radiation (PAR). The integral of PAR over these wavelengths is the photosynthetic photon flux density (PPFD). In the EMEP parameterization, this integrated photon flux is used to mimic the time lag of the opening and closing of stomata with respect to light instead of a simple day-on/night-off treatment:
 \begin{equation}
   f_\text{light} = 1-\text{exp}(-\alpha_\text{light}\cdot \text{PPFD}).
   \label{eq:flight}
@@ -496,35 +496,35 @@ In agriculture, there are different empirical rules to estimate the SGS and EGS.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Photosynthetic photon flux density}
-From OpenIFS an accumulated surface PAR is available, but for practical use in Eq.~(\ref{eq:flight}) it needs to be deaccumulated. Since this field is already integrated assumingly over the spectrum $(400-700)\,\unit{nm}$, it is not PAR but PPFD. Therefor, we will refer to the deaccumulated field as PPFD. An example PAR for January 2 2005 is shown in Supplement~S.5.1. Deaccumulation of hour 3 till 21, simply means
+From OpenIFS an accumulated surface PAR is available, but for practical use in Eq.~(\ref{eq:flight}) it needs to be de-accumulated. Since this field is already integrated presumably over the spectrum $(400-700)\,\unit{nm}$, it is not PAR but PPFD. Therefor, we will refer to the de-accumulated field as PPFD. An example PAR for January 2 2005 is shown in Supplement~S.5.1. De-Accumulation of hour 3 till 21, simply means
 \begin{equation}
   \text{PPFD}(t_i) = \text{PAR}(t_{i+1})-\text{PAR}(t_i).
 \end{equation}
-If everything was right in the OpenIFS output, we would not need to do any further processing, however the first timestep of each day has already accumulated PAR from some other date and time in addition to the actual hour 0 data (see Supplement~S.5.2), so it is impossible to accurately deaccumulate this time step. The best choice is subtracting the difference between hour 21 and 12 of the previous day (Supplement~S.5.3)
+If everything was right in the OpenIFS output, we would not need to do any further processing, however the first time step of each day has already accumulated PAR from some other date and time in addition to the actual hour 0 data (see Supplement~S.5.2), so it is impossible to accurately de-accumulate this time step. The best choice is subtracting the difference between hour 21 and 12 of the previous day (Supplement~S.5.3)
 %
 \begin{equation}
   \text{PPFD}(t=0) = \text{PAR}(t=0) - \left[\text{PAR}(t=21\,\unit{h}-1\,\unit{day})-\text{PAR}(=12\,\unit{h}-1\,\unit{day})\right].
 \end{equation}
 %
-The resulting PPFD fields are still accumulated over a time period of three hours and should be devided by $3$. A \href{https://confluence.ecmwf.int/display/CKB/ERA-Interim\%3A+surface+photosynthetically+active+radiation+\%28surface+PAR\%29+values+are+too+low}{known issue} in the OpenIFS (cycles $\le$ c41r2) causes surface PAR values to be about $30\,\unit{\%}$ below observations. To counter this, we decided to refrain from the devision at this stage.
+The resulting PPFD fields are still accumulated over a time period of three hours and should be divided by $3$. A \href{https://confluence.ecmwf.int/display/CKB/ERA-Interim\%3A+surface+photosynthetically+active+radiation+\%28surface+PAR\%29+values+are+too+low}{known issue} in the OpenIFS (cycles $\le$ c41r2) causes surface PAR values to be about $30\,\unit{\%}$ below observations. To counter this, we decided to refrain from the division at this stage, but need to bare this in mind for later OpenIFS versions.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 \section{Evaluation}
 \label{sec:eval}
-In this section, we present results from a manifold of OsloCTM3 model integrations testing different parameters of the EMEP scheme. We focus on changes in ozone related to the stomatal conductance parameterization, e.g., total dry deposition $\sum\chem{O_3^\text{DD}}$, dry deposition velocities $v^\chem{O_3}_\text{DD}$, and surface concentration $[\chem{O_3}](z_0)$ or surface ozone burden $\chem{O_3}(z_0)$ in units of \unit{kg}, respectivly. We evaluate our results with respect to the multi-model evaluation of ozone dry deposition by \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}) and observations (Section~\ref{subsec:obs}). The OsloCTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF -- OpenIFS version cy38r1nc4}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered in daily resolution by NASA's Global Fire Emissions Database, Version4 (GFEDv4). Biogenic emissions are taken from MEGAN output. In the following, we will present the various model sensitivity studies.
+In this section, we present results from a manifold of OsloCTM3 model integrations testing different parameters of the EMEP scheme. We focus on changes in ozone related to the stomatal conductance parameterization, e.g., total dry deposition $\sum\chem{O_3^\text{DD}}$, dry deposition velocities $v^\chem{O_3}_\text{DD}$, and surface concentration $[\chem{O_3}](z_0)$ or surface burden $\chem{O_3}(z_0)$ in units of \unit{kg}, respectively. We evaluate our results with respect to the multi-model evaluation of ozone dry deposition by \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}) and observations (Section~\ref{subsec:obs}). The OsloCTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF -- OpenIFS version cy38r1nc4}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered in daily resolution by NASA's Global Fire Emissions Database, Version4 (GFEDv4). Biogenic emissions are taken from MEGAN output. In the following, we will present the various model sensitivity studies.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensitivity studies}
 \label{subsec:sens}
-As presented in Section~\ref{sec:model_des}, the OsloCTM3 dry deposition scheme has undergone a major revision. Due to the previously generalized implementation of the Wesely scheme with respect to dry deposition resistances and surface types, it is not possible to fully disentangle the effects of every single change. Therefor, the conducted sensitivity studies (9 in total) mainly assess the parameter space of the stomatal conductance within the EMEP scheme. A reference simulation featuring the Wesely scheme has been done and will be refered to as \emph{Wesely\_type}, indicating that other implementations of the original work by \citet{AE:Wesely1989} may exist in other models. For all model integrations, the meteorological reference year is 2005. This choice only affects the comparison with data and multi-model studies that either perform analysis on decadal averages or differing years. After finishing the work on the integration of the EMEP parameterization and initial testing, \emph{EMEP\_full} was supposed to be the baseline simulation for our sensitivity studies, \emph{EMEP\_offLight} and \emph{EMEP\_offPhen}. As indicated by the names, these scenarios are extreme cases, setting $f_\text{light}$ and $f_\text{phen}$ to 1, respectively. During analysis of the results, we found, that the SMOKE-BEIS parameterization of the greening season did not extend to the boreal and subarctic regions. Especially in Europe, this basically results in the subpression of canopy resistance in these regions. The following sensitivity study therefor comprises two different versions of pre-processed greening season (refer to Section~\ref{subsec:pre-pro} for details), mid and high latitudes in the northern hemisphere only (\emph{EMEP\_ppgs}) and for both, northern and southern hemisphere mid and high latitudes (\emph{EMEP\_ppgssh}). Building on the latter, we want to confirm the importance of the $v^\chem{O_3}_\text{ice/snow}$ update \citep{ACP:Helmig2007} in the Subarctic and Arctics, within the framework of the OsloCTM3 (\emph{EMEP\_ppgssh\_ice}). Accidently, we have used forcings for the year 2014 instead of 2005. Though, we take this as opportunity to assess the impact on ozone regarding differing emissions (\emph{EMEP\_ppgs\_2005}). As mentioned previously, the simulations inititally ran with the uppermost soil water level (SWVL1) in the implementation of $f_\text{SW}$. A final sensitivity study was conducted changing to soil water level at depths deeper than $1\,\unit{m}$ (\emph{EMEP\_SWVL4}).
-All simulations discussed in this section are summarized in Table~\ref{tab:simsum}. An x in the table denotes that the model was run exactly in the configuration as has been decribed in Section~\ref{sec:model_des}.
+As presented in Section~\ref{sec:model_des}, the OsloCTM3 dry deposition scheme has undergone a major revision. Due to the previously generalized implementation of the Wesely scheme with respect to dry deposition resistances and surface types, it is not possible to fully disentangle the effects of every single change. Therefor, the conducted sensitivity studies (9 in total) mainly assess the parameter space of the stomatal conductance within the EMEP scheme. A reference simulation featuring the Wesely scheme has been done and will be referred to as \emph{Wesely\_type}, indicating that other implementations of the original work by \citet{AE:Wesely1989} may exist in other models. For all model integrations, the meteorological reference year is 2005. This choice only affects the comparison with data and multi-model studies that either perform analysis on decadal averages or differing years. After finishing the work on the integration of the EMEP parameterization and initial testing, \emph{EMEP\_full} was supposed to be the baseline simulation for our sensitivity studies, \emph{EMEP\_offLight} and \emph{EMEP\_offPhen}. As indicated by the names, these scenarios are extreme cases, setting $f_\text{light}$ and $f_\text{phen}$ to 1, respectively. During analysis of the results, we found, that the SMOKE-BEIS parameterization of the greening season did not extend to the boreal and subarctic regions. Especially in Europe, this basically results in the suppression of canopy resistance in these regions. The following sensitivity study therefor comprises two different versions of pre-processed greening season (refer to Section~\ref{subsec:pre-pro} for details), mid and high latitudes in the northern hemisphere only (\emph{EMEP\_ppgs}) and for both, northern and southern hemisphere mid and high latitudes (\emph{EMEP\_ppgssh}). Building on the latter, we want to confirm the importance of the $v^\chem{O_3}_\text{ice/snow}$ update \citep{ACP:Helmig2007} in the Subarctic and Arctics, within the framework of the OsloCTM3 (\emph{EMEP\_ppgssh\_ice}). Accidentally, we have used forcings for the year 2014 instead of 2005. Though, we take this as opportunity to assess the impact on ozone regarding differing emissions (\emph{EMEP\_ppgs\_2005}). As mentioned previously, the simulations initially ran with the uppermost soil water level (SWVL1) in the implementation of $f_\text{SW}$. A final sensitivity study was conducted changing to soil water level at depths deeper than $1\,\unit{m}$ (\emph{EMEP\_SWVL4}).
+All simulations discussed in this section are summarized in Table~\ref{tab:simsum}. An x in the table denotes that the model was run exactly in the configuration as has been described in Section~\ref{sec:model_des}.
 
 \begin{table*}[t]
-  \caption{Summary of specifications of all simulations discussed in this section. For simplicity, only the tested parameters are listed. An x denotes that the model was run exactly in the configuration as has been decribed in Section~\ref{sec:model_des}.}
+  \caption{Summary of specifications of all simulations discussed in this section. For simplicity, only the tested parameters are listed. An x denotes that the model was run exactly in the configuration as has been described in Section~\ref{sec:model_des}.}
   \begin{tabular}{lccccccccc}
     \tophline
-    Simulation & Wesely scheme & \multicolumn{3}{c}{EMEP scheme} & \multicolumn{2}{c}{Greening season} & $v^\chem{O_3}_\text{ice/snow}$ & Forcings\\
+    \multirow{2}{*}{Simulation} & Wesely scheme & \multicolumn{3}{c}{EMEP scheme} & \multicolumn{2}{c}{Greening season} & $v^\chem{O_3}_\text{ice/snow}$ & Forcings\\
     & & $f_\text{phen}$ & $f_\text{light}$ & $f_\text{SW}$ & SMOKE-BEIS & $5\,\unit{^\circ C}$-days & (\unit{m\,s^{-1}}) & (year)\\
     \middlehline
-    Wesely\_type       & x & \multicolumn{3}{c}{n/a}  & x &       & 1/2000  & 2014 \\
+    Wesely\_type      & x & \multicolumn{3}{c}{n/a}  & x & n/a   & 1/2000  & 2014 \\
     EMEP\_full        &   & incl. TR & x & SWLV1     & x &       & 1/2000  & 2014 \\
     EMEP\_offLight    &   & incl. TR & 1 & SWLV1     & x &       & 1/2000  & 2014 \\
     EMEP\_offPhen     &   & 1        & x & SWLV1     & x &       & 1/2000  & 2014 \\
@@ -541,100 +541,76 @@ All simulations discussed in this section are summarized in Table~\ref{tab:simsu
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{pictures/final-ozone_diff_maps}
-  \caption{Relative difference between the sensitivity simulation \emph{EMEP\_ppgsssh} and the \emph{Wesely\_type} in (a) total surface ozone; (b) average ozone dry deposition velosity; (c) total amount of ozone removed from the atmosphere by dry deposition.}
+  \caption{Relative difference between the sensitivity simulation \emph{EMEP\_ppgsssh} and the \emph{Wesely\_type} in (a) total surface ozone; (b) average ozone dry deposition velocity; (c) total amount of ozone removed from the atmosphere by dry deposition.}
   \label{fig:diff_maps}
 \end{figure}
 %
-In Fig.~\ref{fig:diff_maps}, we show the average relative difference between \emph{EMEP\_ppgsssh} and \emph{Wesely\_type} on global maps by means of surface ozone burden, dry deposition velocity and total ozone due to dry deposition. Surface ozone increases globally except for regions covered by tropical forest. Especially in desert regions in Africa and Asia, surface ozone increases by up to $100\,\unit{\%}$. Consistently, dry deposition velocities decrease globally (up to $100\,\unit{\%}$) in desert regions, while they increase over tropical forest. With respect to total dry deposition, the picture is a bit less clear. We find a decrease of total dry deposition of ozone in desert regions and ocean covered areas and an increase in regions covered by tropical forest, while at mid and high latitudes in both hemispheres only small changes are visible. A possible explanation is the huge difference between the previously prescribed dry deposition velocities in the Wesely scheme and the adjusting dry deposition velocities in the EMEP scheme. We cover this in more detail in the following section.
+In Fig.~\ref{fig:diff_maps}, we show the average relative difference between \emph{EMEP\_ppgsssh} and \emph{Wesely\_type} on global maps by means of surface ozone burden, dry deposition velocity and total ozone dry deposition. Surface ozone increases globally except for regions covered by tropical forest. Especially in desert regions in Africa and Asia, surface ozone increases by up to $100\,\unit{\%}$. Consistently, dry deposition velocities decrease globally (up to $100\,\unit{\%}$) in desert regions, while they increase over tropical forest. With respect to total dry deposition, the picture is a bit less clear. We find a decrease of total dry deposition of ozone in desert regions and ocean covered areas and an increase in regions covered by tropical forest, while at mid and high latitudes in both hemispheres only small changes are visible. A possible explanation to these changes especially in desert regions is the difference between the previously prescribed dry deposition velocities in the Wesely scheme and the adjusting dry deposition velocities with respect to meteorology in the EMEP scheme. We cover this in more detail in the following section.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with multi-model evaluation}
 \label{subsec:model}
-Compare to \citet{ACP:Hardacre2015} as well as . \citep{AE:Derwent2018} Uncertainties in surface ozone sources and sinks larger than in formulations? -> Need to read this one...
+%
+In our evaluation of results, we closly follow suggestions by \citet{ACP:Hardacre2015}. For the purpose of comparison with the multi-model mean of the therein participating Task Force on Hemispheric Transport of Air Pollution (TF HTAP) models, we also have re-grided our data to a horizontal resolution of $3^\circ\times 3^\circ$. First (Section~\ref{subsubsec:zonal}), we look at zonal ditributions of $[\chem{O_3}](z_0)$, $v^\chem{O_3}_\text{DD}$, and $\sum\chem{O_3^\text{DD}}$ for all our senstivity simulations. In Section~\ref{subsubsec:seasons}, we study seasonal cycles of hemispheric ozone as well as nine land surface types which have been retrospectively seperated. From this, we estimate the total annual ozone dry deposition onto ocean, ice, and land surfaces and compare with results from \citet{ACP:Luhar2017}.
+%
+\subsubsection{Zonal distribution}
+\label{subsubsec:zonal}
+%
+The annual zonal average with respect to surface ozone concentration (Fig.~\ref{fig:mmm_drydep}a) displays, in consistancy with Fig.~\ref{fig:diff_maps}a), a general, global increase by up to $10\,\unit{ppb}$ which is largest between $(25-50)\,\unit{^\circ N}$ including the major deserts. In the deep Tropics, the increase is smallest ($\Delta[\chem{O_3}]\leq 5\,\unit{ppb}$). On average, we find that the EMEP scheme further intensifies the strong asymmetry between northern and southern hemisphere. Among the senistivity studies, there is only a low variance. Most remarkable and as expected due to the strong decrease in prescribed dry deposition velocity over ice and snow, \emph{EMEP\_ppgssh\_ice} displays almost a doubling of surface ozone in the high Arctics compared to \emph{Wesely\_type} but affects ozone concentrations already at about $50\,\unit{^\circ}$ in both hemispheres. Neglecting any dependence on solar radiation in the stomatal conductance formulation (\emph{EMEP\_offLight}) generally decreases the ozone concentration by about $2\,\unit{ppb}$, while taking deeper soil water content into consideration (\emph{EMEP\_SWVL4}) increases $[\chem{O_3}](z_0)$ slightly. Rather surprisingly, switching of phenology completely (\emph{EMEP\_offPhen}), doesn't make much difference. The scenario of differing emissions (2005 in comparison to 2014 or more specifically \emph{EMEP\_ppgs\_2005} compared to \emph{EMEP\_ppgs}), yields higher ozone concentrations in the northern hemisphere in 2005 in accordance to a reduction in sulfur and \chem{NO_x} emissions in south east Asia in later years. An opposite tendency is seen for latitudes south of $30\,\unit{^\circ N}$, propbably owing to the industrial development of countries in these regions. 
 
-
-\subsubsection{Zonal averages}
+In Fig.~\ref{fig:mmm_drydep}b), we show the corresponding average dry deposition velocities, as reconstructed from the ration between surface concentration and total dry deposition since we have no output of these. $v^\chem{O_3}_\text{DD}$ in the EMEP scheme are much smaller then in the Wesely scheme even smaller compared to the multi-model-mean for latitudes between $50\,\unit{^\circ S}$ and $70\,\unit{^\circ N}$. In the remaining latitude bands, except for EMEP\_ppgssh\_ice, the EMEP scheme is constantly above the multi-model-mean. This indicates, that with respect to other models, the updated dry deposition velocity above ice and snow should be considered as new standard.
 
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{pictures/final-vmr_surfaceozone}\\
   \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydepvelo}\\
   \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep}
-  \caption{Comparison of the manifold of OsloCTM3 integrations with respect to (a) surface ozone concentrations; and in comparison with the multi-model evaluation by \citet{ACP:Hardacre2015}: (b) Annual average ozone dry depositon velocity; (c) Total annual ozone dry deposition. The different colors indicate sets of associated simulation.}
+  \caption{Comparison of the manifold of OsloCTM3 integrations with respect to (a) Surface ozone concentrations, (b) Annual average ozone dry deposition velocity, (c) Total annual ozone dry deposition. The different colors indicate sets of simulation with similar baselines. The multi-model mean from the evaluation of HTAP models by \citet{ACP:Hardacre2015} is shown as a reference (where available).}
   \label{fig:mmm_drydep}
 \end{figure}
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep_monthly}\\
   \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydepvelo_monthly}
-  \caption{Comparison of monthly zonal distributions to results from \citep{ACP:Hardacre2015}. (a) Total amount of ozone removed from the atmosphere; (b) average ozone dry deposition velocitys.}
+  \caption{Comparison of monthly zonal distributions to results from \citep{ACP:Hardacre2015}. (a) Total amount of ozone removed from the atmosphere; (b) average ozone dry deposition velocities.}
   \label{fig:mmm_drydep_season}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Average seasonal cycles}
+\label{subsubsec:seasons}
 %
 \begin{figure*}[t]
   \includegraphics[width=12cm]{pictures/final-total_ozone_drydep_hem}
-  \caption{Seasonal cycle of total amount of ozone removed from the atmosphere through dry deposition seperated into northern hemisphere (NH), tropics (TR), and southern hemisphere (SH). Comparison with results from \citet{ACP:Hardacre2015}.}
+  \caption{Seasonal cycle of total amount of ozone removed from the atmosphere through dry deposition separated into northern hemisphere (NH), tropics (TR), and southern hemisphere (SH). Comparison with results from \citet{ACP:Hardacre2015}.}
   \label{fig:mmm_drydep_hem}
 \end{figure*}
 %
-As suggested by \citet{ACP:Hardacre2015}, we retrospectively seperate ozone dry deposition velocities with respect to surface types. Based on CML2 dynamic land surface, we generated masks for 9 different surface types (Fig.~\ref{fig:pft_landsurface}a) and used these to select gridboxes with a high percentage of these surface types, ranging from $22\,\unit{\%}$ only for tundra in the southern hemisphere to $98\,\unit{\%}$ regarding ocean. Since we have not perform a full unfolding on the data, the results should be regarded with suspicion.
+As suggested by \citet{ACP:Hardacre2015}, we retrospectively separate ozone dry deposition velocities with respect to surface types. Based on CML2 dynamic land surface, we generated masks for 9 different surface types (Fig.~\ref{fig:pft_landsurface}a) and used these to select gridboxes with a high percentage of these surface types, ranging from $22\,\unit{\%}$ only for tundra in the southern hemisphere to $98\,\unit{\%}$ regarding ocean. Since we have not perform a full unfolding on the data, the results should be regarded with suspicion.
 %
-\begin{figure}[t]
-  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydepvelo_monthly_pft_nh}
-  \caption{Average ozone dry deposition velocitys seperated by land use type and compared to results from \citep{ACP:Hardacre2015}.}
+\begin{figure*}[t]
+  \includegraphics[width=12cm]{pictures/final-total_ozone_drydepvelo_monthly_pft_nh}
+  \caption{Average ozone dry deposition velocities separated by land use type and compared to results from \citep{ACP:Hardacre2015}.}
   \label{fig:mmm_drydep_season_pft}
-\end{figure}
+\end{figure*}
 %
 The Wesely scheme uses $v^\chem{O_3}_\text{tundra/desert} = 0.26\,\unit{cm\,s^{-1}}$ \citep{JGR:Hough1991}, while in the EMEP scheme we use a base value of $v^\chem{O_3}_\text{desert} = 0.05\,\unit{cm\,s^{-1}}$ and $v^\chem{O_3}_\text{tundra} = 0.24\,\unit{cm\,s^{-1}}$. From measurements of ozone fluxes in the Sahara desert, $v^\chem{O_3}_\text{desert, day} = 0.1\,\unit{cm\,s^{-1}}$, $v^\chem{O_3}_\text{desert, night} = 0.04\,\unit{cm\,s^{-1}}$, and $\left<v^\chem{O_3}_\text{desert}\right> = 0.065\,\unit{cm\,s^{-1}}$ have been deduced \citep{AE:Gusten1995}. This implies, that ozone dry deposition over desert regions is highly overestimated in the Wesely scheme, while it may be underestimated in the EMEP scheme. Similarly, the dry deposition over water $v^\chem{O_3}_\text{water}=0.07\,\unit{cm\,s^{-1}}$ in the Wesely scheme, while in the EMEP scheme we use a base value of $v^\chem{O_3}_\text{water} = 0.05\,\unit{cm\,s^{-1}}$. $v^\chem{O_3}_\text{water} = 0.019\,\unit{cm\,s^{-1}}$ \citep{JGR:Helmig2012}. \citet{ACP:Luhar2017} found $0.018\,\unit{cm\,s^{-1}} \leq \left<v^\chem{O_3}_\text{water}\right> \leq 0.039\,\unit{cm\,s^{-1}}$.
 %
 \begin{table*}[t]
-\caption{Total ozone dry deposition seperated into land, ocean, and ice contributions.}
+\caption{Total ozone dry deposition for the respective year in \unit{Tg\,a^{-1}} separated into ocean, ice and, land contributions.}
 \begin{tabular}{lcccccccccccc}
 \tophline
-& & Ocean & & & Ice & & & Land & & & Total\\
+\multirow{3}{*}{Simulation} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land} & \multicolumn{3}{c}{Total}\\
 & NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
-& & (Tg a-1) & & & (Tg a-1) & & & (Tg a-1) & & & (Tg a-1)\\
+& \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})}\\
 \middlehline
-88.7 110.3 199.0 OsloCTM3: Wesely type\\
-67.1 84.7 151.8 OsloCTM3: EMEP\_full\\
-66.6 84.1 150.7 OsloCTM3: EMEP\_offLight\\
-67.1 84.6 151.7 OsloCTM3: EMEP\_offPhen\\
-68.1 86.1 154.2 OsloCTM3: EMEP\_SWVL4\\
-67.1 84.6 151.7 OsloCTM3: EMEP\_ppgs\\
-67.0 84.5 151.6 OsloCTM3: EMEP\_ppgssh\\
-66.5 84.8 151.3 OsloCTM3: EMEP\_ppgssh\_ice\\
-66.8 83.5 150.4 OsloCTM3: EMEP\_ppgs\_2005\\
-
-0.7 5.0 5.7 OsloCTM3: Wesely type\\
-0.6 4.4 5.0 OsloCTM3: EMEP\_full\\
-0.6 4.4 5.0 OsloCTM3: EMEP\_offLight\\
-0.6 4.4 5.0 OsloCTM3: EMEP\_offPhen\\
-0.6 4.5 5.1 OsloCTM3: EMEP\_SWVL4\\
-0.6 4.4 5.0 OsloCTM3: EMEP\_ppgs\\
-0.6 4.4 5.0 OsloCTM3: EMEP\_ppgssh\\
-0.2 1.3 1.4 OsloCTM3: EMEP\_ppgssh\_ice\\
-0.6 4.4 5.0 OsloCTM3: EMEP\_ppgs\_2005\\
-
-346.1 153.5 499.6 OsloCTM3: Wesely type\\
-236.0 112.3 348.2 OsloCTM3: EMEP\_full\\
-267.8 129.8 397.6 OsloCTM3: EMEP\_offLight\\
-239.9 116.0 355.9 OsloCTM3: EMEP\_offPhen\\
-241.8 115.0 356.8 OsloCTM3: EMEP\_SWVL4\\
-238.7 112.6 351.3 OsloCTM3: EMEP\_ppgs\\
-243.9 119.4 363.3 OsloCTM3: EMEP\_ppgssh\\
-240.3 120.4 360.7 OsloCTM3: EMEP\_ppgssh\_ice\\
-237.8 110.0 347.8 OsloCTM3: EMEP\_ppgs\_2005\\
-
-612.4 347.9 960.2 OsloCTM3: Wesely type\\
-408.6 245.6 654.2 OsloCTM3: EMEP\_full\\
-451.3 267.2 718.6 OsloCTM3: EMEP\_offLight\\
-413.9 249.9 663.7 OsloCTM3: EMEP\_offPhen\\
-417.2 250.7 667.9 OsloCTM3: EMEP\_SWVL4\\
-411.4 246.0 657.4 OsloCTM3: EMEP\_ppgs\\
-419.4 253.6 673.0 OsloCTM3: EMEP\_ppgssh\\
-413.0 251.1 664.1 OsloCTM3: EMEP\_ppgssh\_ice\\
-409.2 240.7 649.9 OsloCTM3: EMEP\_ppgs\_2005\\
+Wesely\_type & 88.7 & 110.3 & 199.0 & 0.7 & 5.0 & 5.7 & 346.1 & 153.5 & 499.6 & 612.4 & 347.9 & 960.2 \\
+EMEP\_full & 67.1 & 84.7 & 151.8 & 0.6 & 4.4 & 5.0 & 236.0 & 112.3 & 348.2 & 408.6 & 245.6 & 654.2 \\
+EMEP\_offLight & 66.6 & 84.1 & 150.7 & 0.6 & 4.4 & 5.0 & 267.8 & 129.8 & 397.6 & 451.3 & 267.2 & 718.6 \\
+EMEP\_offPhen & 67.1 & 84.6 & 151.7 & 0.6 & 4.4 & 5.0 & 239.9 & 116.0 & 355.9 & 413.9 & 249.9 & 663.7 \\
+EMEP\_SWVL4 & 68.1 & 86.1 & 154.2 & 0.6 & 4.5 & 5.1 & 241.8 & 115.0 & 356.8 & 417.2 & 250.7 & 667.9 \\
+EMEP\_ppgs & 67.1 & 84.6 & 151.7 & 0.6 & 4.4 & 5.0 & 238.7 & 112.6 & 351.3 & 411.4 & 246.0 & 657.4 \\
+EMEP\_ppgssh & 67.0 & 84.5 & 151.6 & 0.6 & 4.4 & 5.0 & 243.9 & 119.4 & 363.3 & 419.4 & 253.6 & 673.0 \\
+EMEP\_ppgssh\_ice & 66.5 & 84.8 & 151.3 & 0.2 & 1.3 & 1.4 & 240.3 & 120.4 & 360.7 & 413.0 & 251.1 & 664.1 \\
+EMEP\_ppgs\_2005 & 66.8 & 83.5 & 150.4 & 0.6 & 4.4 & 5.0 & 237.8 & 110.0 & 347.8 & 409.2 & 240.7 & 649.9 \\
 \bottomhline
 \end{tabular}
 %\belowtable{} % Table Footnotes
@@ -644,12 +620,12 @@ The Wesely scheme uses $v^\chem{O_3}_\text{tundra/desert} = 0.26\,\unit{cm\,s^{-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with observations}
 \label{subsec:obs}
-The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from satellites and sondes (\url{http://bodekerscientific.com/}). \citep{AE:Hu2017} -> need to look into this one...
+The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from satellites and sondes (\url{http://bodekerscientific.com/})? \citep{AE:Hu2017} -> need to look into this one...
 
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{pictures/final-monthly_ozone_drydep_stations_True}\\
   \includegraphics[width=8.3cm]{pictures/final-monthly_drydep_divergence_True}
-  \caption{Ozone dry deposition velocities at different observation sites. Comparison between Weseley scheme and average result from all sensitivity tests to observations and multi-model-mean from \citet{ACP:Hardacre2015}.}
+  \caption{Ozone dry deposition velocities at different observation sites. Comparison between Wesely scheme and average result from all sensitivity tests to observations and multi-model-mean from \citet{ACP:Hardacre2015}.}
   \label{fig:mmm_drydep_stations}
 \end{figure}
 
@@ -658,7 +634,7 @@ The sites used in \citet{ACP:Hardacre2015} and additional ozone zonal data from 
 \section{Discussion}
 \label{sec:disc}
 dry dep velocity over water \citep{JGR:Helmig2012} Impact of ocean? Although it is a low number there is 2\/3 ocean on earth... (Think, I read this in Hardacre paper... -> \citet{ACP:Luhar2017})
-
+\citep{AE:Derwent2018} Uncertainties in surface ozone sources and sinks larger than in formulations? -> Need to read this one...
 %\subsection{HEADING}
 %\subsubsection{HEADING}
 
