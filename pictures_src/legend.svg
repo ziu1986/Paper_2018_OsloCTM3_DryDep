@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="261.16898mm"
-   height="27.013035mm"
-   viewBox="0 0 261.16898 27.013035"
+   width="335.35892mm"
+   height="20.470551mm"
+   viewBox="0 0 335.35892 20.470551"
    version="1.1"
    id="svg1765"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -367,11 +367,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="562.90968"
-     inkscape:cy="1.3288379"
+     inkscape:zoom="0.7"
+     inkscape:cx="777.59715"
+     inkscape:cy="-77.299044"
      inkscape:document-units="mm"
-     inkscape:current-layer="g712"
+     inkscape:current-layer="legend_1"
      showgrid="true"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -385,8 +385,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid3764"
-       originx="-16.880133"
-       originy="-170.71366" />
+       originx="-16.880132"
+       originy="-174.41494" />
   </sodipodi:namedview>
   <metadata
      id="metadata1762">
@@ -404,7 +404,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-16.880133,-99.273302)">
+     transform="translate(-16.880133,-102.11451)">
     <g
        id="legend_1"
        transform="matrix(0.42240361,0,0,0.42240361,-38.459389,83.724672)"
@@ -412,7 +412,7 @@
       <g
          id="line2d_42"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(5.0110052)">
+         transform="translate(5.0110052,0.47455122)">
         <path
            d="m 126,48.118125 h 24"
            style="fill:none;stroke:#000000;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dashoffset:0"
@@ -425,7 +425,7 @@
       <g
          id="text_19"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(5.0110052)">
+         transform="translate(5.0110052,0.47455122)">
         <!-- OsloCTM3: Wesely type -->
         <defs
            id="defs557">
@@ -674,7 +674,7 @@
       <g
          id="line2d_44"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(5.0110052)">
+         transform="translate(5.0110052,0.47455122)">
         <path
            d="m 126,65.731875 h 24"
            style="fill:none;stroke:#0000ff;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:1.75, 5.25;stroke-dashoffset:0"
@@ -687,7 +687,7 @@
       <g
          id="text_20"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(5.0110052)">
+         transform="translate(5.0110052,0.47455122)">
         <!-- OsloCTM3: EMEP_full -->
         <defs
            id="defs613">
@@ -875,7 +875,7 @@
       <g
          id="line2d_46"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(5.0110052)">
+         transform="translate(5.0110052,0.47455122)">
         <path
            d="m 126,83.679375 h 24"
            style="fill:none;stroke:#6495ed;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:1.75, 1.75;stroke-dashoffset:0"
@@ -888,7 +888,7 @@
       <g
          id="text_21"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(5.0110052)">
+         transform="translate(5.0110052,0.47455122)">
         <!-- OsloCTM3: EMEP_offLight -->
         <defs
            id="defs664">
@@ -1103,7 +1103,7 @@
       <g
          id="line2d_48"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(210.69342,-54.43805)">
+         transform="translate(210.69342,-53.172578)">
         <path
            d="m 126,101.62687 h 24"
            style="fill:none;stroke:#6495ed;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:8.75, 8.75;stroke-dashoffset:0"
@@ -1116,7 +1116,7 @@
       <g
          id="text_22"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(210.69342,-54.43805)">
+         transform="translate(210.69342,-53.172578)">
         <!-- OsloCTM3: EMEP_offPhen -->
         <defs
            id="defs720">
@@ -1308,7 +1308,7 @@
       <g
          id="line2d_50"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.66027996,17.637768)">
+         transform="translate(0.66027996,18.90324)">
         <path
            d="m 336.02062,48.118125 h 24"
            style="fill:none;stroke:#6495ed;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:8.75, 1.75;stroke-dashoffset:0"
@@ -1321,7 +1321,7 @@
       <g
          id="text_23"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.66027996,17.637768)">
+         transform="translate(0.66027996,18.90324)">
         <!-- OsloCTM3: EMEP_SWVL4 -->
         <defs
            id="defs775">
@@ -1499,7 +1499,7 @@
       <g
          id="line2d_52"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.66027996,17.637768)">
+         transform="translate(0.66027996,18.90324)">
         <path
            d="m 336.02062,66.065625 h 24"
            style="fill:none;stroke:#800080;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:5.25, 8.75, 1.75, 8.75;stroke-dashoffset:0"
@@ -1512,7 +1512,7 @@
       <g
          id="text_24"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.66027996,17.637768)">
+         transform="translate(0.66027996,18.90324)">
         <!-- OsloCTM3: EMEP_ppgs -->
         <g
            transform="matrix(0.12,0,0,-0.12,369.62063,70.265625)"
@@ -1672,7 +1672,7 @@
       <g
          id="line2d_54"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(207.48356,-42.285112)">
+         transform="translate(206.14136,-35.439724)">
         <path
            d="m 336.02062,84.013125 h 24"
            style="fill:none;stroke:#800080;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:5.25, 1.75, 1.75, 1.75;stroke-dashoffset:0"
@@ -1685,7 +1685,7 @@
       <g
          id="text_25"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(207.48356,-42.285112)">
+         transform="translate(206.14136,-35.439724)">
         <!-- OsloCTM3: EMEP_ppgssh -->
         <g
            transform="matrix(0.12,0,0,-0.12,369.62063,88.213125)"
@@ -1861,7 +1861,7 @@
       <g
          id="line2d_56"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.12050255,10.96503)">
+         transform="translate(-1.2217309,17.810418)">
         <path
            d="m 543.26437,48.118125 h 24"
            style="fill:none;stroke:#808080;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:5.25, 8.75, 1.75, 8.75, 1.75, 8.75;stroke-dashoffset:0"
@@ -1874,7 +1874,7 @@
       <g
          id="text_26"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.12050255,10.96503)">
+         transform="translate(-1.2217309,17.810418)">
         <!-- OsloCTM3: EMEP_ppgssh_ice -->
         <defs
            id="defs919">
@@ -2090,7 +2090,7 @@
       <g
          id="line2d_58"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.12050255,10.96503)">
+         transform="translate(-1.2217309,17.810418)">
         <path
            d="m 543.26437,66.065625 h 24"
            style="fill:none;stroke:#ffa500;stroke-width:1.75;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:5.25, 1.75, 1.75, 1.75, 1.75, 1.75;stroke-dashoffset:0"
@@ -2103,7 +2103,7 @@
       <g
          id="text_27"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.12050255,10.96503)">
+         transform="translate(-1.2217309,17.810418)">
         <!-- OsloCTM3: EMEP_ppgs_2005 -->
         <g
            transform="matrix(0.12,0,0,-0.12,576.86437,70.265625)"
@@ -2291,7 +2291,7 @@
       <g
          id="PathCollection_2"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="matrix(3.190483,0,0,3.190483,-1214.1481,-177.39279)">
+         transform="matrix(3.190483,0,0,3.190483,-1211.3517,-172.38179)">
         <g
            id="g1031"
            style="stroke-linecap:butt;stroke-linejoin:round">
@@ -2299,13 +2299,13 @@
              inkscape:connector-curvature="0"
              style="fill:#ff0000;stroke:#ff0000;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
              id="use1029"
-             d="m 555.2644,85.856876 c 0.21051,0 0.41242,-0.08364 0.56127,-0.232484 0.14885,-0.14885 0.23248,-0.350762 0.23248,-0.561266 0,-0.210505 -0.0836,-0.412417 -0.23248,-0.561266 -0.14885,-0.14885 -0.35076,-0.232484 -0.56127,-0.232484 -0.2105,0 -0.41241,0.08363 -0.56126,0.232484 -0.14885,0.148849 -0.23249,0.350761 -0.23249,0.561266 0,0.210504 0.0836,0.412416 0.23249,0.561266 0.14885,0.148849 0.35076,0.232484 0.56126,0.232484 z" />
+             d="m 621.46061,69.707749 c 0.21051,0 0.41242,-0.08364 0.56127,-0.232484 0.14885,-0.14885 0.23248,-0.350762 0.23248,-0.561266 0,-0.210505 -0.0836,-0.412417 -0.23248,-0.561266 -0.14885,-0.14885 -0.35076,-0.232484 -0.56127,-0.232484 -0.2105,0 -0.41241,0.08363 -0.56126,0.232484 -0.14885,0.148849 -0.23249,0.350761 -0.23249,0.561266 0,0.210504 0.0836,0.412416 0.23249,0.561266 0.14885,0.148849 0.35076,0.232484 0.56126,0.232484 z" />
         </g>
       </g>
       <g
          id="text_28"
          style="stroke-linecap:butt;stroke-linejoin:round"
-         transform="translate(0.12050255,10.96503)">
+         transform="translate(211.31839,-35.547482)">
         <!-- mmm Hardacre (2015) -->
         <defs
            id="defs1041">
