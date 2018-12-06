@@ -1,33 +1,64 @@
 \documentclass[manuscript]{copernicus}
+\usepackage{graphicx}
+\usepackage{subcaption}
+%\usepackage{subfigure}
 \graphicspath{{pictures/}}          % graphics
 \begin{document}
 \clearpage
 \setcounter{page}{1}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplement}
-\subsection*{S.1 Dynamic viscosity of air and quasi-laminar resistance}
-\subsubsection*{S.1.1 Sutherland's law and linear fits}
-%\appendixfigures
-\begin{center}
+\subsection*{S.1 Aerodynamical resistance}
+\begin{table}[!htbp]
+  \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$, reactivity $f^i_0$, and effective Henry's Law constant $H^i_*$.}
+  \begin{tabular}{lcrr@{$\cdot$}l}
+    \tophline
+    & $D_\chem{H_2O}/D_i$ & $f^i_0$ & \multicolumn{2}{l}{$H^i_*$}\\
+    & & & \multicolumn{2}{l}{(\unit{M\,atm^{-1}})}\\
+    \middlehline
+    \chem{O_3}     & 1.6 & 1.0 & 1 & $10^{-2}$\\
+    \chem{SO_2}    & 1.9 & 0.0 & 1 & $10^5$\\
+    \chem{NO_2}    & 1.6 & 0.1 & 1 & $10^{-2}$\\
+    \chem{H_2O_2}  & 1.4 & 1.0 & 1 & $10^5$\\
+    \chem{HCHO}    & 1.3 & 0.0 & 6 & $10^3$\\
+    \chem{NO}      & 1.3 & 0.0 & 2 & $10^{-3}$\\
+    \chem{CH_3CHO} & 1.6 & 15.0 & \multicolumn{2}{l}{$0$}\\
+    \bottomhline
+  \end{tabular}
+  %\belowtable{} % Table Footnotes
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{S.2 Dynamic viscosity of air and quasi-laminar resistance}
+\begin{figure}[!htbp]
+  \centering
   \includegraphics[height=0.4\textheight]{pictures/dynamic_viscosity.pdf}
-\end{center}
-\subsubsection*{S.1.2 Comparison of $z_o$ and $R_b$ for $\mu(T) = m\cdot T$ and Sutherland's law: \chem{H_2O}}
-%\appendixfigures
-\begin{center}
+  \caption{Sutherland's law and divergence linear fits with one or two degrees of freedom. The fit $\mu(T) = m\cdot T$ is implemented in the OsloCTM3. Despite its strong divergence at lower and higher temperatures, the impact of this choice on the results is neglicible.}
+\end{figure}
+%
+\begin{figure}[!htbp]
+  \centering
   \includegraphics[height=0.4\textheight]{pictures/dynamic_viscosity_zo_Rb.pdf}
-\end{center}
-\subsubsection*{S.1.3 $R_b$ for different species}
-%\appendixfigures
-\begin{center}
-  \includegraphics[height=0.45\textheight]{pictures/dynamic_viscosity_Rbi_1.pdf}
-  \includegraphics[height=0.45\textheight]{pictures/dynamic_viscosity_Rbi_2.pdf}
-\end{center}
+  \caption{Comparison of resulting $z_o$ and $R_b$ for $\mu(T) = m\cdot T$  (left panel) and Sutherland's law (right panel). The example displays the distributions for \chem{H_2O} after one day of model integration for both, rough and calm sea case.}
+\end{figure}
 
-%\begin{minipage}[t]{1.\textwidth}
-\subsection*{S.2 Tabulated parameters for stomatal conductance}
-\appendixtables
-\begin{sidewaystable*}[!htbp]
-  %\caption{S.2 Tabulated parameters for stomatal conductance}
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[b]{1.\textwidth}
+    \includegraphics[height=0.45\textheight]{pictures/dynamic_viscosity_Rbi_1.pdf}
+    \caption{}
+  \end{subfigure}
+  \\
+  \begin{subfigure}[b]{1.\textwidth}
+    \includegraphics[height=0.45\textheight]{pictures/dynamic_viscosity_Rbi_2.pdf}
+    \caption{}
+  \end{subfigure}
+  \caption{Resulting $R_b$ for different species. Shown are results of one day model integrations for both, Southerland's law and $\mu(T) = m\cdot T$. Shown are also the percentages above / below the given threashold.}
+\end{figure}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{S.3 Stomatal conductance}
+\begin{table*}[!htbp]
+  \caption{Tabulated parameters for stomatal conductance computation in the EMEP scheme}
   \begin{tabular}{lcccccccccccccc}
     \tophline
     Code$^*$ & $g_\text{max}$ & $f_\text{min}$ & $\phi_a$ & $\phi_b$ & $\phi_c$ & $\phi_d$ & $\phi_e$ & $\phi_f$ & $\phi_\text{AS}$ & $\phi_\text{AE}$ & $\alpha_\text{light}$ & $T_\text{min}$ & $T_\text{opt}$ & $T_\text{max}$ \\
@@ -53,41 +84,42 @@
   \end{tabular}
   \\
   \vspace{2\baselineskip}
-  \begin{tabular}{lcccccccccccccc}
+  \begin{tabular}{lcccccccccc}
     \tophline
-    Code$^*$ & $D_\text{max}$ & $D_\text{min}$ & $D_\text{crit}$ & $R_\chem{SO}$ & $R_\chem{O_3}$ & $h$ & $d_\text{SGS}$ & $d_\text{EGS}$ & $\nabla d_\text{SGS}$ & $\nabla d_\text{EGS}$ & $\text{LAI}_\text{min}$ & $\text{LAI}_\text{max}$ & LS & LE \\
-    &(\unit{kPA})&(\unit{kPa})&(\unit{kPa})&(\unit{s\,m^{-1}})&(\unit{s\,m^{-1}})&(\unit{m})&(\unit{day})&(\unit{day})&(\unit{days/^\circ lat})&(\unit{days/^\circ lat})&(\unit{m^2\,m^{-2}})&(\unit{m^2\,m^{-2}})&(\unit{days})&(\unit{days}) \\
+    Code$^*$ & $D_\text{max}$ & $D_\text{min}$ & $D_\text{crit}$ & $R_\chem{SO}$ & $R_\chem{O_3}$ & $h$ & $d_\text{SGS}$ & $d_\text{EGS}$ & $\nabla d_\text{SGS}$ & $\nabla d_\text{EGS}$\\% & $\text{LAI}_\text{min}$ & $\text{LAI}_\text{max}$ & LS & LE \\
+    &(\unit{kPA})&(\unit{kPa})&(\unit{kPa})&(\unit{s\,m^{-1}})&(\unit{s\,m^{-1}})&(\unit{m})&(\unit{day})&(\unit{day})&(\unit{days/^\circ lat})&(\unit{days/^\circ lat})\\%&(\unit{m^2\,m^{-2}})&(\unit{m^2\,m^{-2}})&(\unit{days})&(\unit{days}) \\
     \middlehline
-    CF & 0.5 & 3 & 1000 & 0 & 200 & 20 & 0 & 366 & 0 & 0 & 5 & 5 & 1 & 1\\
-    DF & 1 & 3.25 & 1000 & 0 & 200 & 20 & 100 & 307 & 1.5 & -2.0 & 0 & 4 & 20 & 30\\
-    NF & 1 & 3.2 & 1000 & 0 & 200 & 8 & 0 & 366 & 0 & 0 & 4 & 4 & 1 & 1\\
-    BF & 2.2 & 4 & 1000 & 0 & 200 & 15 & 0 & 366 & 0 & 0 & 4 & 4 & 1 & 1\\
-    TC & 1.2 & 3.2 & 8 & 0 & 200 & 1 & 123 & 213 & 2.57 & 2.57 & 0 & 3.5 & 70 & 20\\
-    MC & 1 & 2.5 & 1000 & 0 & 200 & 2 & 123 & 237 & 2.57 & 2.57 & 0 & 3 & 70 & 44\\
-    RC & 0.31 & 2.7 & 10 & 0 & 200 & 1 & 130 & 250 & 0 & 0 & 0 & 4.2 & 35 & 65\\
-    SNL & 1.3 & 3 & 1000 & 0 & 400 & 0.5 & 0 & 366 & 0 & 0 & 2 & 3 & 192 & 96\\
-    GR & 1.3 & 3 & 1000 & 0 & 1000 & 0.3 & 0 & 366 & 0 & 0 & 2 & 3.5 & 140 & 135\\
-    MS & 1.3 & 3.2 & 1000 & 0 & 200 & 2 & 0 & 366 & 0 & 0 & 2.5 & 2.5 & 1 & 1\\
-    WE  & 1 & 0 & 1000 & 50 & 400 & 0.5 & 0 & 366 & 0 & 0 & 0 & 0 & 0 & 0\\
-    TU & 1 & 0 & 1000 & 500 & 400 & 0.5 & 0 & 366 & 0 & 0 & 0 & 0 & 0 & 0\\
-    DE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0 & 0 & 0 & 0 & 0\\
-    W  & 1 & 0 & 1000 & 1 & 2000 & 0 & 0 & 366 & 0 & 0 & 0 & 0 & 0 & 0\\
-    ICE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0 & 0 & 0 & 0 & 0\\
-    U & 1 & 0 & 1000 & 400 & 400 & 10 & 0 & 366 & 0 & 0 & 0 & 0 & 0 & 0\\
+    CF & 0.5 & 3 & 1000 & 0 & 200 & 20 & 0 & 366 & 0 & 0\\% & 5 & 5 & 1 & 1\\
+    DF & 1 & 3.25 & 1000 & 0 & 200 & 20 & 100 & 307 & 1.5 & -2.0 \\%& 0 & 4 & 20 & 30\\
+    NF & 1 & 3.2 & 1000 & 0 & 200 & 8 & 0 & 366 & 0 & 0\\% & 4 & 4 & 1 & 1\\
+    BF & 2.2 & 4 & 1000 & 0 & 200 & 15 & 0 & 366 & 0 & 0 \\%& 4 & 4 & 1 & 1\\
+    TC & 1.2 & 3.2 & 8 & 0 & 200 & 1 & 123 & 213 & 2.57 & 2.57\\% & 0 & 3.5 & 70 & 20\\
+    MC & 1 & 2.5 & 1000 & 0 & 200 & 2 & 123 & 237 & 2.57 & 2.57\\% & 0 & 3 & 70 & 44\\
+    RC & 0.31 & 2.7 & 10 & 0 & 200 & 1 & 130 & 250 & 0 & 0\\% & 0 & 4.2 & 35 & 65\\
+    SNL & 1.3 & 3 & 1000 & 0 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 2 & 3 & 192 & 96\\
+    GR & 1.3 & 3 & 1000 & 0 & 1000 & 0.3 & 0 & 366 & 0 & 0\\% & 2 & 3.5 & 140 & 135\\
+    MS & 1.3 & 3.2 & 1000 & 0 & 200 & 2 & 0 & 366 & 0 & 0\\% & 2.5 & 2.5 & 1 & 1\\
+    WE  & 1 & 0 & 1000 & 50 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+    TU & 1 & 0 & 1000 & 500 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+    DE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+    W  & 1 & 0 & 1000 & 1 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+    ICE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+    U & 1 & 0 & 1000 & 400 & 400 & 10 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
     \bottomhline
   \end{tabular}
   \belowtable{$^*$: CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean scrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
-\end{sidewaystable*}
-%\end{minipage}
+\end{table*}
 
-\subsection*{S.3 Latitude dependent vegetation height}
-%\appendixfigures
-\begin{center}
+\clearpage
+\subsection*{S.4 Latitude dependent vegetation height}
+\begin{figure}[!htbp]
+  \centering
   \includegraphics[height=0.4\textheight]{pictures/tree_height.pdf}
-\end{center}
+  \caption{Extension of the latitude dependent vegetation height from northern hemisphere mid latitudes only to a global describtion. Example heights are shown for coniferous, decideous, needleleaf, and broadleaf forests as well as Mediterranean shrub. As reference the original range of EMEP is added.}
+\end{figure}
 
-\subsection*{S.4 Temperature dependent greening season}
-\subsubsection*{S.4.1 Python code snippets}
+\subsection*{S.5 Temperature dependent greening season (python 2.7)}
+{\scriptsize
 \begin{verbatim}
 #----------------------------------------------------------------------------------
 import numpy as np
@@ -261,34 +293,34 @@ def growing_season_stadyn(xr_temp):
     return(data_gday, (int)(glen))
 #----------------------------------------------------------------------------------
 \end{verbatim}
-%\subsubsection*{S.4.2 GLEN: NH mid--high latitudes only}
-%\appendixfigures
-%\begin{center}
-%  \includegraphics[height=0.4\textheight, clip, trim={0.cm 1.75cm 0.cm 1.75cm}]{pictures/GLEN_2005.pdf}
-%\end{center}
+}
+\clearpage
 
-\subsection*{S.5 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS: January 2nd 2005}
-\subsubsection*{S.5.1 Output from OpenIFS: Accumulated PAR}
-%\appendixfigures
-\begin{center}
+\subsection*{S.6 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS}
+\begin{figure}[!htbp]
+  \centering
   \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.65cm}]{pictures/PAR_as_is.png}
-\end{center}
-\subsubsection*{S.5.2 Partly de-accumulated}
-%\appendixfigures
-\begin{center}
-  \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.65cm}]{pictures/PAR_partly_deaccumulated.png}
-\end{center}
-\subsubsection*{S.5.3 De-accumulation of hour 00}
-%\appendixfigures
-\begin{center}
-  \includegraphics[height=0.4\textheight, clip, trim={0.75cm 0.75cm 0.75cm 0.65cm}]{pictures/PAR_deaccumulating_00h.png}
-\end{center}
+  \caption{Example output from OpenIFS for January 2nd 2005. PAR is accumulated over the period of one day.}
+\end{figure}
 
-\subsection*{S.6 Normed zonal average ozone dry deposition velocity}
-%\subsubsection*{S.6.1 }
-%\appendixfigures
-\begin{center}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.65cm}]{pictures/PAR_partly_deaccumulated.png}
+  \caption{Partly de-accumulated output from OpenIFS. $\text{PPFD}(t_i) = \text{PAR}(t_{i+1})-\text{PAR}(t_i)$.}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[height=0.4\textheight, clip, trim={0.75cm 0.75cm 0.75cm 0.65cm}]{pictures/PAR_deaccumulating_00h.png}
+  \caption{De-accumulation of hour 00 in the partly de-accumulated fields. $\text{PPFD}(t=0) = \text{PAR}(t=0) - \left[\text{PAR}(t=21\,\unit{h}-1\,\unit{day})-\text{PAR}(=12\,\unit{h}-1\,\unit{day})\right]$.}
+\end{figure}
+%\clearpage
+
+\subsection*{S.7 Normalized zonal average ozone dry deposition velocity}
+\begin{figure}[!htbp]
+  \centering
   \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.55cm}]{pictures/final-norm_total_ozone_drydepvelo}
-\end{center}
+  \caption{Normalized zonal average ozone dry deposition velocity.}
+\end{figure}
 
 \end{document}
