@@ -310,7 +310,7 @@ The phenology of a plant typically describes its life-cycle throughout a year, e
 Herein, we use the SGS and EGS derived parameters day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end points in the five phases of phenology in the EMEP scheme, while $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ control the temporal timing (Fig.~\ref{fig:phenology}). If GLEN is zero we are, e.g., in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}=0$. Before the start of the growing season ($\text{GDAY}=0$) $f_\text{phen}=0$. Since the EMEP scheme is tuned to northern hemisphere (NH) mid latitudes, this phenology does not apply to the tropics, after evaluation of the model results (Section~\ref{subsec:sens}), we decided to set $f_\text{phen}=1$ if GLEN is greater or equal to 365 which is the case in the tropics.
 %
 \begin{figure}[t]
-  \includegraphics[width=8.3cm]{pictures/phenology.pdf}
+  \includegraphics[width=8.3cm]{fig01}
   \caption{Sketch of the five different phases described in $f_\text{phen}$.}
   \label{fig:phenology}
 \end{figure}
@@ -457,7 +457,7 @@ The total aerosol surface deposition is then
 \end{equation}
 %
 \begin{figure*}[t]
-  \includegraphics[width=12cm]{pictures/pft_landuse_mapping.pdf}
+  \includegraphics[width=12cm]{fig02}
   \caption{Mapping of land surface categories. Either land surface categories from ISLSCP2 product of MODIS /  Community Land Model (CLM)~2 can be chosen for mapping to the nine land surface types used in the EMAP scheme. Water bodies and snow and ice categories of MODIS are actually not mapped. For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert.}
   \label{fig:pft_mapping}
 \end{figure*}
@@ -476,7 +476,7 @@ In agriculture, there are different empirical rules to estimate the SGS and EGS.
 Based on the empirical rule ($5\,\unit{^\circ C}$-days), we have pre-processed our meteorological input data offline. We added some additional criteria to prevent for \emph{false spring}: If, within these five days, the average temperature drops below or rises above $5\,\unit{^\circ C}$, the counter is reset, respectively. First, we used the $5\,\unit{^\circ C}$-days criteria for $45\,\unit{^\circ} < \text{lat} < 85\,\unit{^\circ}$ in the NH, but extended it also to $35\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$ in the SH. In all other cases and where the $5\,\unit{^\circ C}$-days criteria fails, we still use the SMOKE-BEIS parameterization. The described algorithm written in python~2.7 has been included as Supplement~S.5. An example map of the computed GLEN using the $5\,\unit{^\circ C}$-days criteria in both hemispheres is shown in Fig.~\ref{fig:glen_2015_she}.
 %
 \begin{figure}[t]
-  \includegraphics[width=8.3cm, clip, trim={0.cm 1.75cm 0.cm 1.75cm}]{pictures/GLEN_2005_she.pdf}
+  \includegraphics[width=8.3cm, clip, trim={0.cm 1.75cm 0.cm 1.75cm}]{fig03}
   \caption{Pre-processing of greening season from meteorological surface temperature fields. Shown is the total length of the greening season (GLEN) for the year 2005. The $5\,\unit{^\circ C}$-days criteria has been used in both hemispheres mid--high latitudes. Ocean has been shaded to indicate that greening season will only affect land.}
   \label{fig:glen_2015_she}
 \end{figure}
@@ -529,7 +529,7 @@ All simulations discussed in this section are summarized in Table~\ref{tab:simsu
 \end{table*}
 %
 \begin{figure}[t]
-  \includegraphics[width=8.3cm]{pictures/final-ozone_diff_maps}
+  \includegraphics[width=8.3cm]{fig04}
   \caption{Relative difference between the sensitivity simulation \emph{EMEP\_ppgsssh} and the \emph{Wesely\_type} in (a) total surface ozone; (b) average ozone dry deposition velocity; (c) total amount of ozone removed from the atmosphere by dry deposition.}
   \label{fig:diff_maps}
 \end{figure}
@@ -560,9 +560,7 @@ The annual total ozone dry deposition is shown in Fig.~\ref{fig:mmm_drydep}c. In
 There seems to be a discrepancy between the OsloCTM3 response and the multi-model-mean, since the Wesely scheme is similar to the multi-model-mean with respect to total annual ozone dry deposition, while the reconstructed $v_\text{DD}^\chem{O_3}$ of the EMEP scheme match better. This could be a sign of differences in photo-chemistry and transport (e.g. convective, advective, STE) between the OsloCTM3 and the average TF~HTAP model, but without looking at the actual $[\chem{O_3}(z_0)]$ of the TF~HTAP models that participated in the model intercomparison, we cannot elaborate on this any further. 
 
 \begin{figure}[t]
-  \includegraphics[width=8.3cm]{pictures/final-vmr_surfaceozone}\\
-  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydepvelo}\\
-  \includegraphics[width=8.3cm]{pictures/final-total_ozone_drydep}
+  \includegraphics[width=8.3cm]{fig05}
   \caption{Comparison of the manifold of OsloCTM3 integrations with respect to (a) Surface ozone concentrations, (b) Annual average ozone dry deposition velocity, (c) Total annual ozone dry deposition. The different colors indicate sets of simulation with similar baselines. The multi-model mean from the evaluation of TF~HTAP models by \citet{ACP:Hardacre2015} is shown as a reference (where available).}
   \label{fig:mmm_drydep}
 \end{figure}
@@ -580,7 +578,7 @@ In Fig.~\ref{fig:mmm_drydep_hem}, the total annual ozone dry deposition separate
 As suggested by \citet{ACP:Hardacre2015}, we retrospectively separate ozone dry deposition velocities with respect to surface types. Based on a CLM~2 average dynamic land surface map, we generated masks for 9 different surface types (Fig.~\ref{fig:pft_landsurface}a and used these to select gridboxes with a high percentage of these surface types, ranging from a meager $70\,\unit{\%}$ for cropland in the NH mid latitudes to $100\,\unit{\%}$ regarding desert, ocean, snow and ice, and tropical forest. Thus, it was not possible to exclusively select gridboxes with $100\,\unit{\%}$ cover for each surface type. Since we have not performed a full unfolding on the data, the results should be treated with slight caution. 
 %
 \begin{figure*}[t]
-  \includegraphics[width=12cm]{pictures/final-total_ozone_drydep_hem}
+  \includegraphics[width=12cm]{fig06}
   \caption{Seasonal cycle of total annual amount of ozone removed from the atmosphere through dry deposition separated into northern hemisphere (NH), tropics (TR), and southern hemisphere (SH). The multi-model mean from the evaluation of HTAP models by \citet{ACP:Hardacre2015} is shown as a reference.}
   \label{fig:mmm_drydep_hem}
 \end{figure*}
@@ -588,7 +586,7 @@ As suggested by \citet{ACP:Hardacre2015}, we retrospectively separate ozone dry 
 In Fig.~\ref{fig:mmm_drydep_season_pft}, the seasonal cycles of dry deposition velocities are shown for the nine surface categories. The patterns and absolute numbers differ substantially between the Wesely scheme and the EMEP scheme and the multi-model-mean. The divergence of the average dry deposition velocities between the Wesely scheme and the EMEP scheme in desert regions ($\Delta \overline{v}_\text{desert}^\chem{O_3} = 0.18\,\unit{cm\,s^{-1}}$) as well as grassland ($\Delta \overline{v}_\text{grassland}^\chem{O_3} = 0.54\,\unit{cm\,s^{-1}}$) is quite remarkable as well as the difference of both to the multi-model-mean in tropical forest regions ($\Delta \overline{v}_\text{tropical forest}^\chem{O_3} = 0.49\,\unit{cm\,s^{-1}}$). In contrast to the Wesely scheme and the EMEP scheme, the multi-model-mean indicates a rather pronounced seasonal cycle in desert regions ($0.10\,\unit{cm\,s^{-1}} \leq v^\chem{O_3}_\text{desert}\leq 0.15\,\unit{cm\,s^{-1}}$). The estimated dry deposition velocities over desert regions are consistent with the previously mentioned baseline values of ozone dry deposition, which means that in the EMEP scheme they are about one order of magnitude lower than in the Wesely scheme. From a limited number of ozone flux measurements in the Sahara desert, \citet{AE:Gusten1995} deduced $v^\chem{O_3}_\text{desert, day} = 0.1\,\unit{cm\,s^{-1}}$, $v^\chem{O_3}_\text{desert, night} = 0.04\,\unit{cm\,s^{-1}}$, and $\overline{v}^\chem{O_3}_\text{desert} = 0.065\,\unit{cm\,s^{-1}}$. This implies, that ozone dry deposition over desert regions is highly overestimated in the Wesely scheme as well as in TF~HTAP models, while it may be underestimated in the EMEP scheme. Similarly, the dry deposition velocities over water differ. From measurements during ship-campaigns a mean value of $\overline{v}^\chem{O_3}_\text{water} = 0.019\,\unit{cm\,s^{-1}}$ over the ocean has been deduced \citep{JGR:Helmig2012}. In a model study of different mechanisms of dry deposition to ocean waters by means of prescribed $\overline{v}_\text{water}^\chem{O_3}$ and one- and two-layer gas exchange modeling, \citet{ACP:Luhar2017} found $\overline{v}_\text{water}^\chem{O_3}$ ranging between $0.018\,\unit{cm\,s^{-1}}$ (two-layer scheme) and $0.039\,\unit{cm\,s^{-1}}$ (prescribed). With $\overline{v}^\chem{O_3}_\text{water} = (0.046\pm0.002)\,\unit{cm\,s^{-1}}$, the EMEP scheme (Section~\ref{subsubsec:Rb}) yields probably a too strong dry deposition to ocean which implies that ozone concentrations might even become larger and dry deposition even lower in the model if a two-layer scheme would be implemented. With respect to vegetation, we might be able to improve the model performance further by allowing more PFTs and phenologies, especially in regions covered by tropical or coniferous forest \citep{GCB:Anav2017}. 
 %
 \begin{figure*}[t]
-  \includegraphics[width=12cm]{pictures/final-total_ozone_drydepvelo_monthly_pft}
+  \includegraphics[width=12cm]{fig07}
   \caption{Average seasonal cycles of ozone dry deposition velocities separated by land use type. Results from \citep{ACP:Hardacre2015} are shown as a reference. We refrain from showing the full extent of \emph{EMEP\_offLight} here, since it is an extreme scenario and has been discussed already.}
   \label{fig:mmm_drydep_season_pft}
 \end{figure*}
@@ -634,8 +632,7 @@ With only one full year of simulation, the model uncertainty regarding the seaso
 
 %
 \begin{figure}[t]
-  \includegraphics[width=8.3cm]{pictures/final-monthly_ozone_drydep_stations_True}\\
-  \includegraphics[width=8.3cm]{pictures/final-monthly_drydep_divergence_True}
+  \includegraphics[width=8.3cm]{fig08}
   \caption{Ozone dry deposition fluxes at different observation sites. (a) Comparison between Wesely scheme and average result from all sensitivity studies with observational averages taken from \citet{ACP:Hardacre2015}. The model uncertainty of the OsloCTM3 is given as $1\,\sigma$ error band. The shaded area around the multi-model-mean indicates the broad range of different model results but is not an actual error band. (b) Model divergence from observation and $\chi^2$-test results.}
   \label{fig:mmm_drydep_stations}
 \end{figure}
