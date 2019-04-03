@@ -1,0 +1,125 @@
+% Authors' response
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\thispagestyle{empty}
+
+\begin{document}
+\section*{Authors' response}
+To gmd-2019-21 Anonymous Referee \#1 (02 Apr 2019):
+We thank the referee for his/her useful comments and we will take them into account in the revised version of this paper.
+In the following, we will answer the questions in detail.
+\begin{itemize}
+\item {\color{blue}  Abstract L15-17: \emph{“While high sensitivity to changes in dry deposition to
+    vegetation is found in the tropics, the largest impact on global scales is associated to
+    changes in dry deposition to the ocean and deserts.”} The authors do not provide details
+  in the paper as to what has changed in the updated scheme for such an impact.
+  \begin{itemize}
+  \item Is it the surface resistance ($R_c$) value? Or the other two resistances ($R_a$ and $R_b$)?
+  \item What are the typical values?
+  \item What value of $R_c$ for water has been used and
+  \item how it compares with the value used in the Wesely scheme?
+  \end{itemize}
+}
+  \emph{}
+
+\item {\color{blue}  P22 Table 3:}
+  \begin{itemize}
+  \item {\color{blue}  Why the deposition values for ocean + ice + land do to add up to the total
+    values reported, for all simulations?} \emph{}
+  \item {\color{blue}  The new land-based deposition values are much lower than what has
+    been reported in previous studies (e.g. Hardacre et al., 2015) and the authors largely
+    attribute this to the changes in the updated scheme for the desert surface type. However,
+    the paper does not provide any observational support to back this up. Are there
+    any relevant deposition measurements (velocity or flux) that can be used for this purpose?
+    At least, some comparison with ozone measurements (or even $\mathrm{O_3}$ reanalyses)
+    should be provided for this surface type (and perhaps others) to see if the model is
+    heading in the right direction with the updated deposition scheme.} \emph{}
+  \item {\color{blue}  It will also be useful to report the global ozone burden from the various
+    simulations.}
+    \emph{}
+  \end{itemize}
+  
+\item {\color{blue}  Section 2.1.1, Eq. (2): The statement \emph{“For certain values of z, z0, and L, this
+    may result in nonphysical (negative) values for Ra.”} I do not comprehend as to why
+  this would occur since this equation is simply based on the well-used Monin-Obukhov
+  similarity theory (MOST) for the surface layer. This occurrence would also imply negative wind speeds.
+  Actually Eq. (2) is incorrect: the term $\psi_m((z-d)/z_0)$ should be
+  $\psi_m((z-d)/L)$, and the sign of the third term on the right-hand side should be positive
+  (not negative). Given that $(z-d) > z_0$ (assuming the model is formulated correctly), Eq. (2) should always yield positive values.
+  Eqs. (3--5): I am not sure why Monteith (1973) needs to be invoked here. Given that
+  the term in the square brackets on right hand side of Eq. (2) is equal to $k\cdot u(z)/u^{*}$ as per
+  MOST, substituting this into Eq. (2) results in Eq. (5).
+  Define $z$, $z_0$ in Eq. (2). The parameter $d$ is the so-called displacement height, and is
+  not a constant (depends on the surface type).}
+  \emph{}
+
+\item {\color{blue}  P2 L25-33: The first reference to the Oslo~CTM3 in the body of the paper is
+  made here as \emph{“...we have not implemented any parameterization of these processes
+    in the Oslo CTM3 as of now.”} Some brief introductory text is required here (or better at
+  the start of the paragraph) to introduce the model properly. Also, the text between lines
+  25 -- 33 on what is not considered in the model is too detailed to be here, so shorten
+  and move it to Section 2.}
+  Since we intent to properly introduce our model (Oslo CTM3) in Section~2, we rather
+  move the sentence in L30-32 about polar boundary layer ozone depletion to Section~2.
+  Regarding that the influence of VSLS on tropospheric ozone is indirect, this reference has not been
+  well placed in this section and will be moved to the discussions (Section~4).
+
+\item {\color{blue}  P3 L19/L28 and P21 L34: There is a newer ozone dry
+  deposition study by Luhar et al. (2018, ACP, 18, 4329-4348) which, using global ozone
+  reanalyses and a more realistic process-based oceanic deposition scheme, estimates
+  the total global deposition at $722.8 \pm 87.3\,\mathrm{Tg O_3 yr^{-1}}$, which includes an oceanic
+  component of $98.4 \pm 30.0\,\mathrm{Tg O_3 yr^{-1}}$. These figures should be cited for comparison.}
+  Thank you for pointing this out. We were not aware of this study and will compare our results and refer
+  to it at the given places and within our discussion.
+  \emph{
+    \begin{itemize}
+    \item A newer study by Luhar et al. (2018), however, indicates much lower amounts ($722.8 \pm 87.3\,\mathrm{Tg\,a^{-1}}$).
+    \item Based on the global atmospheric composition reanalysis performed in the\\ ECWMF project Monitoring Atmospheric Composition and Climate (MACC) and a more realistic process-based oceanic deposition scheme, Luhar et al. (2018) found that the ozone dry deposition to oceans amounts to $98.4 \pm 30.0\,\mathrm{Tg\,a^{-1}}$.
+    \item But also the results of  Luhar et al. (2017, 2018) yield a $(19-27)\,\mathrm{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\mathrm{\%}$ of the total annual ozone dry deposition.
+    \end{itemize}
+  }
+
+\item {\color{blue}  Section 2.2: Since the present paper is about ozone dry deposition, this section
+seems like a distraction and hence should be omitted.} \emph{}
+\item {\color{blue}  Page 14, lines 15 -- 18: Anthropogenic, biomass burning, and biogenic emis-
+sions are included in the model. How are other emissions such as soil NOx, wetland
+methane, and oceanic methane and CO specified?} \emph{}
+\item {\color{blue}  Page 15, line 4: The statement “Accidentally, we have used emissions for the year
+2014 instead of 2005.” It is not clear what the consequences on the results are of this? } \emph{}
+\item {\color{blue}  Section 3.2.1: In the Fig 5 discussion, although snow and ice is discussed, there is
+no discussion on the oceanic differences between the present study and Hardacre et
+al. (2015). This is particularly important for the Southern latitudes.} \emph{}
+\item {\color{blue}  Section 3.2.1: The Hardacre et al. (2015) simulations were for the year 2001,
+whereas the present study is mostly for the year 2015 emissions (see Table 1) driven
+by the year 2005 meteorology. In addition, the observational averages used in Fig. 8
+are based on multi-year data. The authors should discuss the implications of these
+differences about different years on the deposition results presented (e.g. uncertainty).} \emph{}
+\item {\color{blue}  Page 24, lines 3 -- 4: “The annual amount of ozone dry deposition decreases by up
+to 100\% changing from the old dry deposition scheme to the new one.” Table 3 does
+not support this, but this may be true for some surface types. So please qualify the
+statement.} \emph{}
+\item {\color{blue}  Page 24, line 15: “Most of the decrease in ozone dry deposition in the Oslo CTM3
+can be attributed to changes in dry deposition velocities over the ocean and deserts.”
+What are the dominant factors in these changes? For example, is it mostly the surface
+resistance (Rc) term? For the ocean, it is likely to be Rc. For deserts, maybe Rb? Is it
+possible to quantify these differences in the resistance terms?} \emph{}
+\item {\color{blue}  Page 24, line 24: “2-layer gas exchange with ocean waters (Luhar et al., 2017).”
+As mentioned earlier, Luhar et al. (2018) has derived a more realistic process-based
+deposition scheme for the ocean, but the results for deposition velocity do not seem to
+be too different from those in Luhar et al. (2017).} \emph{}
+\item {\color{blue}  Page 25, lines 11 -- 12: The comment “This is most likely reflecting the ongoing
+industrialization process of countries in the southern hemisphere and the commitment
+and implementation of air quality regulations of industrialized nations in the northern
+hemisphere” is quite speculative and may be omitted.} \emph{}
+\item {\color{blue}  Eq. (13) cf. Eq. (14): $g_STO or G_sto$ -- use consistency with notation.} \emph{}
+\item {\color{blue}  The first half of the abstract, the text before “In this paper...,” is introductory
+material and can be deleted.} \emph{}
+\item {\color{blue}  In the abstract (lines 15-16), it is better to say “...leading to an increase in surface
+ozone of up to 100\% in some regions.”} \emph{}
+\item {\color{blue}  Page 22, line 7: “At about 4 of 6 sites.” About? Not sure?} \emph{}
+\end{itemize}
+\newpage
+
+\end{document}
