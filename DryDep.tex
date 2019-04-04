@@ -112,7 +112,7 @@
 
 
 \begin{abstract}
- High concentrations of ozone in ambient air are hazardous not only to humans but to the ecosystem in general. The impact of ozone damage on vegetation and agricultural plants in combination with advancing climate change may affect food security in the future. While the future scenarios in themselves are uncertain, there are limiting factors constraining the accuracy of surface ozone modeling also at present: The distribution and amount of ozone precursors and ozone depleting substances, the stratosphere-troposphere exchange as well as scavenging processes. Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. The conceptual dry deposition velocities are calculated following a resistance-analogous approach wherein aerodynamic, quasi laminar, and canopy resistances are key components, but these are hard to measure explicitly. In this paper, we present an update of the dry deposition scheme implemented in the Oslo~CTM3. We change from a purely empirical dry deposition parameterization to a more process-based one which is taking the state of the atmosphere and vegetation into account. Examining the sensitivity of the scheme to various parameters, our focus lies mainly on the stomatal conductance-based description of the canopy resistance. We evaluate the resulting modeled ozone dry deposition with respect to observations and multi-model studies and also estimate the impact on the modeled ozone concentrations at the surface. We show that the global annual total ozone dry deposition decreases with respect to the previous model version ($-47\,\unit{\%}$), leading to an increase in surface ozone of up to $100\,\unit{\%}$. While high sensitivity to changes in dry deposition to vegetation is found in the tropics, the largest impact on global scales is associated to changes in dry deposition to the ocean and deserts.
+ High concentrations of ozone in ambient air are hazardous not only to humans but to the ecosystem in general. The impact of ozone damage on vegetation and agricultural plants in combination with advancing climate change may affect food security in the future. While the future scenarios in themselves are uncertain, there are limiting factors constraining the accuracy of surface ozone modeling also at present: The distribution and amount of ozone precursors and ozone depleting substances, the stratosphere-troposphere exchange as well as scavenging processes. Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. The conceptual dry deposition velocities are calculated following a resistance-analogous approach wherein aerodynamic, quasi laminar, and canopy resistances are key components, but these are hard to measure explicitly. We present an update of the dry deposition scheme implemented in the Oslo~CTM3. We change from a purely empirical dry deposition parameterization to a more process-based one which is taking the state of the atmosphere and vegetation into account. Examining the sensitivity of the scheme to various parameters, our focus lies mainly on the stomatal conductance-based description of the canopy resistance. We evaluate the resulting modeled ozone dry deposition with respect to observations and multi-model studies and also estimate the impact on the modeled ozone concentrations at the surface. We show that the global annual total ozone dry deposition decreases with respect to the previous model version ($-47\,\unit{\%}$), leading to an increase in surface ozone of up to $100\,\unit{\%}$ in some regions. While high sensitivity to changes in dry deposition to vegetation is found in the tropics, the largest impact on global scales is associated to changes in dry deposition to the ocean and deserts.
 \end{abstract}
 
 
@@ -131,7 +131,7 @@ reactions with \chem{HO_2}, titration reactions, and dry deposition. We will com
 
 A dry deposition related sink limited to Arctic regions are so called ozone depleting events. They occur in spring-time in the polar boundary layer where an outburst of bromine monoxide \chem{BrO} (so called bromine explosion) leads to a rapid depletion of surface ozone \citep{JGR:Oltmans1981,GRL:Bottenheim1986,Nat:Barrie1988,JGR:Bottenheim2006}. Various schemes ranging from bulk-snow parameterization \citep{ACP:Toyota2011,GMD:Falk2018} to detailed in-snow \citep{ACP:Toyota2014a}, and aerosol chemistry \citep{ACP:Yang2010} have been successfully applied to different types of atmospheric models but do not yet cover the full range of observed events.\\
 Since ozone is highly reactive, its global mean life-time in the troposphere is roughly $22$ days but ranges between a few days in the tropical boundary layer to up to $1$ year in the upper troposphere \citep{JGR:Stevenson2005,ACP:Young2013}. The abundance of tropospheric ozone therefore varies, e.g., with time of the day (maximum $\sim$15:00 local time), season (mid-June maximum), altitude, location \citep{ACP:Schnell2015}, or weather conditions in general \citep{ACP:Otero2018}. Typical concentrations of surface ozone range from $10\,\unit{ppb}$ over the tropical Pacific to $100\,\unit{ppb}$ in the downwind areas of highly emitting sources \citep[Chapter 8]{IPCC2013}. This variability poses a challenge on both, trend analysis from observation as well as validation and intercomparison of models. At the observational side, there is only a limited number of long-term ozone observations, mainly restricted to European sites. Most of these indicate a doubling of tropospheric ozone since the 1950s \citep[Chapter 2]{IPCC2013}. But especially the very low pre-industrial ozone abundance cannot be reproduced by the likes of most models. Among the participating models in the Atmospheric Chemistry and Climate Model Intercomparison Project (ACCMIP), there is a general tendency to underestimate tropospheric ozone burden (e.g., $10-20\,\unit{\%}$ negative bias at $250\,\unit{hPa}$ in the southern hemisphere (SH) tropical region) \citep[Chapter 8]{IPCC2013}. With respect to surface ozone, \citet{ACP:Schnell2015} conclude that all ACCMIP models, which reported hourly surface ozone, tend to overestimate surface ozone values in North America and Europe in comparison with available observations. A key to fathom these slightly contradicting results may lie in the used dry deposition schemes.\\
-Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. It is estimated that about $1000 \pm 200\,\unit{Tg\,a^{-1}}$ of ozone are removed from the atmosphere by dry deposition processes \citep{ACP:Monks2015}. A newer study by \citet{ACPLuhar2018}, however, indicates much lower amounts ($722.8 \pm 87.3\,\unit{Tg\,a^{-1}}$). Conceptually, dry deposition is a product between surface ozone concentration \chem{[O_3](z_0)} and a dry deposition velocity $v^\chem{O_3}_\text{DD}$. Species dependent dry deposition velocities $v^i_\text{DD}$, which are synonymously referred to as conductance $G^i$, for any gaseous species $i$, are typically calculated following a resistance-analogous approach
+Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. It is estimated that about $1000 \pm 200\,\unit{Tg\,a^{-1}}$ of ozone are removed from the atmosphere by dry deposition processes \citep{ACP:Monks2015}. A newer study by \citet{ACP:Luhar2018}, however, indicates much lower amounts ($722.8 \pm 87.3\,\unit{Tg\,a^{-1}}$). Conceptually, dry deposition is a product between surface ozone concentration \chem{[O_3](z_0)} and a dry deposition velocity $v^\chem{O_3}_\text{DD}$. Species dependent dry deposition velocities $v^i_\text{DD}$, which are synonymously referred to as conductance $G^i$, for any gaseous species $i$, are typically calculated following a resistance-analogous approach
 \begin{equation}
   v^i_\text{DD} = \frac{1}{R_a + R^i_b + R^i_c},
   \label{eq:drydep_velo}
@@ -228,10 +228,10 @@ wherein $\text{LAI}$ is the leaf area index (zero for non-vegetated surfaces), $
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection*{Stomatal conductance}
-The stomatal conductance is a measure of the rate of \chem{CO_2} exchange and evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence their capability of respiration (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}, but is not taken into account in our formulation. To reflect part of the underlying mechanism, the stomatal conductance $g_\text{STO}$ in the EMAP scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
+The stomatal conductance is a measure of the rate of \chem{CO_2} exchange and evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence their capability of respiration (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}, but is not taken into account in our formulation. To reflect part of the underlying mechanism, the stomatal conductance $G_\text{sto}$ in the EMAP scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
 %
 \begin{equation}
-  g_\text{STO} = g^\text{m}_\text{max} \cdot f_\text{phen} \cdot f_\text{light} \cdot \max{\left\{f_\text{min}, f_T \cdot f_D \cdot f_\text{SW}\right\}}.
+  G_\text{sto} = g^\text{m}_\text{max} \cdot f_\text{phen} \cdot f_\text{light} \cdot \max{\left\{f_\text{min}, f_T \cdot f_D \cdot f_\text{SW}\right\}}.
   \label{eq:stomatal}
 \end{equation}
 %
@@ -379,62 +379,6 @@ The vegetation height $h(N, \text{lat})$ in the EMEP scheme is linearly decreasi
 \subsubsection{Mapping of land surface types}
 The Oslo~CTM3 is configured to read land surface types from, either \href{https://daac.ornl.gov/cgi-bin/dataset_lister.pl?p=29}{ISLSCP2} product from MODIS or Community Land Model (\href{http://www.cgd.ucar.edu/tss/clm/}{CLM})~2 categories, which have to be mapped to the nine land surface types used in the EMEP scheme (Fig.~\ref{fig:pft_mapping}). For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From the MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert. This mapping differs from the one used in the Wesely scheme.
 
-\subsection{Dry deposition scheme for other gases and aerosols}
-For \chem{NH_3}, \chem{SO_2}, and \chem{HNO_3}, we follow exactly the treatment as described by \citet{ACP:Simpson2012}. Since the dry deposition velocity for \chem{CO} is very small, we use a prescribed value for $v_\text{DD}^\chem{CO}$ of $0.03\,\unit{cm\,s^{-1}}$.
-
-The EMEP scheme for aerosols (BC, OC, \chem{SO_4}, \chem{MSA}, SOA) defines the surface deposition velocity $V_\text{ds}$ as
-\begin{equation}
-  \frac{V_\text{ds}}{u_*} =
-  \begin{cases}
-    a_1 &  \emph{if} \quad L \ge 0\,\unit{m}, \\
-    a_1 \cdot F_N \left[ 1 + \left(\frac{a_2}{25}\right)^{2/3}\right] & \emph{if} \quad -25\,\unit{m} < L < 0\,\unit{m}, \\
-    a_1 \cdot F_N \left[ 1 + \left(\frac{-a_2}{L}\right)^{2/3}\right] & \emph{if} \quad L \le -25\,\unit{m}, \\
-  \end{cases}
-\end{equation}
-wherein $F_N = 3$ for fine nitrate and ammonium and $F_N = 1$ for all other species. $L$ is again the Obukhov length. $a_2 = 300\,\unit{m}$, while $a_1$ differs for forest and non-forest. To account for hydrophilic and hydrophobic BC/OC aerosols on dry and wet surfaces, we diverge slightly from the EMAP scheme in the definition of the parameter $a_1$. From pre-studies with an aerosol microphysic model, we find
-\begin{equation}
-  a_1^\text{hydrophob.} = 0.025\,\unit{cm\,s^{-1}} \cdot \overline{u_*}
-\end{equation}
-and
-\begin{equation} 
-  a_1^\text{hydrophil.} = 0.2\,\unit{cm\,s^{-1}} \cdot \overline{u_*},
-\end{equation}
-with the annual mean friction velocity $\overline{u_*}$. Our definition of $a_1$ is then:
-\begin{equation}
-  a_1 =
-  \begin{cases}
-    \emph{if} \quad \emph{land} &
-    \begin{cases}
-      \emph{if} \quad \emph{non-forest} &  a_1^\text{hydrophob.}\\
-      \emph{if} \quad \emph{forest} &
-      \begin{cases}
-        \emph{if} \quad \emph{dry} & \max{\left\{a_1^\text{hydrophob.}, 0.008\cdot\frac{\text{SAI}}{10}\right\}}\\
-        \emph{if} \quad \emph{wet} & 1.5\cdot\max{\left\{a_1^\text{hydrophob.}, 0.008\cdot\frac{\text{SAI}}{10}\right\}}\\
-    \end{cases}\\
-    \end{cases}\\
-    \emph{if} \quad \emph{ocean} &
-    \begin{cases}
-      a_1^\text{hydrophil.}\\
-      a_1^\text{hydrophob.}\\
-    \end{cases}\\
-    \emph{if} \quad \emph{ice} &
-    \begin{cases}
-      \emph{if} \quad \theta \le 0\,\unit{^\circ C} & a_1^\text{hydrophob.}\\
-      \emph{if} \quad \theta > 0\,\unit{^\circ C} &
-      \begin{cases}
-        a_1^\text{hydrophil.}\\
-        a_1^\text{hydrophob.}\\
-      \end{cases}\\
-    \end{cases}\\
-  \end{cases}
-  \label{eq:dd_aerosol_a1}
-\end{equation}
-%
-The total aerosol surface deposition is defined as
-\begin{equation}
- V_\text{ds}^\text{tot} = \sum_{N=0}^{N_\text{max}} V_\text{ds}(N) \cdot f_L(N).
-\end{equation}
-%
 \begin{figure*}[t]
   \includegraphics[width=12cm]{fig02}
   \caption{Mapping of land surface categories. Either land surface categories from ISLSCP2 product of MODIS /  Community Land Model (CLM)~2 can be chosen for mapping to the nine land surface types used in the EMAP scheme. Water bodies and snow and ice categories of MODIS are actually not mapped. For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert.}
@@ -571,25 +515,25 @@ In Fig.~\ref{fig:mmm_drydep_season_pft}, the seasonal cycles of dry deposition v
 \end{figure*}
 %
 
-Finally, we take a look at the different global as well as hemispheric dry deposition sinks for ozone (Table~\ref{tab:ozone_sinks}). Despite its vastness, the ocean amounts only to about $23\,\unit{\%}$ of the global ozone sink due to dry deposition in the Oslo~CTM3 with operative EMEP scheme, while ice and snow account for far less than $1\,\unit{\%}$. The remainder is deposited to various other land surfaces of which deserts might be the most neglected in process-modeling. The total annual dry deposition in the EMEP scheme is about one-third below the multi-model-mean result by \citet{ACP:Hardacre2015}. But also the results of \citet{ACP:Luhar2017, ACP:Luhar2018} yield a $(19-27)\,\unit{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\unit{\%}$ of the total annual ozone dry deposition.
+Finally, we take a look at the different global as well as hemispheric dry deposition sinks for ozone (Table~\ref{tab:ozone_sinks}). Despite its vastness, the ocean amounts only to about $33\,\unit{\%}$ of the global ozone sink due to dry deposition in the Oslo~CTM3 with operative EMEP scheme (\emph{EMEP\_full}), while permanently ice and snow covered regions account for $1.5\,\unit{\%}$. The remainder is deposited to land surfaces of which deserts might be the most neglected in process-modeling. The total annual dry deposition in the EMEP scheme is about one-third below the multi-model-mean result by \citet{ACP:Hardacre2015}. But also the results of \citet{ACP:Luhar2017, ACP:Luhar2018} yield a $(19-27)\,\unit{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\unit{\%}$ of the total annual ozone dry deposition. In particular, \citet{ACP:Luhar2018} found that current model estimates of ozone dry deposition to the ocean may be three times too high compared to their analyisis. This implies that the ozone dry deposition to the ocean the Oslo~CTM3 is too high as well.
 %
 \begin{table*}[t]
-\caption{Total ozone dry deposition for the respective year in \unit{Tg\,a^{-1}} separated into ocean, ice and, land contributions.}
-\begin{tabular}{lccccccccccccr}
+\caption{Total ozone dry deposition for the respective model experiment in \unit{Tg\,a^{-1}}. The global ozone dry deposition has been weighted by ocean, ice and, land fraction in each gridbox, respectively. \emph{Ice} herein refers to regions at high latitudes that are permanently covered by ice and snow.}
+\begin{tabular}{lccccccccc|cccr}
 \tophline
 \multirow{3}{*}{Simulation} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land} & \multicolumn{3}{c}{Total} & $\Delta^\dagger$\\
 & NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
 & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & (\unit{\%})\\
 \middlehline
-Wesely\_type & 88.7 & 110.3 & 199.0 & 0.7 & 5.0 & 5.7 & 346.1 & 153.5 & 499.6 & 612.4 & 347.9 & 960.2 & 46.8\\
-EMEP\_full & 67.1 & 84.7 & 151.8 & 0.6 & 4.4 & 5.0 & 236.0 & 112.3 & 348.2 & 408.6 & 245.6 & 654.2 & 0.0\\
-EMEP\_offLight & 66.6 & 84.1 & 150.7 & 0.6 & 4.4 & 5.0 & 267.8 & 129.8 & 397.6 & 451.3 & 267.2 & 718.6 & 9.8\\
-EMEP\_offPhen & 67.1 & 84.6 & 151.7 & 0.6 & 4.4 & 5.0 & 239.9 & 116.0 & 355.9 & 413.9 & 249.9 & 663.7 & 1.5\\
-EMEP\_SWVL4 & 68.1 & 86.1 & 154.2 & 0.6 & 4.5 & 5.1 & 241.8 & 115.0 & 356.8 & 417.2 & 250.7 & 667.9 & 2.1\\
-EMEP\_ppgs & 67.1 & 84.6 & 151.7 & 0.6 & 4.4 & 5.0 & 238.7 & 112.6 & 351.3 & 411.4 & 246.0 & 657.4 & 0.5\\
-EMEP\_ppgssh & 67.0 & 84.5 & 151.6 & 0.6 & 4.4 & 5.0 & 243.9 & 119.4 & 363.3 & 419.4 & 253.6 & 673.0 & 2.9\\
-EMEP\_ppgssh\_ice & 66.5 & 84.8 & 151.3 & 0.2 & 1.3 & 1.4 & 240.3 & 120.4 & 360.7 & 413.0 & 251.1 & 664.1 & 1.5\\
-EMEP\_ppgs\_2005 & 66.8 & 83.5 & 150.4 & 0.6 & 4.4 & 5.0 & 237.8 & 110.0 & 347.8 & 409.2 & 240.7 & 649.9 & -0.7\\
+Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3 & 612.4 & 347.9 & 960.2 & 46.8\\
+EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6 & 408.6 & 245.6 & 654.2 & 0.0\\
+EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0 & 451.3 & 267.2 & 718.6 & 9.8\\
+EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7 & 413.9 & 249.9 & 663.7 & 1.5\\
+EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8 & 417.2 & 250.7 & 667.9 & 2.1\\
+EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9 & 411.4 & 246.0 & 657.4 & 0.5\\
+EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6 & 419.4 & 253.6 & 673.0 & 2.9\\
+EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2 & 413.0 & 251.1 & 664.1 & 1.5\\
+EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7 & 409.2 & 240.7 & 649.9 & -0.7\\
 \bottomhline
 \end{tabular}
 \belowtable{$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
@@ -602,7 +546,7 @@ EMEP\_ppgs\_2005 & 66.8 & 83.5 & 150.4 & 0.6 & 4.4 & 5.0 & 237.8 & 110.0 & 347.8
 \label{subsec:obs}
 In this section, we compare our results to observations. For all comparisons, we use the original resolution of the Oslo~CTM3 ($2.25^\circ\times 2.25^\circ$) instead of the re-gridded ($3^\circ\times 3^\circ$).
 
-In Fig.~\ref{fig:mmm_drydep_stations}a, seasonal cycles of average ozone dry deposition fluxes for six observation sites are shown. We have computed a model average for all sensitivity studies at the closest grid point and show the $1\,\sigma$ error band. The shaded area around the multi-model-mean indicates the broad range of model results but is not an actual error band since such is not given in \citet{ACP:Hardacre2015}. At about $4$ of $6$ sites, the EMEP scheme performs better than the Wesely scheme and better than or the same as the multi-model-mean. We use a $\chi^2$-test
+In Fig.~\ref{fig:mmm_drydep_stations}a, seasonal cycles of average ozone dry deposition fluxes for six observation sites are shown. We have computed a model average for all sensitivity studies at the closest grid point and show the $1\,\sigma$ error band. The shaded area around the multi-model-mean indicates the broad range of model results but is not an actual error band since such is not given in \citet{ACP:Hardacre2015}. At $4$ of $6$ sites, the EMEP scheme performs better than the Wesely scheme and better than or the same as the multi-model-mean. We use a $\chi^2$-test
 \begin{equation}
   \chi^2 = \sum_{i=1}^{12}\frac{\left(\overline{\chem{O_3}}_{\text{DD,\,}i}^\text{sim}-\overline{\chem{O_3}}_{\text{DD,\,}i}^\text{obs}\right)^2}{\sigma_i^2},
 \end{equation}
@@ -625,7 +569,7 @@ The annual amount of ozone dry deposition decreases by up to $100\,\unit{\%}$ ch
 
 We found the response of the Oslo~CTM3 to the changes in dry deposition velocities from the old and the new dry deposition scheme to be consistent. A decrease in $v_\text{DD}^\chem{O_3}$ leads to a decrease in total ozone dry deposition and an increase in surface ozone concentration $[\chem{O_3}(z_0)]$. As the new scheme is more similar to the multi-model-mean \citep{ACP:Hardacre2015} with respect to dry deposition velocities, while the old scheme agrees better in terms of total dry deposition, there is an apparent discrepancy when comparing with the multi-model-mean. Without knowing $[\chem{O_3}(z_0)]$ of the TF~HTAP models, this cannot be resolved and may hint to, e.g., differences in photo-chemistry, stratosphere-troposphere-exchange as well as to differences in aerosol loadings among many other aspects. Especially the STE depends on the stratospheric ozone abundance which is, e.g. strongly affected by the contribution of very short-lived ozone depleting substances (VSLS) \citep{JGR:Warwick2006, ACP:Ziska2013, ACP:Hossaini2016, ACP:Falk2017} and not taken into account in the Oslo~CTM3.
 
-Most of the decrease in ozone dry deposition in the Oslo~CTM3 can be attributed to changes in dry deposition velocities over the ocean and deserts. This is mainly due to updates of the respective prescribed dry deposition velocities $v_\text{DD}^\chem{O_3}$. In case of desert and grasslands the difference between the old and new prescribed value is at the order of $1$ magnitude. Over the ocean, the absolute change in dry deposition is small, but it is accumulated over a large area which is especially amplified in the southern hemisphere. Small adjustments to the lower limits in our quasi-laminar layer resistance formulation may help improve the Oslo~CTM3 performance in this regard. With respect to available measurements of dry deposition velocities of ozone over desert \citep{AE:Gusten1995} and ocean \citep{JGR:Helmig2012}, the new Oslo~CTM3 dry deposition scheme slightly underestimates ozone dry deposition velocities over the former and overestimate them over the latter. Regarding the vastness of the ocean and the ongoing desertification, it may be worthwhile to study dry deposition in these regimes at a more process-oriented level, e.g., 2-layer gas exchange with ocean waters \citep{ACP:Luhar2017}, wave braking and spray \citep{ACP:Pozzer2006}.
+Most of the decrease in ozone dry deposition in the Oslo~CTM3 can be attributed to changes in dry deposition velocities over the ocean and deserts. This is mainly due to updates of the respective prescribed dry deposition velocities $v_\text{DD}^\chem{O_3}$. In case of desert and grasslands the difference between the old and new prescribed value is at the order of $1$ magnitude. Over the ocean, the absolute change in dry deposition is small, but it is accumulated over a large area which is especially amplified in the southern hemisphere. Small adjustments to the lower limits in our quasi-laminar layer resistance formulation may help improve the Oslo~CTM3 performance in this regard. With respect to available measurements of dry deposition velocities of ozone over desert \citep{AE:Gusten1995} and ocean \citep{JGR:Helmig2012}, the new Oslo~CTM3 dry deposition scheme slightly underestimates ozone dry deposition velocities over the former and overestimate them over the latter. Regarding the vastness of the ocean and the ongoing desertification, it may be worthwhile to revise the dry deposition scheme for these regimes and add more process-oriented formulations, e.g., 2-layer gas exchange with ocean waters \citep{ACP:Luhar2017, ACP:Luhar2018}, wave braking and spray \citep{ACP:Pozzer2006}.
 
 Although dry deposition to ice and snow amounts to less than $1\,\unit{\%}$ of the total global annual ozone dry deposition, a decrease in prescribed dry deposition velocity in accordance to combined measurements and model studies \citep{ACP:Helmig2007} causes almost a doubling in the surface ozone concentrations in the high Arctics and affects surface ozone concentrations down to latitudes at about $50\,\unit{^\circ}$ in both hemispheres. By comparing with results from the multi-model evaluation \citep{ACP:Hardacre2015}, we conclude that it is important to use this updated ozone dry deposition velocity to counter an Arctic surface ozone low-bias in the model, however, this could lead to an overcompensation (high-bias).
 

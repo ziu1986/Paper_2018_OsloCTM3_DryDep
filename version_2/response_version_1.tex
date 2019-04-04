@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{xcolor}
+\usepackage{url}
 \thispagestyle{empty}
 
 \begin{document}
@@ -11,7 +12,7 @@ To gmd-2019-21 Anonymous Referee \#1 (02 Apr 2019):
 We thank the referee for his/her useful comments and we will take them into account in the revised version of this paper.
 In the following, we will answer the questions in detail.
 \begin{itemize}
-\item {\color{blue}  Abstract L15-17: \emph{“While high sensitivity to changes in dry deposition to
+\item {\color{blue}  Abstract L15--17: \emph{“While high sensitivity to changes in dry deposition to
     vegetation is found in the tropics, the largest impact on global scales is associated to
     changes in dry deposition to the ocean and deserts.”} The authors do not provide details
   in the paper as to what has changed in the updated scheme for such an impact.
@@ -27,7 +28,20 @@ In the following, we will answer the questions in detail.
 \item {\color{blue}  P22 Table 3:}
   \begin{itemize}
   \item {\color{blue}  Why the deposition values for ocean + ice + land do to add up to the total
-    values reported, for all simulations?} \emph{}
+    values reported, for all simulations?}
+    Are we right to assume that the referee is trying to state that the values for ocean, ice, and land do
+    not add up to the total global ozone dry deposition? If that is the case, he is right, for we exclusively
+    selected gridboxes associated to more then 98\% with the three surface types (ocean, ice, and land), while
+    \emph{total} comprises all gridboxes. We admit that this is not clear.
+    We shall clarify this in the table caption and the revised manuscript, repeat the computation of the values
+    with the proper weighting, and adapt the numbers.
+    We may also add that \emph{ice} in this analyis only
+    referes to regions at high latitudes that are permanently covered by ice and snow and hence does not take
+    sea ice and mountain glaciers into account. In the Oslo~CTM3, as written elsewhere in the manuscript, we
+    compute dry deposition on ice and snow based on meteorological data. Therefore, the given values in Table~3
+    comprise ozone dry deposition on sea ice in the case of \emph{ocean} and on snow covered land during winter
+    in case of \emph{land}.
+   
   \item {\color{blue}  The new land-based deposition values are much lower than what has
     been reported in previous studies (e.g. Hardacre et al., 2015) and the authors largely
     attribute this to the changes in the updated scheme for the desert surface type. However,
@@ -81,44 +95,75 @@ In the following, we will answer the questions in detail.
     \end{itemize}
   }
 
-\item {\color{blue}  Section 2.2: Since the present paper is about ozone dry deposition, this section
-seems like a distraction and hence should be omitted.} \emph{}
-\item {\color{blue}  Page 14, lines 15 -- 18: Anthropogenic, biomass burning, and biogenic emis-
+\item {\color{blue}  P11 Section 2.2: Since the present paper is about ozone dry deposition, this section
+  seems like a distraction and hence should be omitted.}
+  The referee is right in his/her assessment. We therefore omit this section in the revised version of our manuscript.
+  
+\item {\color{blue}  P14 L15-18: Anthropogenic, biomass burning, and biogenic emis-
 sions are included in the model. How are other emissions such as soil NOx, wetland
-methane, and oceanic methane and CO specified?} \emph{}
-\item {\color{blue}  Page 15, line 4: The statement “Accidentally, we have used emissions for the year
-2014 instead of 2005.” It is not clear what the consequences on the results are of this? } \emph{}
-\item {\color{blue}  Section 3.2.1: In the Fig 5 discussion, although snow and ice is discussed, there is
-no discussion on the oceanic differences between the present study and Hardacre et
-al. (2015). This is particularly important for the Southern latitudes.} \emph{}
-\item {\color{blue}  Section 3.2.1: The Hardacre et al. (2015) simulations were for the year 2001,
-whereas the present study is mostly for the year 2015 emissions (see Table 1) driven
-by the year 2005 meteorology. In addition, the observational averages used in Fig. 8
-are based on multi-year data. The authors should discuss the implications of these
-differences about different years on the deposition results presented (e.g. uncertainty).} \emph{}
-\item {\color{blue}  Page 24, lines 3 -- 4: “The annual amount of ozone dry deposition decreases by up
-to 100\% changing from the old dry deposition scheme to the new one.” Table 3 does
+methane, and oceanic methane and CO specified?}
+  Emissions from soil and wetlands are computed by MEGAN. $\mathrm{NO_x}$ emissions therein are upscaled to match Global Emissions InitiAtive (GEIA) inventory.
+  For oceanic emissions of $\mathrm{CO}$, we use predifined global fields of POET (available through ACCENT/GEIA, \url{http://accent.aero.jussieu.fr/database_table_inventories.php}). $\mathrm{CH_4}$ from oceans is taken from surface data from HYMN (\url{https://www.esrl.noaa.gov/gmd/ccgg/trends_ch4/}), given for years 2003--2005.
+  We shall include this information in the revised manuscript.
+  
+\item {\color{blue}  P15 L4: The statement “Accidentally, we have used emissions for the year
+  2014 instead of 2005.” It is not clear what the consequences on the results are of this? }
+  \emph{}
+  
+\item {\color{blue}  Section 3.2.1: }
+  \begin{itemize}
+  \item {\color{blue}  Section 3.2.1:In the Fig 5 discussion, although snow and ice is discussed, there is
+    no discussion on the oceanic differences between the present study and Hardacre et
+    al. (2015). This is particularly important for the Southern latitudes.}
+    \emph{}
+    
+  \item {\color{blue}  The Hardacre et al. (2015) simulations were for the year 2001,
+    whereas the present study is mostly for the year 2015 emissions (see Table 1) driven
+    by the year 2005 meteorology. In addition, the observational averages used in Fig. 8
+    are based on multi-year data. The authors should discuss the implications of these
+    differences about different years on the deposition results presented (e.g. uncertainty).}
+    \emph{}
+  \end{itemize}
+  
+\item {\color{blue}  P24 L3--4: \emph{“The annual amount of ozone dry deposition decreases by up
+to 100\% changing from the old dry deposition scheme to the new one.”} Table 3 does
 not support this, but this may be true for some surface types. So please qualify the
-statement.} \emph{}
-\item {\color{blue}  Page 24, line 15: “Most of the decrease in ozone dry deposition in the Oslo CTM3
-can be attributed to changes in dry deposition velocities over the ocean and deserts.”
+statement.}
+  \emph{}
+  
+\item {\color{blue}  P24 L15: \emph{“Most of the decrease in ozone dry deposition in the Oslo CTM3
+can be attributed to changes in dry deposition velocities over the ocean and deserts.”}
 What are the dominant factors in these changes? For example, is it mostly the surface
-resistance (Rc) term? For the ocean, it is likely to be Rc. For deserts, maybe Rb? Is it
-possible to quantify these differences in the resistance terms?} \emph{}
-\item {\color{blue}  Page 24, line 24: “2-layer gas exchange with ocean waters (Luhar et al., 2017).”
+resistance ($R_c$) term? For the ocean, it is likely to be $R_c$. For deserts, maybe $R_b$? Is it
+possible to quantify these differences in the resistance terms?}
+  \emph{}
+  
+\item {\color{blue}  P24 L24: \emph{“2-layer gas exchange with ocean waters (Luhar et al., 2017).”}
 As mentioned earlier, Luhar et al. (2018) has derived a more realistic process-based
 deposition scheme for the ocean, but the results for deposition velocity do not seem to
-be too different from those in Luhar et al. (2017).} \emph{}
-\item {\color{blue}  Page 25, lines 11 -- 12: The comment “This is most likely reflecting the ongoing
+be too different from those in Luhar et al. (2017).}
+  \emph{}
+  
+\item {\color{blue}  P25 L11--12: The comment \emph{“This is most likely reflecting the ongoing
 industrialization process of countries in the southern hemisphere and the commitment
 and implementation of air quality regulations of industrialized nations in the northern
-hemisphere” is quite speculative and may be omitted.} \emph{}
-\item {\color{blue}  Eq. (13) cf. Eq. (14): $g_STO or G_sto$ -- use consistency with notation.} \emph{}
-\item {\color{blue}  The first half of the abstract, the text before “In this paper...,” is introductory
-material and can be deleted.} \emph{}
-\item {\color{blue}  In the abstract (lines 15-16), it is better to say “...leading to an increase in surface
-ozone of up to 100\% in some regions.”} \emph{}
-\item {\color{blue}  Page 22, line 7: “At about 4 of 6 sites.” About? Not sure?} \emph{}
+hemisphere”} is quite speculative and may be omitted.}
+  \emph{}
+  
+\item {\color{blue}  Eq. (13) cf. Eq. (14): $g_\mathrm{STO}$ or $G_\mathrm{sto}$ -- use consistency with notation.}
+  Thanks for pointing this out. We will change this in the revised version of the manuscript.
+  
+\item {\color{blue}  The first half of the abstract, the text before \emph{“In this paper...,”} is introductory
+  material and can be deleted.}
+  Thanks for pointing this out. We will remove it in the revised version.
+  
+\item {\color{blue}  Abstract L15--16: it is better to say “...leading to an increase in surface
+  ozone of up to 100\% in some regions.”}
+  We follow the advice and change the sentence accordingly.
+  
+\item {\color{blue}  P22 L7: \emph{“At about 4 of 6 sites.” About? Not sure?}}
+  Thanks for pointing out the missplaced \emph{"about"} in this context. We are certain about the number. 
+  
 \end{itemize}
 \newpage
 
