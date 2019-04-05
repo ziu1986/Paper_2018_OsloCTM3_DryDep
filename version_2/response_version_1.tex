@@ -45,14 +45,48 @@ In the following, we will answer the questions in detail.
   \item {\color{blue}  The new land-based deposition values are much lower than what has
     been reported in previous studies (e.g. Hardacre et al., 2015) and the authors largely
     attribute this to the changes in the updated scheme for the desert surface type. However,
-    the paper does not provide any observational support to back this up. Are there
-    any relevant deposition measurements (velocity or flux) that can be used for this purpose?
-    At least, some comparison with ozone measurements (or even $\mathrm{O_3}$ reanalyses)
-    should be provided for this surface type (and perhaps others) to see if the model is
-    heading in the right direction with the updated deposition scheme.} \emph{}
+    the paper does not provide any observational support to back this up. }
+    \begin{itemize}
+    \item {\color{blue}  Are there any relevant deposition measurements (velocity or flux) that can be used for this purpose?}
+      The only paper we know of is a study by G\"{u}sten~et~al.~(1996) in which measurements of ozone concentrations
+      and fluxes onto the Sahara desert are described and dry deposition velocities deduced. We can include a more
+      thorough discussion of our results with respect to the observed fluxes by G\"{u}sten~et~al.~(1996) in the
+      revision of our manuscript. 
+    \item {\color{blue}  At least, some comparison with ozone measurements (or even $\mathrm{O_3}$ reanalyses)
+      should be provided for this surface type (and perhaps others) to see if the model is
+      heading in the right direction with the updated deposition scheme.}
+      Thank you for the advise. We will look into this.
+    \end{itemize}
   \item {\color{blue}  It will also be useful to report the global ozone burden from the various
     simulations.}
-    \emph{}
+    Since Table~3 is already at maximum width with respect to the the page width, we shall show the global
+    tropospheric ozone burden in a seperate table (\ref{tab:trop_ozone_burden}). If we compare our results
+    with Stevenson~et~al.~(2006)
+    ($344\pm 39\,\mathrm{Tg}$) and the number given in IPPC AR5 (2013) ($337\pm 23\,\mathrm{Tg}$), we find
+    that the ozone burden in the Oslo~CTM3 is higher then the model average from the start (\emph{Wesely scheme}).
+    The implementation of the \emph{EMEP scheme}
+    increases the tropospheric burden by roughly 8\,\% (compare \emph{Wesely type} and EMEP\_full).
+    \begin{table*}[h]
+        \caption{Annual mean tropospheric ozone burden for all experiments and $1 \sigma$ standart deviation.}
+        \centering
+        \begin{tabular}{lrcl}
+          \hline
+          Experiment & \multicolumn{3}{c}{Trop. $\mathrm{O_3}$}\\
+          &  \multicolumn{3}{c}{(Tg)}\\
+          \hline
+          Wesely type & 361 & $\pm$ & 21\\
+          EMEP\_full & 392 & $\pm$ & 28\\
+          EMEP\_offLight & 388 & $\pm$ & 26\\
+          EMEP\_offPhen & 392 & $\pm$ & 27\\
+          EMEP\_SWVL4 & 402 & $\pm$ & 31\\
+          EMEP\_ppgs & 392 & $\pm$ & 28\\
+          EMEP\_ppgssh & 391 & $\pm$ & 27\\
+          EMEP\_ppgssh\_ice & 403 & $\pm$ & 31\\
+          EMEP\_ppgs\_2005 & 386 & $\pm$ & 26\\
+          \hline
+        \end{tabular}
+        \label{tab:trop_ozone_burden}
+    \end{table*}
   \end{itemize}
   
 \item {\color{blue}  Section 2.1.1, Eq. (2): The statement \emph{“For certain values of z, z0, and L, this

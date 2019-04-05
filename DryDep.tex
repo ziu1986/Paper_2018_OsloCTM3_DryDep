@@ -518,26 +518,26 @@ In Fig.~\ref{fig:mmm_drydep_season_pft}, the seasonal cycles of dry deposition v
 Finally, we take a look at the different global as well as hemispheric dry deposition sinks for ozone (Table~\ref{tab:ozone_sinks}). Despite its vastness, the ocean amounts only to about $33\,\unit{\%}$ of the global ozone sink due to dry deposition in the Oslo~CTM3 with operative EMEP scheme (\emph{EMEP\_full}), while permanently ice and snow covered regions account for $1.5\,\unit{\%}$. The remainder is deposited to land surfaces of which deserts might be the most neglected in process-modeling. The total annual dry deposition in the EMEP scheme is about one-third below the multi-model-mean result by \citet{ACP:Hardacre2015}. But also the results of \citet{ACP:Luhar2017, ACP:Luhar2018} yield a $(19-27)\,\unit{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\unit{\%}$ of the total annual ozone dry deposition. In particular, \citet{ACP:Luhar2018} found that current model estimates of ozone dry deposition to the ocean may be three times too high compared to their analyisis. This implies that the ozone dry deposition to the ocean the Oslo~CTM3 is too high as well.
 %
 \begin{table*}[t]
-\caption{Total ozone dry deposition for the respective model experiment in \unit{Tg\,a^{-1}}. The global ozone dry deposition has been weighted by ocean, ice and, land fraction in each gridbox, respectively. \emph{Ice} herein refers to regions at high latitudes that are permanently covered by ice and snow.}
-\begin{tabular}{lccccccccc|cccr}
-\tophline
-\multirow{3}{*}{Simulation} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land} & \multicolumn{3}{c}{Total} & $\Delta^\dagger$\\
-& NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
-& \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & (\unit{\%})\\
-\middlehline
-Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3 & 612.4 & 347.9 & 960.2 & 46.8\\
-EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6 & 408.6 & 245.6 & 654.2 & 0.0\\
-EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0 & 451.3 & 267.2 & 718.6 & 9.8\\
-EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7 & 413.9 & 249.9 & 663.7 & 1.5\\
-EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8 & 417.2 & 250.7 & 667.9 & 2.1\\
-EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9 & 411.4 & 246.0 & 657.4 & 0.5\\
-EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6 & 419.4 & 253.6 & 673.0 & 2.9\\
-EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2 & 413.0 & 251.1 & 664.1 & 1.5\\
-EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7 & 409.2 & 240.7 & 649.9 & -0.7\\
-\bottomhline
-\end{tabular}
-\belowtable{$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
-\label{tab:ozone_sinks}
+  \caption{Total ozone dry deposition for the respective model experiment in \unit{Tg\,a^{-1}}. The global ozone dry deposition has been weighted by ocean, ice and, land fraction in each gridbox, respectively. \emph{Ice} herein refers to regions at high latitudes that are permanently covered by ice and snow.}
+  \begin{tabular}{lccccccccc|cccr}
+    \tophline
+    \multirow{3}{*}{Experiment} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land} & \multicolumn{3}{c}{Total} & $\Delta^\dagger$\\
+    & NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
+    & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & (\unit{\%})\\
+    \middlehline
+    Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3 & 612.4 & 347.9 & 960.2 & 46.8\\
+    EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6 & 408.6 & 245.6 & 654.2 & 0.0\\
+    EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0 & 451.3 & 267.2 & 718.6 & 9.8\\
+    EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7 & 413.9 & 249.9 & 663.7 & 1.5\\
+    EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8 & 417.2 & 250.7 & 667.9 & 2.1\\
+    EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9 & 411.4 & 246.0 & 657.4 & 0.5\\
+    EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6 & 419.4 & 253.6 & 673.0 & 2.9\\
+    EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2 & 413.0 & 251.1 & 664.1 & 1.5\\
+    EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7 & 409.2 & 240.7 & 649.9 & -0.7\\
+    \bottomhline
+  \end{tabular}
+  \belowtable{$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
+  \label{tab:ozone_sinks}
 \end{table*}
 %
 
