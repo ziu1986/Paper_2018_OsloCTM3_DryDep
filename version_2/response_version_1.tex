@@ -10,20 +10,31 @@
 \section*{Authors' response}
 To gmd-2019-21 Anonymous Referee \#1 (02 Apr 2019):
 We thank the referee for his/her useful comments and we will take them into account in the revised version of this paper.
-In the following, we will answer the questions in detail.
+In the following, we will respond to the questions in detail.
 \begin{itemize}
 \item {\color{blue}  Abstract L15--17: \emph{“While high sensitivity to changes in dry deposition to
     vegetation is found in the tropics, the largest impact on global scales is associated to
     changes in dry deposition to the ocean and deserts.”} The authors do not provide details
-  in the paper as to what has changed in the updated scheme for such an impact.
+  in the paper as to what has changed in the updated scheme for such an impact.}
+  We elaborate on the source of the \emph{"largest impact on global scales"} in Section~3.2.2 (P18 L4--11). But we have to admit that it might not be clear to which resistance term the changes in prescribed dry deposition velocities apply. In our formulation $R_c$ includes both stomatal and non-stomatal conductance.
   \begin{itemize}
-  \item Is it the surface resistance ($R_c$) value? Or the other two resistances ($R_a$ and $R_b$)?
-  \item What are the typical values?
-  \item What value of $R_c$ for water has been used and
-  \item how it compares with the value used in the Wesely scheme?
+  \item {\color{blue} Is it the surface resistance ($R_c$) value? Or the other two resistances ($R_a$ and $R_b$)? What are the typical values?}
+    It would be indeed interesting to look at the resistence terms seperately. However, they are not available in our output files.
+    Technically, it would be possible to force the model output but such would involve redoing the experiments and run for at least a couple of (model) weeks. 
+  \item {\color{blue} What value of $R_c$ for water has been used and how it compares with the value used in the Wesely scheme?}
+    We have given the prescribed dry deposition velocities in Section~3.2.2 for the \emph{Wesely scheme}:
+    \begin{itemize}
+    \item $v_\mathrm{desert}^\mathrm{O_3}\equiv v_\mathrm{tundra}^\mathrm{O_3} = 0.26\,\mathrm{cm\,s^{-1}}$,
+    \item $v_\mathrm{ice/snow}^\mathrm{O_3}\equiv v_\mathrm{water}^\mathrm{O_3}=0.07\,\mathrm{cm\,s^{-1}}$
+    \end{itemize}
+    For the \emph{EMEP scheme}:
+    \begin{itemize}
+    \item $v_\mathrm{desert}^\mathrm{O_3}=0.05\,\mathrm{cm\,s^{-1}}$,
+    \item $v^\mathrm{O_3}_\mathrm{tundra} = 0.24\,\mathrm{cm\,s^{-1}}$,
+    \item $v_\mathrm{ice/snow}^\mathrm{O_3}\equiv v_\mathrm{water}^\mathrm{O_3}=0.05\,\mathrm{cm\,s^{-1}}$.
+    \end{itemize}
+    They are dominated by the prescribed values of TODO...
   \end{itemize}
-}
-  \emph{}
 
 \item {\color{blue}  P22 Table 3:}
   \begin{itemize}
@@ -60,7 +71,7 @@ In the following, we will answer the questions in detail.
   \item {\color{blue}  It will also be useful to report the global ozone burden from the various
     simulations.}
     Since Table~3 is already at maximum width with respect to the the page width, we shall show the global
-    tropospheric ozone burden in a seperate table (\ref{tab:trop_ozone_burden}). If we compare our results
+    tropospheric ozone burden in a seperate table (see the following Table~\ref{tab:trop_ozone_burden}). If we compare our results
     with Stevenson~et~al.~(2006)
     ($344\pm 39\,\mathrm{Tg}$) and the number given in IPPC AR5 (2013) ($337\pm 23\,\mathrm{Tg}$), we find
     that the ozone burden in the Oslo~CTM3 is higher then the model average from the start (\emph{Wesely scheme}).
@@ -95,13 +106,18 @@ In the following, we will answer the questions in detail.
   similarity theory (MOST) for the surface layer. This occurrence would also imply negative wind speeds.
   Actually Eq. (2) is incorrect: the term $\psi_m((z-d)/z_0)$ should be
   $\psi_m((z-d)/L)$, and the sign of the third term on the right-hand side should be positive
-  (not negative). Given that $(z-d) > z_0$ (assuming the model is formulated correctly), Eq. (2) should always yield positive values.
+  (not negative). Given that $(z-d) > z_0$ (assuming the model is formulated correctly), Eq. (2) should always yield positive values.\\
   Eqs. (3--5): I am not sure why Monteith (1973) needs to be invoked here. Given that
   the term in the square brackets on right hand side of Eq. (2) is equal to $k\cdot u(z)/u^{*}$ as per
   MOST, substituting this into Eq. (2) results in Eq. (5).
   Define $z$, $z_0$ in Eq. (2). The parameter $d$ is the so-called displacement height, and is
   not a constant (depends on the surface type).}
-  \emph{}
+  The reviewer is indeed correct that this equation is wrong. In fact, we originally
+  used Eq.~(2) with $L$ in denominator for the second term. The sign error was likely the reason why the \emph{Monteith method}
+  was chosen. Certainly, an update shall be considered in the future, but it is not feasible to
+  redo all simulations now. In the revised version of the manuscript, we change the text from \emph{"In Simpson et al.
+  (2003,2012) it is described as [...] fall back to the [...]"} to \emph{"For technical reasons, we
+have used the [...]"}.
 
 \item {\color{blue}  P2 L25-33: The first reference to the Oslo~CTM3 in the body of the paper is
   made here as \emph{“...we have not implemented any parameterization of these processes
@@ -109,10 +125,12 @@ In the following, we will answer the questions in detail.
   the start of the paragraph) to introduce the model properly. Also, the text between lines
   25 -- 33 on what is not considered in the model is too detailed to be here, so shorten
   and move it to Section 2.}
-  Since we intent to properly introduce our model (Oslo CTM3) in Section~2, we rather
-  move the sentence in L30-32 about polar boundary layer ozone depletion to Section~2.
-  Regarding that the influence of VSLS on tropospheric ozone is indirect, this reference has not been
-  well placed in this section and will be moved to the discussions (Section~4).
+  \begin{itemize}
+  \item The Oslo CTM3 is properly introduced in Section~2. Hence, we move the sentence in L30-32 about \emph{polar boundary layer ozone depletion} to Section~2:
+    \emph{"Although the ozone depleting events in the polar boundary layer (Section~1) are important to understand surface ozone abundance in Arctic regions in spring-time, no parameterization of these processes is implemented in the Oslo~CTM3 as of now."}
+  \item Given that the influence of VSLS on tropospheric ozone is indirect (through depletion of ozone in the upper troposphere -- lower stratosphere and STE), this reference (L32--33) rather belongs to the discussion in Section~4 and will be moved:
+    \emph{"In particular, the STE depends on the stratospheric ozone abundance which is, e.g. affected by very short-lived ozone depleting substances (VSLS) (Warwick et al., 2006; Ziska et al., 2013; Hossaini et al., 2016; Falk et al., 2017) and not taken into account in the Oslo~CTM3."}
+  \end{itemize}
 
 \item {\color{blue}  P3 L19/L28 and P21 L34: There is a newer ozone dry
   deposition study by Luhar et al. (2018, ACP, 18, 4329-4348) which, using global ozone
@@ -123,9 +141,9 @@ In the following, we will answer the questions in detail.
   to it at the given places and within our discussion.
   \emph{
     \begin{itemize}
-    \item A newer study by Luhar et al. (2018), however, indicates much lower amounts ($722.8 \pm 87.3\,\mathrm{Tg\,a^{-1}}$).
-    \item Based on the global atmospheric composition reanalysis performed in the\\ ECWMF project Monitoring Atmospheric Composition and Climate (MACC) and a more realistic process-based oceanic deposition scheme, Luhar et al. (2018) found that the ozone dry deposition to oceans amounts to $98.4 \pm 30.0\,\mathrm{Tg\,a^{-1}}$.
-    \item But also the results of  Luhar et al. (2017, 2018) yield a $(19-27)\,\mathrm{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\mathrm{\%}$ of the total annual ozone dry deposition.
+    \item "A newer study by Luhar et al. (2018), however, indicates much lower amounts ($722.8 \pm 87.3\,\mathrm{Tg\,a^{-1}}$)."
+    \item "Based on the global atmospheric composition reanalysis performed in the\\ ECWMF project Monitoring Atmospheric Composition and Climate (MACC) and a more realistic process-based oceanic deposition scheme, Luhar et al. (2018) found that the ozone dry deposition to oceans amounts to $98.4 \pm 30.0\,\mathrm{Tg\,a^{-1}}$."
+    \item "But also the results of  Luhar et al. (2017, 2018) yield a $(19-27)\,\mathrm{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\mathrm{\%}$ of the total annual ozone dry deposition."
     \end{itemize}
   }
 
@@ -136,9 +154,8 @@ In the following, we will answer the questions in detail.
 \item {\color{blue}  P14 L15-18: Anthropogenic, biomass burning, and biogenic emis-
 sions are included in the model. How are other emissions such as soil NOx, wetland
 methane, and oceanic methane and CO specified?}
-  Emissions from soil and wetlands are computed by MEGAN. $\mathrm{NO_x}$ emissions therein are upscaled to match Global Emissions InitiAtive (GEIA) inventory.
-  For oceanic emissions of $\mathrm{CO}$, we use predifined global fields of POET (available through ACCENT/GEIA, \url{http://accent.aero.jussieu.fr/database_table_inventories.php}). $\mathrm{CH_4}$ from oceans is taken from surface data from HYMN (\url{https://www.esrl.noaa.gov/gmd/ccgg/trends_ch4/}), given for years 2003--2005.
-  We shall include this information in the revised manuscript.
+  Emissions from soil and wetlands are computed by MEGAN. Resultant $\mathrm{NO_x}$ emissions are upscaled to match Global Emissions InitiAtive (GEIA) inventory.
+  For oceanic emissions of $\mathrm{CO}$, we use predifined global fields (POET, available through ACCENT/GEIA, \url{http://accent.aero.jussieu.fr/database_table_inventories.php}). $\mathrm{CH_4}$ for oceans is taken from surface data from NASA's HYMN project (\url{https://www.esrl.noaa.gov/gmd/ccgg/trends_ch4/}) given for the years 2000--2004. We shall include this information in the revised manuscript.
   
 \item {\color{blue}  P15 L4: The statement “Accidentally, we have used emissions for the year
   2014 instead of 2005.” It is not clear what the consequences on the results are of this? }
@@ -163,7 +180,8 @@ methane, and oceanic methane and CO specified?}
 to 100\% changing from the old dry deposition scheme to the new one.”} Table 3 does
 not support this, but this may be true for some surface types. So please qualify the
 statement.}
-  \emph{}
+  We have indeed not specified our statement in the mentioned sentence, while we had done so elsewhere in the manuscript (P15 L12). We complete our statement in the revised version of the manuscript:
+  \emph{"[...] ozone dry deposition decreases by up to $100\,\%$ over all major desert areas [...]. At the same time, it increases over tropical forest.}
   
 \item {\color{blue}  P24 L15: \emph{“Most of the decrease in ozone dry deposition in the Oslo CTM3
 can be attributed to changes in dry deposition velocities over the ocean and deserts.”}
@@ -176,27 +194,28 @@ possible to quantify these differences in the resistance terms?}
 As mentioned earlier, Luhar et al. (2018) has derived a more realistic process-based
 deposition scheme for the ocean, but the results for deposition velocity do not seem to
 be too different from those in Luhar et al. (2017).}
-  \emph{}
+  We acknowledge Luhar et al. (2018) and write:
+  \emph{“2-layer gas exchange with ocean waters (Luhar et al., 2017, 2018).”}
   
 \item {\color{blue}  P25 L11--12: The comment \emph{“This is most likely reflecting the ongoing
 industrialization process of countries in the southern hemisphere and the commitment
 and implementation of air quality regulations of industrialized nations in the northern
 hemisphere”} is quite speculative and may be omitted.}
-  \emph{}
+  We follow the kind advise of the referee and remove the sentence in the revised version of the manuscript.
   
 \item {\color{blue}  Eq. (13) cf. Eq. (14): $g_\mathrm{STO}$ or $G_\mathrm{sto}$ -- use consistency with notation.}
   Thanks for pointing this out. We will change this in the revised version of the manuscript.
   
 \item {\color{blue}  The first half of the abstract, the text before \emph{“In this paper...,”} is introductory
   material and can be deleted.}
-  Thanks for pointing this out. We will remove it in the revised version.
+  This is indeed the case and we will remove it in the revised version.
   
 \item {\color{blue}  Abstract L15--16: it is better to say “...leading to an increase in surface
   ozone of up to 100\% in some regions.”}
-  We follow the advice and change the sentence accordingly.
+  We follow the advice of the referee and change the sentence accordingly.
   
 \item {\color{blue}  P22 L7: \emph{“At about 4 of 6 sites.” About? Not sure?}}
-  Thanks for pointing out the missplaced \emph{"about"} in this context. We are certain about the number. 
+  Thanks for pointing out the misplaced \emph{"about"} in this sentence. We are certain regarding that number. 
   
 \end{itemize}
 \newpage
