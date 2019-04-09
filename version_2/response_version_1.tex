@@ -4,6 +4,7 @@
 \usepackage[english]{babel}
 \usepackage{xcolor}
 \usepackage{url}
+\usepackage{multirow}
 \thispagestyle{empty}
 
 \begin{document}
@@ -20,11 +21,16 @@ In the following, we will respond to the questions in detail.
   \begin{itemize}
   \item {\color{blue} Is it the surface resistance ($R_c$) value? Or the other two resistances ($R_a$ and $R_b$)? What are the typical values?}
     It would be indeed interesting to look at the resistance terms separately. However, they are not available in our output files.
-    Technically, it would be possible to force the model output but such would involve redoing the experiments and run for at least a couple of (model) weeks. In our formulation, the surface resistance $R_c$ includes both stomatal and non-stomatal conductance. In case, of non-vegetated surfaces, such as \emph{desert}, \emph{ocean}, and \emph{snow/ice}, the non-stomatal conductance, $G_\mathrm{ns}^\mathrm{O_3}$, is dominant. For water, $R_b = 10\,\mathrm{s\,m^{-1}}$ in most cases. Thus, $R_c^\mathrm{O_3} \approx R_\mathrm{gs}^\mathrm{O_3} \propto (v_\mathrm{DD}^\mathrm{O_3})^{-1}$ (for $R_c$ values see Table~S2 in the manuscript Supplement~S.3).
+    Technically, it would be possible to force the model output but such would involve redoing the experiments and run for at least a couple of (model) weeks. In our formulation, the surface resistance $R_c$ includes both stomatal and non-stomatal conductance. In case, of non-vegetated surfaces, such as \emph{desert}, \emph{ocean}, and \emph{snow/ice}, the non-stomatal conductance, $G_\mathrm{ns}^\mathrm{O_3}$, is dominant. For water, $R_b = 10\,\mathrm{s\,m^{-1}}$ in most cases. Thus, $R_\mathrm{gs}^\mathrm{O_3} \approx R_c^\mathrm{O_3} \propto (v_\mathrm{DD}^\mathrm{O_3})^{-1}$ (for $R_c$ values see Table~S2 in the manuscript Supplement~S.3).
   \item {\color{blue} What value of $R_c$ for water has been used and how it compares with the value used in the Wesely scheme?}
-    We have given the prescribed dry deposition velocities in Section~3.2.2 for the \emph{Wesely scheme}
-    $v_\mathrm{water}^\mathrm{O_3} = 0.07\,\mathrm{cm\,s^{-1}}$ and for the \emph{EMEP scheme}
-    $v_\mathrm{water}^\mathrm{O_3} = 0.05\,\mathrm{cm\,s^{-1}}$. Surface resistances are thus $R_c \approx 1429\,\mathrm{s\,m^{-1}}$ (\emph{Wesely scheme}) and $R_c = 2000\,\mathrm{s\,m^{-1}}$ (\emph{EMEP scheme}), respectively.
+    We have given the prescribed dry deposition velocities in Section~3.2.2:
+    \begin{itemize}
+      \item For the \emph{Wesely scheme}
+        $v_\mathrm{water}^\mathrm{O_3} = 0.07\,\mathrm{cm\,s^{-1}}$ and
+        \item for the \emph{EMEP scheme}
+          $v_\mathrm{water}^\mathrm{O_3} = 0.05\,\mathrm{cm\,s^{-1}}$.
+    \end{itemize}
+    Surface resistances for water are thus $R_c \approx 1429\,\mathrm{s\,m^{-1}}$ (\emph{Wesely scheme}) and $R_c = 2000\,\mathrm{s\,m^{-1}}$ (\emph{EMEP scheme}), respectively.
   \end{itemize}
 
 \item {\color{blue}  P22 Table 3:}
@@ -33,16 +39,37 @@ In the following, we will respond to the questions in detail.
     values reported, for all simulations?}
     Are we right to assume that the referee is trying to state that the values for ocean, ice, and land do
     not add up to the total global ozone dry deposition? If that is the case, he is right, for we exclusively
-    selected gridboxes associated to more then 98\% with the three surface types (ocean, ice, and land), while
+    selected gridboxes associated to more then 98\% to the three surface types (ocean, ice, and land), while
     \emph{total} comprises all gridboxes. We admit that this is not clear.
-    We shall clarify this in the table caption and the revised manuscript, repeat the computation of the values
-    with the proper weighting, and adapt the numbers.
+    We shall repeat the computation of the values using the proper weighting and adapt the numbers (Table~\ref{tab:ozone_sinks}).
     We may also add that \emph{ice} in this analysis only
     refers to regions at high latitudes that are permanently covered by ice and snow and hence does not take
     sea ice and mountain glaciers into account. In the Oslo~CTM3, as written elsewhere in the manuscript, we
     compute dry deposition on ice and snow based on meteorological data. Therefore, the given values in Table~3
     comprise ozone dry deposition on sea ice in the case of \emph{ocean} and on snow covered land during winter
     in case of \emph{land}.
+    \begin{table*}[t]
+  \caption{Total ozone dry deposition for the respective model experiment in $\mathrm{Tg\,a^{-1}}$. The global ozone dry deposition has been weighted by ocean, ice and, land fraction in each gridbox, respectively. \emph{Ice} herein refers to regions at high latitudes that are permanently covered by ice and snow.}
+  \begin{tabular}{lccccccccc|cccr}
+    \hline
+    \multirow{3}{*}{Experiment} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land} & \multicolumn{3}{c}{Total} & $\Delta^\dagger$\\
+    & NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
+    & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & $(\mathrm{\%})$\\
+    \hline
+    Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3 & 612.4 & 347.9 & 960.2 & 46.8\\
+    EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6 & 408.6 & 245.6 & 654.2 & 0.0\\
+    EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0 & 451.3 & 267.2 & 718.6 & 9.8\\
+    EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7 & 413.9 & 249.9 & 663.7 & 1.5\\
+    EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8 & 417.2 & 250.7 & 667.9 & 2.1\\
+    EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9 & 411.4 & 246.0 & 657.4 & 0.5\\
+    EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6 & 419.4 & 253.6 & 673.0 & 2.9\\
+    EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2 & 413.0 & 251.1 & 664.1 & 1.5\\
+    EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7 & 409.2 & 240.7 & 649.9 & -0.7\\
+    \hline
+  \end{tabular}
+  {$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
+  \label{tab:ozone_sinks}
+\end{table*}
    
   \item {\color{blue}  The new land-based deposition values are much lower than what has
     been reported in previous studies (e.g. Hardacre et al., 2015) and the authors largely
