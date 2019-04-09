@@ -197,7 +197,7 @@ wherein $\text{Pr}$ is the Prandtl number (typically 0.72 for air and other gase
 \begin{equation}
   \text{Sc}_i = \frac{D_\chem{H_2O}}{D_i} \cdot \text{Sc}_\chem{H_2O},
 \end{equation}
-with the molecular diffusivity for any gas $D_i$, the Schmidt number of water ($\text{Sc}_\chem{H_2O}=0.6$) and its molecular diffusivity ($D_\chem{H_2O}=0.21\cdot10^{-4}\,\unit{m^2\,s^{-1}}$). The used ratios $D_\chem{H_2O}/D_i$ are tabulated in Supplement~S.1.
+with the molecular diffusivity for any gas $D_i$, the Schmidt number of water ($\text{Sc}_\chem{H_2O}=0.6$) and its molecular diffusivity ($D_\chem{H_2O}=0.21\cdot10^{-4}\,\unit{m^2\,s^{-1}}$). The used ratios $D_\chem{H_2O}/D_i$ are tabulated in Supplement~S.1.\\
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Over ocean, we use \citep[Eq.~(54),][]{ACP:Simpson2012}
@@ -428,7 +428,7 @@ In this section, we present results from a manifold of Oslo~CTM3 model integrati
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensitivity studies}
 \label{subsec:sens}
-Due to significant differences between the EMEP scheme and the previous Wesely scheme with respect to implementation, it is not possible to fully disentangle and trace back every difference in results to a respective change. Therefore, we conducted in total nine sensitivity studies that mainly assess the parameter space of the stomatal conductance within the EMEP scheme. A reference simulation featuring the Wesely scheme has been conducted and will be referred to as \emph{Wesely\_type}, indicating that other implementations of the original work by \citet{AE:Wesely1989} may exist in other models. For all model integrations, the meteorological reference year is 2005. This choice only affects the comparison with data and multi-model studies that either perform analysis on decadal averages or differing years. After finishing the work on the integration of the EMEP parameterization and initial testing, \emph{EMEP\_full} is the baseline simulation for the sensitivity studies, \emph{EMEP\_offLight} and \emph{EMEP\_offPhen}. As indicated by the names, these scenarios are extreme cases, setting $f_\text{light}$ and $f_\text{phen}$ to 1, respectively. During analysis of the results, we found, that the SMOKE-BEIS parameterization of the greening season did not extend to the boreal and subarctic regions. Especially in Europe, this basically results in a suppression of canopy resistance in northern Scandinavia. The following sensitivity study therefore comprises two different versions of pre-processed greening season (refer to Section~\ref{subsec:pre-pro} for details): Mid and high latitudes in the northern hemisphere only (\emph{EMEP\_ppgs}) and for both, northern and southern hemisphere mid and high latitudes (\emph{EMEP\_ppgssh}). Building on the latter, we want to confirm the importance of the $v^\chem{O_3}_\text{ice/snow}$ update \citep{ACP:Helmig2007} in the Subarctic and Arctics, within the framework of the Oslo~CTM3 (\emph{EMEP\_ppgssh\_ice}). Accidentally, we have used emissions for the year 2014 instead of 2005. Though, we take this as opportunity to assess the impact on ozone regarding differing emissions (\emph{EMEP\_ppgs\_2005}). As mentioned previously, the simulations were initially conducted with the uppermost soil water level (SWVL1) in the implementation of $f_\text{SW}$. A final sensitivity study was conducted changing to soil water level at depths deeper than $1\,\unit{m}$ (\emph{EMEP\_SWVL4}).
+Due to significant differences between the EMEP scheme and the previous Wesely scheme with respect to implementation, it is not possible to fully disentangle and trace back every difference in results to a respective change. Therefore, we conducted in total nine sensitivity studies that mainly assess the parameter space of the stomatal conductance within the EMEP scheme. A reference simulation featuring the Wesely scheme has been conducted and will be referred to as \emph{Wesely\_type}, indicating that other implementations of the original work by \citet{AE:Wesely1989} may exist in other models. For all model integrations, the meteorological reference year is 2005. This choice affects the comparison with data and multi-model studies that either perform analysis on decadal averages or differing years. After finishing the work on the integration of the EMEP parameterization and initial testing, \emph{EMEP\_full} is the baseline simulation for the sensitivity studies, \emph{EMEP\_offLight} and \emph{EMEP\_offPhen}. As indicated by the names, these scenarios are extreme cases, setting $f_\text{light}$ and $f_\text{phen}$ to 1, respectively. During analysis of the results, we found, that the SMOKE-BEIS parameterization of the greening season did not extend to the boreal and subarctic regions. Especially in Europe, this basically results in a suppression of canopy resistance in northern Scandinavia. The following sensitivity study therefore comprises two different versions of pre-processed greening season (refer to Section~\ref{subsec:pre-pro} for details): Mid and high latitudes in the northern hemisphere only (\emph{EMEP\_ppgs}) and for both, northern and southern hemisphere mid and high latitudes (\emph{EMEP\_ppgssh}). Building on the latter, we want to confirm the importance of the $v^\chem{O_3}_\text{ice/snow}$ update \citep{ACP:Helmig2007} in the Subarctic and Arctics, within the framework of the Oslo~CTM3 (\emph{EMEP\_ppgssh\_ice}). Accidentally, we have used emissions for the year 2014 instead of 2005 in all model experiments except for \emph{EMEP\_ppgs\_2005}. {\bf TODO: Actually assess the impact of the differing emissions!} As mentioned previously, the simulations were initially conducted with the uppermost soil water level (SWVL1) in the implementation of $f_\text{SW}$. A final sensitivity study was conducted changing to soil water level at depths deeper than $1\,\unit{m}$ (\emph{EMEP\_SWVL4}).
 All simulations discussed in this section are summarized in Table~\ref{tab:simsum}. An x in the table denotes that the model was run exactly in the configuration as has been described in Section~\ref{sec:model_des}.
 
 \begin{table*}[t]
@@ -517,7 +517,7 @@ In Fig.~\ref{fig:mmm_drydep_season_pft}, the seasonal cycles of dry deposition v
 \end{figure*}
 %
 
-Finally, we take a look at the different global as well as hemispheric dry deposition sinks for ozone (Table~\ref{tab:ozone_sinks}). Despite its vastness, the ocean amounts only to about $33\,\unit{\%}$ of the global ozone sink due to dry deposition in the Oslo~CTM3 with operative EMEP scheme (\emph{EMEP\_full}), while permanently ice and snow covered regions account for $1.5\,\unit{\%}$. The remainder is deposited to land surfaces of which deserts might be the most neglected in process-modeling. The total annual dry deposition in the EMEP scheme is about one-third below the multi-model-mean result by \citet{ACP:Hardacre2015}. But also the results of \citet{ACP:Luhar2017, ACP:Luhar2018} yield a $(19-27)\,\unit{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\unit{\%}$ of the total annual ozone dry deposition. In particular, \citet{ACP:Luhar2018} found that current model estimates of ozone dry deposition to the ocean may be three times too high compared to their analyisis. This implies that the ozone dry deposition to the ocean the Oslo~CTM3 is too high as well.
+Finally, we take a look at the different global as well as hemispheric dry deposition sinks for ozone (Table~\ref{tab:ozone_sinks}). Despite its vastness, the ocean amounts only to about $33\,\unit{\%}$ of the global ozone sink due to dry deposition in the Oslo~CTM3 with operative EMEP scheme (\emph{EMEP\_full}), while permanently ice and snow covered regions account for $1.5\,\unit{\%}$. The remainder is deposited to land surfaces of which deserts might be the most neglected in process-modeling. The total annual dry deposition in the EMEP scheme is about one-third below the multi-model-mean result by \citet{ACP:Hardacre2015}. But also the results of \citet{ACP:Luhar2017, ACP:Luhar2018} yield a $(19-27)\,\unit{\%}$ lower ozone dry deposition than the models participating in the model intercomparison, with deposition to ocean ranging between $(12-21)\,\unit{\%}$ of the total annual ozone dry deposition. In particular, \citet{ACP:Luhar2018} found that current model estimates of ozone dry deposition to the ocean may be three times too high compared to their analyisis. This implies that the ozone dry deposition to the ocean the Oslo~CTM3 is too high as well. {\bf TODO include reference to Table~\ref{tab:trop_ozone_burden} in the text.}
 %
 \begin{table*}[t]
   \caption{Total ozone dry deposition for the respective model experiment in \unit{Tg\,a^{-1}}. The global ozone dry deposition has been weighted by ocean, ice and, land fraction in each gridbox, respectively. \emph{Ice} herein refers to regions at high latitudes that are permanently covered by ice and snow.}
@@ -542,7 +542,27 @@ Finally, we take a look at the different global as well as hemispheric dry depos
   \label{tab:ozone_sinks}
 \end{table*}
 %
-
+\begin{table*}[h]
+  \caption{Annual mean tropospheric ozone burden for all experiments and $1 \sigma$ standard deviation.}
+  \centering
+  \begin{tabular}{lrcl}
+    \tophline
+    Experiment & \multicolumn{3}{c}{Trop. \chem{O_3}}\\
+    &  \multicolumn{3}{c}{(Tg)}\\
+    \middlehline
+    Wesely type & 361 & $\pm$ & 21\\
+    EMEP\_full & 392 & $\pm$ & 28\\
+    EMEP\_offLight & 388 & $\pm$ & 26\\
+    EMEP\_offPhen & 392 & $\pm$ & 27\\
+    EMEP\_SWVL4 & 402 & $\pm$ & 31\\
+    EMEP\_ppgs & 392 & $\pm$ & 28\\
+    EMEP\_ppgssh & 391 & $\pm$ & 27\\
+    EMEP\_ppgssh\_ice & 403 & $\pm$ & 31\\
+    EMEP\_ppgs\_2005 & 386 & $\pm$ & 26\\
+    \bottomhline
+  \end{tabular}
+  \label{tab:trop_ozone_burden}
+\end{table*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with observations}
 \label{subsec:obs}
