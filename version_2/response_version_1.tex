@@ -21,7 +21,7 @@ In the following, we will respond to the questions in detail.
   \begin{itemize}
   \item {\color{blue} Is it the surface resistance ($R_c$) value? Or the other two resistances ($R_a$ and $R_b$)? What are the typical values?}
     It would be indeed interesting to look at the resistance terms separately. However, they are not available in our output files.
-    Technically, it would be possible to force the model output but such would involve redoing the experiments and run for at least a couple of (model) weeks. In our formulation, the surface resistance $R_c$ includes both stomatal and non-stomatal conductance. In case, of non-vegetated surfaces, such as \emph{desert}, \emph{ocean}, and \emph{snow/ice}, the non-stomatal conductance, $G_\mathrm{ns}^\mathrm{O_3}$, is dominant. For water, $R_b = 10\,\mathrm{s\,m^{-1}}$ in most cases. Thus, $R_\mathrm{gs}^\mathrm{O_3} \approx R_c^\mathrm{O_3} \propto (v_\mathrm{DD}^\mathrm{O_3})^{-1}$ (for $R_c$ values see Table~S2 in the manuscript Supplement~S.3).
+    Technically, it would be possible to force the model output but such would involve redoing the experiments and run for at least a couple of (model) weeks. In our formulation, the surface resistance $R_c$ includes both stomatal and non-stomatal conductance. In case, of non-vegetated surfaces, such as \emph{desert}, \emph{ocean}, and \emph{snow/ice}, the non-stomatal conductance, $G_\mathrm{ns}^\mathrm{O_3}$, is dominant. For water, $R_b = 10\,\mathrm{s\,m^{-1}}$ in most cases which is $2$ orders of magnitude smaller than $R_c$. Thus, $R_\mathrm{gs}^\mathrm{O_3} \approx R_c^\mathrm{O_3} \propto (v_\mathrm{DD}^\mathrm{O_3})^{-1}$ (for $R_c$ values see Table~S2 in the manuscript Supplement~S.3).
   \item {\color{blue} What value of $R_c$ for water has been used and how it compares with the value used in the Wesely scheme?}
     We have given the prescribed dry deposition velocities in Section~3.2.2:
     \begin{itemize}
@@ -37,7 +37,7 @@ In the following, we will respond to the questions in detail.
   \begin{itemize}
   \item {\color{blue}  Why the deposition values for ocean + ice + land do to add up to the total
     values reported, for all simulations?}
-    Are we right to assume that the referee is trying to state that the values for ocean, ice, and land do
+    Are we right to assume that the referee asks why the values for ocean, ice, and land do
     not add up to the total global ozone dry deposition? If that is the case, he is right, for we exclusively
     selected gridboxes associated to more then 98\% to the three surface types (ocean, ice, and land), while
     \emph{total} comprises all gridboxes. We admit that this is not clear.
@@ -50,24 +50,24 @@ In the following, we will respond to the questions in detail.
     in case of \emph{land}.
     \begin{table*}[t]
   \caption{Total ozone dry deposition for the respective model experiment in $\mathrm{Tg\,a^{-1}}$. The global ozone dry deposition has been weighted by ocean, ice and, land fraction in each gridbox, respectively. \emph{Ice} herein refers to regions at high latitudes that are permanently covered by ice and snow.}
-  \begin{tabular}{lccccccccc|cccr}
+  \begin{tabular}{lccccccccc}%|cccr}
     \hline
-    \multirow{3}{*}{Experiment} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land} & \multicolumn{3}{c}{Total} & $\Delta^\dagger$\\
-    & NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
-    & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & $(\mathrm{\%})$\\
+    \multirow{3}{*}{Experiment} & \multicolumn{3}{c}{Ocean} & \multicolumn{3}{c}{Ice} & \multicolumn{3}{c}{Land}\\% & \multicolumn{3}{c}{Total} & $\Delta^\dagger$\\
+    & NH & SH & Global & NH & SH & Global & NH & SH & Global\\% & NH & SH & Global\\
+    & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$}\\ %& \multicolumn{3}{c}{$(\mathrm{Tg\,a^{-1}})$} & $(\mathrm{\%})$\\
     \hline
-    Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3 & 612.4 & 347.9 & 960.2 & 46.8\\
-    EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6 & 408.6 & 245.6 & 654.2 & 0.0\\
-    EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0 & 451.3 & 267.2 & 718.6 & 9.8\\
-    EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7 & 413.9 & 249.9 & 663.7 & 1.5\\
-    EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8 & 417.2 & 250.7 & 667.9 & 2.1\\
-    EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9 & 411.4 & 246.0 & 657.4 & 0.5\\
-    EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6 & 419.4 & 253.6 & 673.0 & 2.9\\
-    EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2 & 413.0 & 251.1 & 664.1 & 1.5\\
-    EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7 & 409.2 & 240.7 & 649.9 & -0.7\\
+    Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3\\% & 612.4 & 347.9 & 960.2 & 46.8\\
+    EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6\\% & 408.6 & 245.6 & 654.2 & 0.0\\
+    EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0\\% & 451.3 & 267.2 & 718.6 & 9.8\\
+    EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7\\% & 413.9 & 249.9 & 663.7 & 1.5\\
+    EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8\\% & 417.2 & 250.7 & 667.9 & 2.1\\
+    EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9\\% & 411.4 & 246.0 & 657.4 & 0.5\\
+    EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6\\% & 419.4 & 253.6 & 673.0 & 2.9\\
+    EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2\\% & 413.0 & 251.1 & 664.1 & 1.5\\
+    EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7\\% & 409.2 & 240.7 & 649.9 & -0.7\\
     \hline
   \end{tabular}
-  {$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
+  %{$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
   \label{tab:ozone_sinks}
 \end{table*}
    
@@ -77,10 +77,11 @@ In the following, we will respond to the questions in detail.
     the paper does not provide any observational support to back this up. }
     \begin{itemize}
     \item {\color{blue}  Are there any relevant deposition measurements (velocity or flux) that can be used for this purpose?}
-      The only paper we know of is a study by G\"{u}sten~et~al.~(1996) in which measurements of ozone concentrations
-      and fluxes onto the Sahara desert are described and dry deposition velocities deduced. We can include a more
-      thorough discussion of our results with respect to the observed fluxes by G\"{u}sten~et~al.~(1996) in the
-      revision of our manuscript. 
+      G\"{u}sten~et~al.~(1996) conducted measurements of ozone concentrations
+      and fluxes onto the Sahara desert and deduced dry deposition velocities.
+      We have not found any recent paper conducting field experiments in desert regions. We can include a more
+      thorough discussion of our results with respect to the observed fluxes by G\"{u}sten~et~al.~(1996) and the
+      references therein the revision of our manuscript. 
     \item {\color{blue}  At least, some comparison with ozone measurements (or even $\mathrm{O_3}$ reanalyses)
       should be provided for this surface type (and perhaps others) to see if the model is
       heading in the right direction with the updated deposition scheme.}
@@ -139,15 +140,17 @@ have used the [...]"}.
 
 \item {\color{blue}  P2 L25-33: The first reference to the Oslo~CTM3 in the body of the paper is
   made here as \emph{“...we have not implemented any parameterization of these processes
-    in the Oslo CTM3 as of now.”} Some brief introductory text is required here (or better at
-  the start of the paragraph) to introduce the model properly. Also, the text between lines
-  25 -- 33 on what is not considered in the model is too detailed to be here, so shorten
-  and move it to Section 2.}
+    in the Oslo CTM3 as of now.”} }
   \begin{itemize}
-  \item The Oslo CTM3 is properly introduced in Section~2. Hence, we move the sentence in L30-32 about \emph{polar boundary layer ozone depletion} to Section~2:
+  \item {\color{blue} Some brief introductory text is required here (or better at
+    the start of the paragraph) to introduce the model properly.}
+    The Oslo CTM3 is properly introduced in Section~2. Hence, we move the sentence in L30-32 about \emph{polar boundary layer ozone depletion} to Section~2:
     \emph{"Although the ozone depleting events in the polar boundary layer (Section~1) are important to understand surface ozone abundance in Arctic regions in spring-time, no parameterization of these processes is implemented in the Oslo~CTM3 as of now."}
-  \item Given that the influence of VSLS on tropospheric ozone is indirect (through depletion of ozone in the upper troposphere -- lower stratosphere and subsequent STE), this reference (L32--33) rather belongs to the discussion in Section~4 and will be moved:
-    \emph{"In particular, the STE depends on the stratospheric ozone abundance which is, e.g. affected by very short-lived ozone depleting substances (VSLS) (Warwick et al., 2006; Ziska et al., 2013; Hossaini et al., 2016; Falk et al., 2017) and not taken into account in the Oslo~CTM3."}
+  \item {\color{blue} Also, the text between lines
+    25 -- 33 on what is not considered in the model is too detailed to be here, so shorten
+    and move it to Section 2.}
+    Given that the influence of VSLS on tropospheric ozone is indirect (through depletion of ozone in the upper troposphere -- lower stratosphere and subsequent STE), this reference (L32--33) rather belongs to the discussion in Section~4 and will be moved:
+    \emph{"In particular, the STE depends on the stratospheric ozone abundance which is, e.g. affected by very short-lived ozone depleting substances (VSLS) (Warwick et al., 2006; Ziska et al., 2013; Hossaini et al., 2016; Falk et al., 2017) and is not taken into account in the Oslo~CTM3."}
   \end{itemize}
 
 \item {\color{blue}  P3 L19/L28 and P21 L34: There is a newer ozone dry
@@ -175,7 +178,7 @@ have used the [...]"}.
   
 \item {\color{blue}  P15 L4: The statement \emph{“Accidentally, we have used emissions for the year
   2014 instead of 2005.”} It is not clear what the consequences on the results are of this?}
-  In the introduction to Section~3.1, we wrote \emph{"For all model integrations, the meteorological reference year is 2005. This choice only affects the comparison with data and multi-model studies that either perform analysis on decadal averages or differing years."}. We shall elaborate on the discussion on the implications based on our model results (EMEP\_ppgs vs EMEP\_ppgs\_2005) in the revision of the manuscript. Though, the major consequence of this is that, for the majority of our model experiments, one can neither directly compare observations for the years 2005 nor for 2014 directly to the model results. Surface ozone observations, in fact, show a strong interannual veriability in ozone dry deposition and ozone concentrations at the sites, but studying these in detail may be well beyond the scope of this manuscript.
+  In the introduction to Section~3.1, we wrote \emph{"For all model integrations, the meteorological reference year is 2005. This choice only affects the comparison with data and multi-model studies that either perform analysis on decadal averages or differing years."}. We will clarify the sentence with respect to probable consequences.
   \emph{}
   
 \item {\color{blue}  Section 3.2.1: }
@@ -183,6 +186,7 @@ have used the [...]"}.
   \item {\color{blue}  Section 3.2.1: In the Fig 5 discussion, although snow and ice is discussed, there is
     no discussion on the oceanic differences between the present study and Hardacre et
     al. (2015). This is particularly important for the Southern latitudes.}
+    We agree that ozone dry deposition to oceans is of high importance for the southern hemisphere, last but not least in the zonal band $(50-70)^\circ\mathrm{S}$. In fact, we have mainly discussed out results with respect to seasonal cycles of dry deposition velocities onto ocean found in Hardacre et al. (2015) (Fig. 7; P21 L1--10: \emph{"Similarly, the dry deposition velocities over water differ. [...]"}). We will include a discussion based on Fig.~5 in the revision of the manuscript.
     \emph{}
     
   \item {\color{blue}  The Hardacre et al. (2015) simulations were for the year 2001,
@@ -190,6 +194,8 @@ have used the [...]"}.
     by the year 2005 meteorology. In addition, the observational averages used in Fig. 8
     are based on multi-year data. The authors should discuss the implications of these
     differences about different years on the deposition results presented (e.g. uncertainty).}
+    We regard this remark as a follow-up of the question raised regarding P15 L4.
+    We will elaborate on the discussion regarding the implications based on our model results (EMEP\_ppgs vs EMEP\_ppgs\_2005) in the revision of the manuscript. Though, the major consequence of this is that, for the majority of our model experiments, one can neither directly compare to observations for the years 2005 and 2014 nor to other the model results. Emission inventories may always be lacking in certain chemical species and the non-linearities in ozone formation and destruction make ozone concentrations sensitive to both emissions of precursors and meteorological conditions. Surface ozone observations, in fact, show a strong variability in ozone dry deposition and ozone concentrations at the sites. But studying these in detail may be well beyond the scope of this manuscript. 
     \emph{}
   \end{itemize}
   
@@ -205,7 +211,7 @@ can be attributed to changes in dry deposition velocities over the ocean and des
 What are the dominant factors in these changes? For example, is it mostly the surface
 resistance ($R_c$) term? For the ocean, it is likely to be $R_c$. For deserts, maybe $R_b$? Is it
 possible to quantify these differences in the resistance terms?}
-  We have already answered the question with respect to ocean (see first bulletpoint). In summary, since $R_b$ is quite small in most of the cases, the dominant factor for the ozone dry deposition onto ocean is the surface resistance $R_c$ which is tabulated in Table~S2. Regarding ozone dry deposition onto deserts, we use Eqs.~(7--8) to deduce
+  We have already answered the question with respect to ocean (see first bullet point). In summary, since $R_b$ is quite small in most of the cases, the dominant factor for the ozone dry deposition onto ocean is the surface resistance $R_c$ which is tabulated in Table~S2. Regarding ozone dry deposition onto deserts, we use Eqs.~(7--8) to deduce
   \begin{equation}
     R_b^i = \frac{2}{\kappa u_*} \cdot \left(\frac{D_\mathrm{H_2O}}{D_i} \cdot \frac{\mathrm{Sc}_\mathrm{H_2O}}{\mathrm{Pr}}\right)^{\frac{2}{3}},
   \end{equation}
@@ -214,7 +220,7 @@ possible to quantify these differences in the resistance terms?}
   \begin{equation}
     u_*(h) = \frac{\kappa\cdot \overline{u_x}(h)}{\mathrm{ln}(h/z_0)},
   \end{equation}
-  with $h = 8\,\mathrm{m}$, $z_0^\mathrm{desert}\approx 10^{-3}\,\mathrm{m}$, and windspeeds not exceeding a gentle breeze ($1.8\,\mathrm{km\,h^{-1}} \leq \overline{u_x}(h) \leq 28\,\mathrm{km\,h^{-1}}$), we find $272\,\mathrm{s\,m^{-1}} \geq R_b \geq 17\,\mathrm{s\,m^{-1}}$. This is $1-2$ orders of magnitude smaller than $R_c = 2000\,\mathrm{s\,m^{-1}}$ and thus not negligible for low windspeeds. In summary, $R_c$ is dominant in our formulation of dry deposition of ozone to deserts (unless we have calm wind conditions).
+  with $h = 8\,\mathrm{m}$, $z_0^\mathrm{desert}\approx 10^{-3}\,\mathrm{m}$, and wind speeds not exceeding a gentle breeze ($1.8\,\mathrm{km\,h^{-1}} \leq \overline{u_x}(h) \leq 28\,\mathrm{km\,h^{-1}}$), we find $272\,\mathrm{s\,m^{-1}} \geq R_b \geq 17\,\mathrm{s\,m^{-1}}$. This is $1-2$ orders of magnitude smaller than $R_c = 2000\,\mathrm{s\,m^{-1}}$ and thus not negligible for low wind speeds. In summary, $R_c$ is dominant in our formulation of dry deposition of ozone to deserts (unless we have calm wind conditions).
   \emph{}
   
 \item {\color{blue}  P24 L24: \emph{“2-layer gas exchange with ocean waters (Luhar et al., 2017).”}
@@ -241,7 +247,7 @@ hemisphere”} is quite speculative and may be omitted.}
   ozone of up to 100\% in some regions.”}
   We follow the advice of the referee and change the sentence accordingly.
   
-\item {\color{blue}  P22 L7: \emph{“At about 4 of 6 sites.” About? Not sure?}}
+\item {\color{blue}  P22 L7: \emph{“At about 4 of 6 sites.”} About? Not sure?}
   Thanks for pointing out the misplaced \emph{"about"} in this sentence. We are certain regarding that number. 
   
 \end{itemize}
