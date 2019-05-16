@@ -11,27 +11,27 @@
 \setcounter{page}{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplement}
-\subsection*{S.1 Aerodynamical resistance}
-\begin{table}[!htbp]
-  \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$, reactivity $f^i_0$, and effective Henry's Law constant $H^i_*$.}
-  \begin{tabular}{lcrr@{$\cdot$}l}
-    \tophline
-    & $D_\chem{H_2O}/D_i$ & $f^i_0$ & \multicolumn{2}{l}{$H^i_*$}\\
-    & & & \multicolumn{2}{l}{(\unit{M\,atm^{-1}})}\\
-    \middlehline
-    \chem{O_3}     & 1.6 & 1.0 & 1 & $10^{-2}$\\
-    \chem{SO_2}    & 1.9 & 0.0 & 1 & $10^5$\\
-    \chem{NO_2}    & 1.6 & 0.1 & 1 & $10^{-2}$\\
-    \chem{H_2O_2}  & 1.4 & 1.0 & 1 & $10^5$\\
-    \chem{HCHO}    & 1.3 & 0.0 & 6 & $10^3$\\
-    \chem{NO}      & 1.3 & 0.0 & 2 & $10^{-3}$\\
-    \chem{CH_3CHO} & 1.6 & 15.0 & \multicolumn{2}{l}{$0$}\\
-    \bottomhline
-  \end{tabular}
+%\subsection*{S.1 Aerodynamical resistance}
+%\begin{table}[!htbp]
+%  \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$, reactivity $f^i_0$, and effective Henry's Law constant $H^i_*$.}
+%  \begin{tabular}{lcrr@{$\cdot$}l}
+%    \tophline
+%    & $D_\chem{H_2O}/D_i$ & $f^i_0$ & \multicolumn{2}{l}{$H^i_*$}\\
+%    & & & \multicolumn{2}{l}{(\unit{M\,atm^{-1}})}\\
+%    \middlehline
+%    \chem{O_3}     & 1.6 & 1.0 & 1 & $10^{-2}$\\
+%    \chem{SO_2}    & 1.9 & 0.0 & 1 & $10^5$\\
+%    \chem{NO_2}    & 1.6 & 0.1 & 1 & $10^{-2}$\\
+%    \chem{H_2O_2}  & 1.4 & 1.0 & 1 & $10^5$\\
+%    \chem{HCHO}    & 1.3 & 0.0 & 6 & $10^3$\\
+%    \chem{NO}      & 1.3 & 0.0 & 2 & $10^{-3}$\\
+%    \chem{CH_3CHO} & 1.6 & 15.0 & \multicolumn{2}{l}{$0$}\\
+%    \bottomhline
+%  \end{tabular}
   %\belowtable{} % Table Footnotes
-\end{table}
+%\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{S.2 Dynamic viscosity of air and quasi-laminar resistance}
+\subsection*{S.1 Dynamic viscosity of air and quasi-laminar resistance}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight]{pictures/dynamic_viscosity.pdf}
@@ -59,69 +59,69 @@
 \end{figure}
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{S.3 Stomatal conductance}
-\begin{table*}[!htbp]
-  \caption{Tabulated parameters for stomatal conductance computation in the EMEP scheme}
-  \begin{tabular}{lcccccccccccccc}
-    \tophline
-    Code$^*$ & $g_\text{max}$ & $f_\text{min}$ & $\phi_a$ & $\phi_b$ & $\phi_c$ & $\phi_d$ & $\phi_e$ & $\phi_f$ & $\phi_\text{AS}$ & $\phi_\text{AE}$ & $\alpha_\text{light}$ & $T_\text{min}$ & $T_\text{opt}$ & $T_\text{max}$ \\
-    & (\unit{mmol\,s^{-1}\,m^{-2}}) &&&&&&(\unit{days})&(\unit{days})&(\unit{days})&(\unit{days})&&(\unit{^\circ C})&(\unit{^\circ C})&(\unit{^\circ C})\\
-    \middlehline
-    CF & 140 & 0.1 & 0.8 & 0.8 & 0.8 & 0.8 & 1 & 1 & 0 & 0 & 0.006 & 0 & 18 & 36  \\
-    DF & 150 & 0.1 & 0 & 0 & 1 & 0 & 20 & 30 & 0 & 0 & 0.006 & 0 & 20 & 35  \\
-    NF & 200 & 0.1 & 1 & 1 & 0.2 & 1 & 130 & 60 & 80 & 35 & 0.013 & 8 & 25 & 38 \\
-    BF & 200 & 0.02 & 1 & 1 & 0.3 & 1 & 130 & 60 & 80 & 35 & 0.009 & 1 & 23 & 39 \\
-    TC & 300 & 0.1 & 0.1 & 1 & 0.1 & 0 & 45 & 0 & 0 & 0.0105 & 0.01 & 12 & 26 & 40 \\
-    MC & 300 & 0.019 & 0.1 & 0.1 & 1 & 0.1 & 0 & 45 & 0 & 0 & 0.0048 & 0 & 25 & 51  \\
-    RC & 360 & 0.02 & 0.2 & 0.2 & 1 & 0.2 & 20 & 45 & 0 & 0 & 0.0023 & 8 & 24 & 50  \\
-    SNL & 60 & 0.01 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0.009 & 1 & 18 & 36 \\
-    GR & 270 & 0.01 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0.009 & 12 & 26 & 40 \\
-    MS & 200 & 0.01 & 1 & 1 & 0.2 & 1 & 130 & 60 & 80 & 35 & 0.012 & 4 & 20 & 37 \\
-    WE & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
-    TU & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0  \\
-    DE & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0  \\
-    W & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
-    ICE & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
-    U & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
-    \bottomhline
-  \end{tabular}
-  \\
-  \vspace{2\baselineskip}
-  \begin{tabular}{lcccccccccc}
-    \tophline
-    Code$^*$ & $D_\text{max}$ & $D_\text{min}$ & $D_\text{crit}$ & $R_\chem{SO}$ & $R_\chem{O_3}$ & $h$ & $d_\text{SGS}$ & $d_\text{EGS}$ & $\nabla d_\text{SGS}$ & $\nabla d_\text{EGS}$\\% & $\text{LAI}_\text{min}$ & $\text{LAI}_\text{max}$ & LS & LE \\
-    &(\unit{kPA})&(\unit{kPa})&(\unit{kPa})&(\unit{s\,m^{-1}})&(\unit{s\,m^{-1}})&(\unit{m})&(\unit{day})&(\unit{day})&(\unit{days/^\circ lat})&(\unit{days/^\circ lat})\\%&(\unit{m^2\,m^{-2}})&(\unit{m^2\,m^{-2}})&(\unit{days})&(\unit{days}) \\
-    \middlehline
-    CF & 0.5 & 3 & 1000 & 0 & 200 & 20 & 0 & 366 & 0 & 0\\% & 5 & 5 & 1 & 1\\
-    DF & 1 & 3.25 & 1000 & 0 & 200 & 20 & 100 & 307 & 1.5 & -2.0 \\%& 0 & 4 & 20 & 30\\
-    NF & 1 & 3.2 & 1000 & 0 & 200 & 8 & 0 & 366 & 0 & 0\\% & 4 & 4 & 1 & 1\\
-    BF & 2.2 & 4 & 1000 & 0 & 200 & 15 & 0 & 366 & 0 & 0 \\%& 4 & 4 & 1 & 1\\
-    TC & 1.2 & 3.2 & 8 & 0 & 200 & 1 & 123 & 213 & 2.57 & 2.57\\% & 0 & 3.5 & 70 & 20\\
-    MC & 1 & 2.5 & 1000 & 0 & 200 & 2 & 123 & 237 & 2.57 & 2.57\\% & 0 & 3 & 70 & 44\\
-    RC & 0.31 & 2.7 & 10 & 0 & 200 & 1 & 130 & 250 & 0 & 0\\% & 0 & 4.2 & 35 & 65\\
-    SNL & 1.3 & 3 & 1000 & 0 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 2 & 3 & 192 & 96\\
-    GR & 1.3 & 3 & 1000 & 0 & 1000 & 0.3 & 0 & 366 & 0 & 0\\% & 2 & 3.5 & 140 & 135\\
-    MS & 1.3 & 3.2 & 1000 & 0 & 200 & 2 & 0 & 366 & 0 & 0\\% & 2.5 & 2.5 & 1 & 1\\
-    WE  & 1 & 0 & 1000 & 50 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
-    TU & 1 & 0 & 1000 & 500 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
-    DE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
-    W  & 1 & 0 & 1000 & 1 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
-    ICE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
-    U & 1 & 0 & 1000 & 400 & 400 & 10 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
-    \bottomhline
-  \end{tabular}
-  \belowtable{$^*$: CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean scrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
-\end{table*}
+%\subsection*{S.3 Stomatal conductance}
+%\begin{table*}[!htbp]
+%  \caption{Tabulated parameters for stomatal conductance computation in the EMEP scheme}
+%  \begin{tabular}{lcccccccccccccc}
+%    \tophline
+%    Code$^*$ & $g_\text{max}$ & $f_\text{min}$ & $\phi_a$ & $\phi_b$ & $\phi_c$ & $\phi_d$ & $\phi_e$ & $\phi_f$ & $\phi_\text{AS}$ & $\phi_\text{AE}$ & $\alpha_\text{light}$ & $T_\text{min}$ & $T_\text{opt}$ & $T_\text{max}$ \\
+%    & (\unit{mmol\,s^{-1}\,m^{-2}}) &&&&&&(\unit{days})&(\unit{days})&(\unit{days})&(\unit{days})&&(\unit{^\circ C})&(\unit{^\circ C})&(\unit{^\circ C})\\
+%    \middlehline
+%    CF & 140 & 0.1 & 0.8 & 0.8 & 0.8 & 0.8 & 1 & 1 & 0 & 0 & 0.006 & 0 & 18 & 36  \\
+%    DF & 150 & 0.1 & 0 & 0 & 1 & 0 & 20 & 30 & 0 & 0 & 0.006 & 0 & 20 & 35  \\
+%    NF & 200 & 0.1 & 1 & 1 & 0.2 & 1 & 130 & 60 & 80 & 35 & 0.013 & 8 & 25 & 38 \\
+%    BF & 200 & 0.02 & 1 & 1 & 0.3 & 1 & 130 & 60 & 80 & 35 & 0.009 & 1 & 23 & 39 \\
+%    TC & 300 & 0.1 & 0.1 & 1 & 0.1 & 0 & 45 & 0 & 0 & 0.0105 & 0.01 & 12 & 26 & 40 \\
+%    MC & 300 & 0.019 & 0.1 & 0.1 & 1 & 0.1 & 0 & 45 & 0 & 0 & 0.0048 & 0 & 25 & 51  \\
+%    RC & 360 & 0.02 & 0.2 & 0.2 & 1 & 0.2 & 20 & 45 & 0 & 0 & 0.0023 & 8 & 24 & 50  \\
+%    SNL & 60 & 0.01 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0.009 & 1 & 18 & 36 \\
+%    GR & 270 & 0.01 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0.009 & 12 & 26 & 40 \\
+%    MS & 200 & 0.01 & 1 & 1 & 0.2 & 1 & 130 & 60 & 80 & 35 & 0.012 & 4 & 20 & 37 \\
+%    WE & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
+%    TU & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0  \\
+%    DE & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0  \\
+%    W & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
+%    ICE & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
+%    U & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
+%    \bottomhline
+%  \end{tabular}
+%  \\
+%  \vspace{2\baselineskip}
+%  \begin{tabular}{lcccccccccc}
+%    \tophline
+%    Code$^*$ & $D_\text{max}$ & $D_\text{min}$ & $D_\text{crit}$ & $R_\chem{SO}$ & $R_\chem{O_3}$ & $h$ & $d_\text{SGS}$ & $d_\text{EGS}$ & $\nabla d_\text{SGS}$ & $\nabla d_\text{EGS}$\\% & $\text{LAI}_\text{min}$ & $\text{LAI}_\text{max}$ & LS & LE \\
+%    &(\unit{kPA})&(\unit{kPa})&(\unit{kPa})&(\unit{s\,m^{-1}})&(\unit{s\,m^{-1}})&(\unit{m})&(\unit{day})&(\unit{day})&(\unit{days/^\circ lat})&(\unit{days/^\circ lat})\\%&(\unit{m^2\,m^{-2}})&(\unit{m^2\,m^{-2}})&(\unit{days})&(\unit{days}) \\
+%    \middlehline
+%    CF & 0.5 & 3 & 1000 & 0 & 200 & 20 & 0 & 366 & 0 & 0\\% & 5 & 5 & 1 & 1\\
+%    DF & 1 & 3.25 & 1000 & 0 & 200 & 20 & 100 & 307 & 1.5 & -2.0 \\%& 0 & 4 & 20 & 30\\
+%    NF & 1 & 3.2 & 1000 & 0 & 200 & 8 & 0 & 366 & 0 & 0\\% & 4 & 4 & 1 & 1\\
+%    BF & 2.2 & 4 & 1000 & 0 & 200 & 15 & 0 & 366 & 0 & 0 \\%& 4 & 4 & 1 & 1\\
+%    TC & 1.2 & 3.2 & 8 & 0 & 200 & 1 & 123 & 213 & 2.57 & 2.57\\% & 0 & 3.5 & 70 & 20\\
+%    MC & 1 & 2.5 & 1000 & 0 & 200 & 2 & 123 & 237 & 2.57 & 2.57\\% & 0 & 3 & 70 & 44\\
+%    RC & 0.31 & 2.7 & 10 & 0 & 200 & 1 & 130 & 250 & 0 & 0\\% & 0 & 4.2 & 35 & 65\\
+%    SNL & 1.3 & 3 & 1000 & 0 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 2 & 3 & 192 & 96\\
+%    GR & 1.3 & 3 & 1000 & 0 & 1000 & 0.3 & 0 & 366 & 0 & 0\\% & 2 & 3.5 & 140 & 135\\
+%    MS & 1.3 & 3.2 & 1000 & 0 & 200 & 2 & 0 & 366 & 0 & 0\\% & 2.5 & 2.5 & 1 & 1\\
+%    WE  & 1 & 0 & 1000 & 50 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+%    TU & 1 & 0 & 1000 & 500 & 400 & 0.5 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+%    DE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+%    W  & 1 & 0 & 1000 & 1 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+%    ICE & 1 & 0 & 1000 & 1000 & 2000 & 0 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+%    U & 1 & 0 & 1000 & 400 & 400 & 10 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
+%    \bottomhline
+%  \end{tabular}
+%  \belowtable{$^*$: CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean scrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
+%\end{table*}
 
-\clearpage
-\subsection*{S.4 Latitude dependent vegetation height}
+%\clearpage
+\subsection*{S.2 Latitude dependent vegetation height}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight]{pictures/tree_height.pdf}
   \caption{Extension of the latitude dependent vegetation height from northern hemisphere mid latitudes only to a global description. Example heights are shown for coniferous, deciduous, needleleaf, and broadleaf forests as well as Mediterranean shrub. As reference the original range of EMEP is added.}
 \end{figure}
 
-\subsection*{S.5 Temperature dependent greening season (python 2.7)}
+\subsection*{S.3 Temperature dependent greening season (python 2.7)}
 {\scriptsize
 \begin{verbatim}
 #----------------------------------------------------------------------------------
@@ -299,7 +299,7 @@ def growing_season_stadyn(xr_temp):
 }
 \clearpage
 
-\subsection*{S.6 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS}
+\subsection*{S.4 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.65cm}]{pictures/PAR_as_is.png}
@@ -319,7 +319,7 @@ def growing_season_stadyn(xr_temp):
 \end{figure}
 %\clearpage
 
-\subsection*{S.7 Normalized zonal average ozone dry deposition velocity}
+\subsection*{S.5 Normalized zonal average ozone dry deposition velocity}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.55cm}]{pictures/final-norm_total_ozone_drydepvelo}

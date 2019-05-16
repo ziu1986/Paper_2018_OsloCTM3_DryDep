@@ -28,22 +28,23 @@ was tested from the manuscript though, since they state simply that $d$ is ’ty
 Did they use $d$ properly, consistent with the underlying land-cover and its $z_0$ ? Did
 they assume that their 8\,m meteorology was at a physical height of 8\,m, or at $d + 8\,\mathrm{m}$.
 If the latter, which $d$?}
-    We have to object slightly, because we have not presented "wrong inputs" to the algorithm. As pointed out by Ref \#1, we have made a mistake early on in the derivation of the formular to fit it into the framework of the Oslo~CTM3 (sign flip in fact). This let to negative values. 
+    We have, in fact, not presented "wrong inputs" to the algorithm.
+    As pointed out by Ref \#1, we have made a mistake when deriving the formulation for $R_a$, as it is presented in S2012, for the framework of the Oslo~CTM3. This sign-flip in the derived formulation let to negative values. Because we oversaw this flaw, we concluded that we would no be able to use the S2012 formulation of $R_a$ in our model and decided to use the Monteith alternative.
     Since we are going to revise the model, we will address this issue and fix the calculation of $R_a$. 
 
     \item {\color{blue} Lines 19--30 of this section explain the Monteith alternative, but in a rather confusing
 way. For example, when is $z_0$ ever zero, as stated on line 23, or why does $\partial_z R_a \rightarrow R_a $
 for finite $z$? (I know what they intend to say, but it isn’t at all clear.) In any case, here
-the authors end up with a stability-independent equation for $R_a$ , without mentioning or
-discussing that fact. This very shallow layer is also very problematic for deposition calculations in gen-
-eral, since the model cell seems to be run here with horizontal dimensions of $2.25 \times 2.25^\circ$ ,
+the authors end up with a stability-independent equation for $R_a$, without mentioning or
+discussing that fact. This very shallow layer is also very problematic for deposition calculations in general,
+since the model cell seems to be run here with horizontal dimensions of $2.25 \times 2.25^\circ$ ,
 or about $250 \times 250\,\mathrm{km}$ near the equator, but a vertical mid-level (CTM3’s $z_\mathrm{ref}$ ) of
 just 8\,m. Now, profiles of wind and depositing gases are very sensitive to the underlying
 surface, and should be very different for forests or lakes for example. Any wind-speed
-or friction velocity calculated from a model of such large horizontal resolution will nec-
-essarily give values at 8\,m which reflect the whole grid. Deposition rates for a specific
-land-cover will vary enormously depending on what else is in the grid-square. (Al-
-though not strictly comparable, we showed in Schwede et al. (2018) that differences
+or friction velocity calculated from a model of such large horizontal resolution will necessarily give values
+at 8\,m which reflect the whole grid. Deposition rates for a specific
+land-cover will vary enormously depending on what else is in the grid-square. (Although not strictly comparable,
+we showed in Schwede et al. (2018) that differences
 between the grid-average and forest specific deposition rates of N-compounds could be
 as much as a factor of two and up to more than a factor of five in extreme cases. These
 differences were largely dependent on how much forest occupied each grid cell.)}
@@ -51,8 +52,8 @@ differences were largely dependent on how much forest occupied each grid cell.)}
 \item {\color{blue} Why so much focus on sea areas?: The text seems rather unbalanced with regard to the different land-covers. Sect. 2 uses 1/2 page on various $z_0$ corrections for oceans, but say nothing about the ecosystem
 where ozone is expected to deposit at high rates: forests, crops, and other terrestrial
 ecosystems. The supplementary has three Figs related to this oceanic deposition. Why?}
-\item {\color{blue} Use of the term 'EMEP scheme'?: Sect. 3 discusses the comparisons of $V_g$ in terms of ’EMEP scheme’ versus ’We-
-sely scheme’, and sensitivity tests are named e.g. ’EMEP\_offlight’. As noted above
+\item {\color{blue} Use of the term 'EMEP scheme'?: Sect. 3 discusses the comparisons of $V_g$ in terms of ’EMEP scheme’ versus
+  ’Wesely scheme’, and sensitivity tests are named e.g. ’EMEP\_offlight’. As noted above
 the scheme implemented in CTM3 is very different to that implemented in the EMEP
 model, so this is very misleading. Please rename your scheme to something else.
 I am worried that readers might get the impression that it is the EMEP scheme which
@@ -62,17 +63,19 @@ is being tested here, but it certainly is not. [...]}
   \begin{itemize}
   \item {\color{blue} As far as I can see, Table S1, S2 and S3 are taken directly from S2012, with no change to parameters. It is not usual to copy tables from the work of other authors in this way.
     Just refer to S2012 (and give Table number as help).}
+    We will follow this advice and refer the tables in S2012 accordingly.
   \item {\color{blue} Many of the equations are from S2012, and many not. I would like the authors to
     make this very explicit, so that readers are not confused as to what comes from EMEP,
     and what has changed for CTM3.}
+    We are going to ellaborate on this matter in a revised version and point out our equations' sources more clearly.
   \end{itemize}
 \end{itemize}
 \section{Minor points}
 \begin{itemize}
 \item {\color{blue}P1 L22. Isn’t H 2 O the most important greenhouse gas? (Say anthropogenic
 GHG perhaps?)}
-\item {\color{blue}P2 L3. The Wilson ref only concerns Europe, and its focus on the 95th per-
-centile can hide trends found at higher percentiles (e.g. Simpson et al. 2014). A
+\item {\color{blue}P2 L3. The Wilson ref only concerns Europe, and its focus on the 95th percentile can hide trends
+  found at higher percentiles (e.g. Simpson et al. 2014). A
 better ref would be Fleming et al. (2018) or Mills et al. (2018a). By the way,
 the most recent calculation on food security (using flux approaches) is now Mills
 et al. (2018b).}
@@ -116,8 +119,7 @@ phenology for non-European areas, because of such difficulties with tabulations.
 \item {\color{blue}P9 L18. what do you mean by "surface or 2\,m"? Surface might refer to skin or
 leaf temperature?}
 \item {\color{blue}P9 Eqn (26). Say 1st and 2nd, not I. and II.}
-\item {\color{blue}P9, Eqn (27). This equation is a modification of Erisman’s original (1994) formu-
-lation, so explain that.}
+\item {\color{blue}P9, Eqn (27). This equation is a modification of Erisman’s original (1994) formulation, so explain that.}
 \item {\color{blue}P10 L12. Be explicit that this statement refers to S2012. The current EMEP
 model uses different heights for e.g. tropical vegetation.}
 \item {\color{blue}P11 Sect 2.2. I also found this aerosol section confusing. Eqn (30) is from S2012,
