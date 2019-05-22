@@ -2,6 +2,7 @@
 \documentclass{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{amsmath}
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage{multirow}
@@ -15,8 +16,35 @@ We apologize for the late response regarding the comments on our paper. We had t
 
 \section{Major points}
 \begin{itemize}
-\item {\color{blue} Mosaic formulation: [...] In any case, I think this approach has serious problems. Why average first for $G_s$ and then for $G_{ns}$ , when it is the fluxes ($F_k$ , or $V^i_{g,k}(z_\mathrm{ref}) \times \chi^i_\mathrm{avg}(z_\mathrm{ref})$) which need to be averaged? I also do not understand why they would use the same $u_*$ and $R_a$ for all land-covers. I think the authors need to make a case for their approach, or change it.}
-  Thank you very much for your detailed account of the \emph{mosaic approach}. We have discussed the concerns raised within this comment and found that we have indeed made a mistake in our implementation of the \emph{mosaic approach} which forces us to revise our model and repeat the model experiments.
+\item {\color{blue} Mosaic formulation:}
+  \begin{itemize}
+  \item {\color{blue} CTM3 claims to implement a mosaic approach, but instead of calculating deposition
+rates over each land-cover, and then aggregating using Eqn.3, CTM3 seems to perform the following steps:
+\begin{align}
+  \label{eq:ra}
+  R_a &= \frac{u_z}{u^2_*}\\
+  \label{eq:Gsto}
+  \overline{Gs^i_g(z)} &= \Sigma^N_{k=1} f_k \times Gs^i_{g,k}(z)\\
+  \label{eq:Gns}
+  \overline{Gns^i_g(z)} &= \Sigma^N_{k=1} f_k \times Gns^i_{g,k}(z)
+\end{align}
+As far as I can tell from the text, $R_a$ is calculated once, with the same value of $u_*$ for all land-covers. The CTM3 $R_b$ calculation seems to also use the same $u_*$ over different land-covers, except over sea where a more sophisticated scheme is used. Equations 5-6 above are equivalent to Eqns (22) and (26) from the manuscript. Now I am puzzled however as to how all this is put together. Do they use:
+\begin{equation}
+  G_c = \mathrm{LAI} \cdot \overline{Gs^i_g(z)} + \overline{Gns^i_g(z)}
+\end{equation}
+  }
+    The referee is correct regarding the usage of Eq.~(\ref{eq:ra}) and Eq.~(\ref{eq:Gns}). In case of stomatal conductance, we first compute:
+    \begin{equation}
+       \overline{gs^i_g(z)} = \Sigma^N_{k=1} f_k \times gs^i_{g,k}(z).
+    \end{equation}
+    This is put together as follows:
+    \begin{equation}
+      \label{eq:Gsto_corr}
+      G_c = \mathrm{LAI} \cdot \overline{gs^i_g(z)} + \overline{Gns^i_g(z)}
+    \end{equation}
+  \item {\color{blue} In any case, I think this approach has serious problems. Why average first for $G_s$ and then for $G_{ns}$ , when it is the fluxes ($F_k$ , or $V^i_{g,k}(z_\mathrm{ref}) \times \chi^i_\mathrm{avg}(z_\mathrm{ref})$) which need to be averaged? I also do not understand why they would use the same $u_*$ and $R_a$ for all land-covers. I think the authors need to make a case for their approach, or change it.}
+    Thank you very much for your detailed account of the \emph{mosaic approach}. We have discussed the concerns raised within this comment and found that we have indeed made a mistake in our implementation of the \emph{mosaic approach} which forces us to revise our model and repeat the model experiments.
+  \end{itemize}
 \item {\color{blue} Calculation of $R_a$:}
   \begin{itemize}
   \item {\color{blue} $R_a$ in CTM3 appears to be calculated just once, and from a height of 8\,m. This means
@@ -123,35 +151,56 @@ available from GAW (inha 2015).}
   Thank you for reminding us of the data collected under the TOAR project. We knew about this dataset but have to admitt that we have not made much use of it, yet. We have, however, not stated that there are, in general, no sites outside of Europe, but that long-term obersvations (started before the 1950s) are only found in Europe. Maybe the term "long-term" is not clear enough. We add: \emph{"[...] a limited number of long-term ozone observations (started before the 1950s)[...]"}
   
 \item {\color{blue}P3 L16. One also has dry deposition to water, as this paper makes clear later on.}
-  That is indeed true, but we didn't want to name all possible surfaces onto which dry deposition takes place. We, hence, shall write: \emph{"Removal of any substance from the atmosphere which is not involving rain, e.g., [...]}
+  That is indeed true, but we didn't want to name all possible surfaces onto which dry deposition takes place. We, hence, shall write: \emph{"Removal of any substance from the atmosphere which is not involving rain, e.g., through gravitational settling or by uptake by plants and soil, is referred to as dry deposition.}
   
 \item {\color{blue}P3 L20. One usually refers to dry deposition as something between a near-
 surface height (e.g. z = 1m, 10m, or 50m) and the surface, not from $z_0$. In fact,
 at $z = z_0$ one has $u_z = 0$, and hence the author’s $R_a$ just below should be zero.}
+Thank you for pointing out this inaccuracy. We, of cause, meant "near-surface" height or lowermost model level (which is indeed not at $z_0=0$). We change the text accordingly: \emph{"[...] dry deposition is a product between near-surface ozone concentration $\mathrm{[O_3](z_0)}$ (e.g. the lowermost model level) [...] "}
+  
 \item {\color{blue}P4 L20. I would remove the term textbook knowledge, since there are many
 different approaches to nearly all these equations. It is thus good that the equations
 as used in CTM3 are spelled out explicitly.}
+  We follow the advice and remove the sentence in which the term occurs and write: \emph{"[...] we will give a detailed account of the new dry deposition scheme and the equations that we use."}
+  
 \item {\color{blue}P5 L5. I would add Emberson et al. (2000a) and Tuovinen et al. (2004) to
 the list of EMEP refs here, since this was the first publication of the methods that
 have more or less been used until today.}
+  We have added the references regarding the EMEP MSC-W model. \emph{"[...] we follow the European Monitoring and Evaluation Programme (EMEP) MSC-W model (Emberson et al., 2000; Simpson et al., 2003; Tuovinen et al., 2004; Simpson et al., 2012), [...]"}
+  
 \item {\color{blue}P7, notation. In S2012 and EMEP generally, we use upper-case G and R to refer
 to canopy-scale (bulk) variables, and lower-case for leaf-scale. Thus, in EMEP
 we would have $G_\mathrm{sto} = LAI g_\mathrm{sto}$. Here the authors seem to mix upper and lower
 case between their equations (13) and (14).}
+  This is probably related to the referee's major point 1. Since our approach, averaging the resistances/conductances instead of the fluxes, is incorrect, this part of the manuscript has to be revised in any case. But to answer the question: Eq.~(13) should have been placed at the end of the section, after the definition of $G_\mathrm{sto}$ and $G_\mathrm{ns}$. A better notation is found Eq.~(\ref{eq:Gsto_corr}). We shall also go through all our notations in that section to make it more comprehensible.
+  
 \item {\color{blue}P7 Eqn (13). Is LAI one-sided, 2-sided, projected .... define.}
+  LAI is one-sided taken from ISLSCP2 FASIR. We add this to the sentence: \emph{"[...] $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR [...]"}
+  
 \item {\color{blue}P8 L1. S2012 do not suggest using depths lower than 1\,m. We use SMI3 which
-is from 28-100 cm.}
-\item {\color{blue}P8 L2 - why did you choose to use the surface (0--7\,cm) soil moisture?}
+  is from 28-100 cm.}
+Thank you for the clarification. We might have mixed this up. Since we have to repeat our simulations, we will choose SWLV3 from the start.
+  
+\item {\color{blue}P8 L2. Why did you choose to use the surface (0--7\,cm) soil moisture?}
+  The reason for the initial choice of 0--7\,cm came from the project this work is related to. In our project, we are interested in ozone in boreal regions where the soil column is generally more shallow. 
+  
 \item {\color{blue}P8 L18. This is wrong. Nothing in the EMEP model is used to ’mimic the
 time lag..’. We use the light function to modify stomatal conductance, as with the
 other $f$ factors.}
+  We change this inadequate formulation: \emph{"[...] this integrated photon flux is used to modify the stomatal conductance in response to light."}
+  
 \item {\color{blue}P9 L20, and Table 1. The consequence of Table 1 is that vegetation at $0.5^\circ\,\mathrm{N}$
 will start growing at day 90, whereas those at $0.5^\circ\,\mathrm{S}$ will start on day 272. (By the
 way, in EMEP now we use monthly factors from the LPJ-GUESS model to derive
 phenology for non-European areas, because of such difficulties with tabulations.)}
+  Thank you for the remark. We see this problem. Using an actual land model would solve this, but at that point it is not feasible to integrate such in the Oslo~CTM3.
+  
 \item {\color{blue}P9 L18. what do you mean by "surface or 2\,m"? Surface might refer to skin or
-leaf temperature?}
+  leaf temperature?}
+  
 \item {\color{blue}P9 Eqn (26). Say 1st and 2nd, not I. and II.}
+  We may change Table~1 accordingly.
+  
 \item {\color{blue}P9, Eqn (27). This equation is a modification of Erisman’s original (1994) formulation, so explain that.}
 \item {\color{blue}P10 L12. Be explicit that this statement refers to S2012. The current EMEP
 model uses different heights for e.g. tropical vegetation.}
