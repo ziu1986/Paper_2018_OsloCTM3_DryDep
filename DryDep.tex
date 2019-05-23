@@ -159,11 +159,11 @@ As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is ty
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
-The aerodynamic resistance is describing the turbulent transport of any substance down to the surface. %In \citet{WASP:Simpson2003,ACP:Simpson2012} it is described as
-%\begin{equation}
-%  R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{L}\right)+\Psi_m\left(\frac{z_0}{L}\right)}\right],
-%\end{equation}
-%with the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the friction velocity $u_*$, integrated stability equations for momentum $\Psi_m$,  a the deplacement height $d$ (typically $0.7\cdot h(N,\mathrm{lat})\,\unit{m}$ for vegetation other than forests), and the Obukhov length $L$. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the mOSaic scheme at this point and fall back to
+{\bf ToDO: Implement \citet{AE:Erisman1994} formulation for Ra with d's from \citet{ACP:Simpson2012} and $\Psi_m$ from \citet{ACP:Seinfeld2006} and remove text about Monteith alternative!} The aerodynamic resistance is describing the turbulent transport of any substance down to the surface. Following \citet{AE:Garland1978}, \citet{WASP:Simpson2003,ACP:Simpson2012} has
+\begin{equation}
+  R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{L}\right)+\Psi_m\left(\frac{z_0}{L}\right)}\right],
+\end{equation}
+with the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the friction velocity $u_*$, integrated stability equations for momentum $\Psi_m$,  a the deplacement height $d$ (typically $0.7\cdot h(N,\mathrm{lat})\,\unit{m}$ for vegetation other than forests), and the Obukhov length $L$. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the mOSaic scheme at this point and fall back to
 For technical reasons, we used the method of \citet{Monteith1973}, wherein the sensible heat flux $\Phi_{Q_\text{sensible}}$ is written as
 \begin{equation}
   \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\Delta T}{R_{a, H}}.
@@ -230,7 +230,7 @@ wherein $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR (
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection*{Stomatal conductance}
-The stomatal conductance is a measure of the rate of \chem{CO_2} exchange and evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence their capability of respiration (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}, but is not taken into account in our formulation. To reflect part of the underlying mechanism, the stomatal conductance $G_\text{sto}$ in the EMAP scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
+The stomatal conductance is a measure of the rate of \chem{CO_2} exchange and evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence their capability of respiration (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}, but is not taken into account in our formulation. To reflect part of the underlying mechanism, the stomatal conductance $G_\text{sto}$ in the mOSaic scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
 %
 \begin{equation}
   G_\text{sto} = g^\text{m}_\text{max} \cdot f_\text{phen} \cdot f_\text{light} \cdot \max{\left\{f_\text{min}, f_T \cdot f_D \cdot f_\text{SW}\right\}}.
@@ -334,8 +334,8 @@ $\theta_0$ is the surface or $2\,\unit{m}$ temperature in \unit{^\circ C}. In ge
   \text{SAI} = 
   \begin{cases}
     \text{LAI}+1 & \emph{if} \quad \text{\emph{forest / wetland}},\\
-    \text{LAI}\cdot 5/3.5 & \emph{if} \quad \text{\emph{cropland}, 1. part of growing season},\\
-    \text{LAI} + 1.5 & \emph{if} \quad \text{\emph{cropland}, 2. part of growing season},\\
+    \text{LAI}\cdot 5/3.5 & \emph{if} \quad \text{\emph{cropland}, 1st part of growing season},\\
+    \text{LAI} + 1.5 & \emph{if} \quad \text{\emph{cropland}, 2nd part of growing season},\\
     0 & \emph{if} \quad \text{\emph{cropland}, winter}.
   \end{cases}
   \label{eq:SAI}
@@ -347,7 +347,7 @@ Extending the mOSaic scheme to the southern hemisphere, the used growing season 
   \caption{Definition of growing season for crops used in the Oslo~CTM3 in northern hemisphere (NH) and southern hemisphere (SH).}
   \begin{tabular}{lrr}
     \tophline
-    & 1. part & 2. part \\
+    & 1st part & 2nd part \\
     & (days) & (days) \\
     \middlehline
     NH & 90--140 & 141--270 \\
@@ -359,11 +359,11 @@ Extending the mOSaic scheme to the southern hemisphere, the used growing season 
 \end{table}
 %
 
-In this way, vegetation affects the conductance also by being there, not only by uptake through the stomata. The in-canopy resistance $R_\text{inc}$ is defined for each vegetated land type $N$ as
+In this way, vegetation affects the conductance also by being there, not only by uptake through the stomata. The in-canopy resistance $R_\text{inc}$ \citep{AE:Erisman1994} is then modified with respect to each (vegetated) land type $N$
 \begin{equation}
   R_\text{inc} = b \cdot \text{SAI}(N) \cdot \frac{h(N, \text{lat})}{u_*},
 \end{equation}
-where $h(N, \text{lat})$ is the latitude dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{s^{-1}}$ is an empirical constant. According to \citet{ACP:Simpson2012}, the canopy resistance in EMEP does not take temperature and snow into account and is zero for non-vegetated surfaces.\\
+where $h(N, \text{lat})$ is the latitude dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{m^{-1}}$ is an empirical constant. According to \citet{ACP:Simpson2012}, the canopy resistance in EMEP does not take temperature and snow into account and is zero for non-vegetated surfaces.\\
 $R_\text{gs}^\chem{O_3}(N)$ is tabulated and corrected for temperature by $F_T$ and snow cover fraction $f_\text{snow}$:
 \begin{equation}
   \frac{1}{R_\text{gs}^\chem{O_3}(N)} = \frac{1-f_\text{snow}}{\hat{R}_\text{gs}^\chem{O_3}(N)} + \frac{f_\text{snow}}{R_\text{snow}^\chem{O_3}}.
@@ -376,14 +376,14 @@ The total conductance $G_\text{ns}^\chem{O_3}$ in each gridbox is the sum of all
 \end{equation}
 
 \subsubsection{Latitude dependent vegetation height}
-The vegetation height $h(N, \text{lat})$ in the mOSaic scheme is linearly decreasing with latitude between $60\,\unit{^\circ}$ and $74\,\unit{^\circ N}$. To adapt this to a global model, we need to make a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the mOSaic scheme is regarded as constant at mid latitudes ($40\,\unit{^\circ}-60\,\unit{^\circ}$). Towards the poles, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of $74\,\unit{^\circ}$ a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of $10\,\unit{^\circ}$ a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presuming a typical tree height of $20\,\unit{m}$ at mid latitudes, this step-wise function yields a height of $8\,\unit{m}$ at high latitudes and $40\,\unit{m}$ in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (S.2, Fig.~S4). 
+The vegetation height $h(N, \text{lat})$ as decribed by \citet{ACP:Simpson2012} is linearly decreasing with latitude between $60\,\unit{^\circ}$ and $74\,\unit{^\circ N}$. To adapt this to a global model, we made a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the mOSaic scheme is regarded as constant at mid latitudes ($40\,\unit{^\circ}-60\,\unit{^\circ}$). Towards the poles, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of $74\,\unit{^\circ}$ a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of $10\,\unit{^\circ}$ a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presuming a typical tree height of $20\,\unit{m}$ at mid latitudes, this step-wise function yields a height of $8\,\unit{m}$ at high latitudes and $40\,\unit{m}$ in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (S.2, Fig.~S4). 
 
 \subsubsection{Mapping of land surface types}
 The Oslo~CTM3 is configured to read land surface types from, either \href{https://daac.ornl.gov/cgi-bin/dataset_lister.pl?p=29}{ISLSCP2} product from MODIS or Community Land Model (\href{http://www.cgd.ucar.edu/tss/clm/}{CLM})~2 categories, which have to be mapped to the nine land surface types used in the mOSaic scheme (Fig.~\ref{fig:pft_mapping}). For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From the MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert. This mapping differs from the one used in the Wesely scheme.
 
 \begin{figure*}[t]
   \includegraphics[width=12cm]{fig02}
-  \caption{Mapping of land surface categories. Either land surface categories from ISLSCP2 product of MODIS /  Community Land Model (CLM)~2 can be chosen for mapping to the nine land surface types used in the EMAP scheme. Water bodies and snow and ice categories of MODIS are actually not mapped. For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert.}
+  \caption{Mapping of land surface categories. Either land surface categories from ISLSCP2 product of MODIS or the Community Land Model (CLM)~2 can be chosen for mapping to the nine land surface types usedwe use in the mOSaic scheme. Water bodies and snow and ice categories of MODIS are actually not mapped. For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert.}
   \label{fig:pft_mapping}
 \end{figure*}
 %
@@ -394,7 +394,7 @@ As mentioned in the previous section, there are two variables needed for computi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Greening season}
 \label{subsubsec:greening}
-In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use prescribed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ ($d_\text{SGS}$, $d_\text{EGS}$) together with lapse rates ($\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$) to define phenology and dry deposition over agricultural areas. For the growing season of crops in the computation of non-stomatal conductances, we use also prescribed values (Table~\ref{tab:growing_season}), while for the stomatal conductances, as shown in Eq.~(\ref{eq:fphen}), we use the SGS and EGS derived parameters: day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. Since the eurocentric EMEP parameterization of SGS and EGS is not applicable in a global model, another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS; \href{https://www.epa.gov/air-emissions-modeling/biogenic-emission-inventory-system-beis}{model webpage}). SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses lapse rates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. As this parameterization is optimized for North America, it does not work well in Europe, e.g., most of northern Scandinavia has no allocated vegetation period.\\ 
+In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use prescribed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ ($d_\text{SGS}$, $d_\text{EGS}$) together with lapse rates ($\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$) to define phenology and dry deposition over agricultural areas. For the growing season of crops in the computation of non-stomatal conductances, we use also prescribed values (Table~\ref{tab:growing_season}), while for the stomatal conductances, as shown in Eq.~(\ref{eq:fphen}), we use the SGS and EGS derived parameters: day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. Since the eurocentric parameterization of SGS and EGS in \citet{ACP:Simpson2012} is not applicable in a global model, another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS; \href{https://www.epa.gov/air-emissions-modeling/biogenic-emission-inventory-system-beis}{model webpage}). SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses lapse rates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. As this parameterization is optimized for North America, it does not work well in Europe, e.g., most of northern Scandinavia has no allocated vegetation period.\\ 
 
 In agriculture, there are different empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after $5$ consecutive days with a daily average temperature above $5\,\unit{^\circ C}$ and vice versa for EGS. Other estimates use growing degree days \citep{JC:Levis2004,PO:Fu2014}, include soil moisture \citep{GCB:Fu2014}, or rely on satellite observations. A comprehensive evaluation of different techniques is given by \citet{GCB:Anav2017}.
 

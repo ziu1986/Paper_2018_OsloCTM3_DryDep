@@ -2,6 +2,7 @@
 \documentclass{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{xcolor}
 \usepackage{url}
@@ -54,7 +55,7 @@ used for decades (Garratt 1992). As pointed out by Ref~1, the equation as given 
 errors. The correct equation will not give negative values unless presented with wrong
 inputs, and I suspect that that is what has happened.}
 We have, in fact, not presented "wrong inputs" to the algorithm.
-As pointed out by Ref \#1, Eq. (2) in our manuscript is erroneous. We have not only made a mistake when deriving the formulation for $R_a$, from $u_*$ as presented in S2012 (sign-flip preceding the last term in the series) but also mistype the denominator of the second term. The corrected equation:
+As pointed out by Ref \#1, Eq. (2) in our manuscript is erroneous. The corrected equation (Erisman, 1994) for stable atmospheric conditions:
 \begin{equation}
   R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{L}\right)+\Psi_m\left(\frac{z_0}{L}\right)}\right].
   \label{eq:aero_res}
@@ -199,28 +200,38 @@ phenology for non-European areas, because of such difficulties with tabulations.
   leaf temperature?}
   
 \item {\color{blue}P9 Eqn (26). Say 1st and 2nd, not I. and II.}
-  We may change Table~1 accordingly.
+  We follow the advise regarding Eq.~(26) and also change Table~1 accordingly.
   
-\item {\color{blue}P9, Eqn (27). This equation is a modification of Erisman’s original (1994) formulation, so explain that.}
+\item {\color{blue}P9 Eqn (27). This equation is a modification of Erisman’s original (1994) formulation, so explain that.}
+  We follow the advise and write: \emph{"The in-canopy resistance $R_\text{inc}$ (Erisman et al., 1994) is then modified with respect to each (vegetated) land type $N$ [...]"} {\bfseries ToDo -- To Amund: Were does this modification come from?}
+  
 \item {\color{blue}P10 L12. Be explicit that this statement refers to S2012. The current EMEP
-model uses different heights for e.g. tropical vegetation.}
+  model uses different heights for e.g. tropical vegetation.}
+  We follow this advice and write: \emph{"The vegetation height $h(N, \text{lat})$ as decribed by Simpson et al. (2012) [...]"}
+  
 \item {\color{blue}P11 Sect 2.2. I also found this aerosol section confusing. Eqn (30) is from S2012,
-and so is the factor 0.008.SAI/10 used in Eqn (33), but here new a 1 coefficients
+and so is the factor 0.008.SAI/10 used in Eqn (33), but here new $a_1$ coefficients
 are defined. Did the ’aerosol microphysic model’ referred to also mix equations
 in this way? Is there any publication as to the reliability of this method?}
+  The $a_1$ coefficients were actually calculated from deposition velocities taken from the Oslo~CTM2 which has been socumented {\bfseries ToDo: Citation of CTM2?}.
+  
 \item {\color{blue}P12 Fig.2. I didn’t understand what is being done here. The Figure suggests that
 the EMEP scheme has one category for ’Forests, Med. scrub’, whereas S2012
 lists 4 types of forest, as well as Mediterranean scrub as a separate ecosystem.
 This figure also suggests that EMEP has savanna, which it doesn’t, but do have
 many other categories (Table 3 of S2012 lists 16 main categories. The current
 EMEP model has 32.)}
+  The caption may become clearer after we changed the name of our scheme, so that it can no longer be confused with the actual EMEP model. The purpose of the mapping is to project the more detailed categories for stomatal conductance to the 10 ground-surface resistance categories (Table~S19 in S2012 supplement).
+  
 \item {\color{blue}P12 L13. Again, the current EMEP model is not eurocentric, and uses global
-phenology calculations.}
+  phenology calculations.}
+  We follow the advice and change the text accordingly: \emph{"Since the eurocentric parameterization of SGS and EGS in Simpson et al. (2012) is not applicable [...]"}
+  
 \item {\color{blue}P13 Sect 2.3.2. The initial lines (14-16) are hard to understand and only by
 reading further do I see what they mean by ’de-accumulated’. If working with
 IFS PPFD is so hard, why didn’t the authors just calculate hourly (or minute-by-
 minute) PPFD using cloud-cover and zenith angles?}
-
+We have not used that ansatz, because we do not have the radiation fields in the relevant wavelengths available from OpenIFS output.
 \end{itemize}
 \newpage
 

@@ -638,7 +638,8 @@
        y1="76.072914"
        x2="307.9227"
        y2="76.072914"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-77.258327,0.31028497)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient2012"
@@ -810,10 +811,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="548.29285"
-     inkscape:cy="290.01618"
+     inkscape:cx="468.46668"
+     inkscape:cy="60.206462"
      inkscape:document-units="mm"
-     inkscape:current-layer="g1498"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1172"
@@ -843,30 +844,12 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-12.746155,-16.06457)"
-     sodipodi:insensitive="true">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.96499997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 131.49792,77.395823 -4.23335,-5.556252 v 2.645833 h -13.22916 v 5.291667 h 13.22916 v 2.645833 l 4.23335,-5.027081"
-       id="path1541"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.96499997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 191.29819,77.395823 4.23335,-5.556252 v 2.645833 h 13.22916 v 5.291668 h -13.22916 v 2.645833 l -4.23335,-5.027082"
-       id="path1541-2"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
-  </g>
-  <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="CLM2"
      transform="translate(-12.746155,-16.06457)"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <rect
        style="opacity:1;fill:url(#linearGradient1649);fill-opacity:1;stroke:#000000;stroke-width:0.96363741;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98305084"
        id="rect3832-1-9"
@@ -1000,7 +983,7 @@
              height="5.2916665"
              width="97.895836"
              id="rect872-0-5-6"
-             style="display:inline;opacity:1;fill:url(#linearGradient1657-2);fill-opacity:1.0;stroke:#000000;stroke-width:0.66499996;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527" />
+             style="display:inline;opacity:1;fill:url(#linearGradient1657-2);fill-opacity:1;stroke:#000000;stroke-width:0.66499996;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527" />
         </g>
       </g>
     </g>
@@ -1105,24 +1088,25 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="MODIS"
-     transform="translate(-12.746155,-16.06457)">
+     transform="translate(-12.746155,-16.06457)"
+     sodipodi:insensitive="true">
     <rect
        style="opacity:1;fill:url(#linearGradient1854);fill-opacity:1;stroke:#000000;stroke-width:0.95419157;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3832-1"
        width="97.895851"
        height="119.06249"
-       x="209.54976"
-       y="16.541666" />
+       x="132.29137"
+       y="16.851952" />
     <g
        id="g1480"
-       transform="matrix(0.99730023,0,0,1.066057,-3.9193786,-1.4691453)">
+       transform="matrix(0.99730023,0,0,1.066057,-81.177706,-1.1588603)">
       <rect
          y="23.949999"
          x="214.31258"
          height="5.2916665"
          width="97.895836"
          id="rect886-2"
-         style="opacity:1;fill:url(#linearGradient1886);fill-opacity:1.0;stroke:#000000;stroke-width:0.66499996;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527" />
+         style="opacity:1;fill:url(#linearGradient1886);fill-opacity:1;stroke:#000000;stroke-width:0.66499996;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527" />
       <rect
          y="29.770832"
          x="214.31258"
@@ -1234,7 +1218,7 @@
          height="5.2916665"
          width="97.895836"
          id="rect884-2-0"
-         style="opacity:1;fill:url(#linearGradient2034);fill-opacity:1;stroke:#000000;stroke-width:0.66530524;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527" />
+         style="opacity:1;fill:url(#linearGradient2034);fill-opacity:1;stroke:#000000;stroke-width:0.66530526;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527" />
       <rect
          y="117.08339"
          x="214.31273"
@@ -1246,109 +1230,109 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="213.33815"
-       y="22.665628"
+       x="136.07974"
+       y="22.975914"
        id="text3765"><tspan
          sodipodi:role="line"
          id="tspan3763"
-         x="213.33815"
-         y="22.665628"
+         x="136.07974"
+         y="22.975914"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif Bold';fill:#ffffff;stroke-width:0.26458332">MODIS</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="28.839239"
+         x="136.07974"
+         y="29.149525"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan4688">Water Bodies</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="35.012852"
+         x="136.07974"
+         y="35.323135"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3783">Evergreen Needleleaf Forests</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="41.186462"
+         x="136.07974"
+         y="41.496746"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3767">Evergreen Broadleaf Forests</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="47.360073"
+         x="136.07974"
+         y="47.670361"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3785">Deciduous Needleleaf Forests</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="53.533684"
+         x="136.07974"
+         y="53.843971"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3769">Deciduous Broadleaf Forests</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="59.707294"
+         x="136.07974"
+         y="60.017582"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3787">Mixed Forests</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="65.880905"
+         x="136.07974"
+         y="66.191193"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3771">Closed Shrublands</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="72.05452"
+         x="136.07974"
+         y="72.364807"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3789">Open Shrublands</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="78.228127"
+         x="136.07974"
+         y="78.538414"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3773">Woody Savannas</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="84.401741"
+         x="136.07974"
+         y="84.712029"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3791">Savannas</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="90.575356"
+         x="136.07974"
+         y="90.885635"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3775">Grasslands</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="96.748962"
+         x="136.07974"
+         y="97.05925"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3793">Permanent Wetlands</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="102.92258"
+         x="136.07974"
+         y="103.23286"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3777">Croplands</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="109.09618"
+         x="136.07974"
+         y="109.40647"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3795">Urban and Built-Up</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="115.2698"
+         x="136.07974"
+         y="115.58009"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3779">Cropland/Natural Vegetation Mosaic</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="121.44341"
+         x="136.07974"
+         y="121.75369"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;stroke-width:0.26458332"
          id="tspan3797">Permanent Snow and Ice</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="127.61702"
+         x="136.07974"
+         y="127.92731"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3781">Barren or Sparsely Vegetated</tspan><tspan
          sodipodi:role="line"
-         x="213.33815"
-         y="133.79063"
+         x="136.07974"
+         y="134.10092"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3799">Unclassified</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer4"
-     inkscape:label="EMEP"
+     inkscape:label="mOSaic"
      transform="translate(-12.746155,-16.06457)"
      style="display:inline"
      sodipodi:insensitive="true">
@@ -1357,14 +1341,14 @@
        id="rect3832"
        width="58.206299"
        height="62.442307"
-       x="132.2926"
-       y="45.741348" />
+       x="248.70927"
+       y="44.890877" />
     <g
        id="g1049"
        transform="matrix(1,0,0,1.1607144,0,-24.344893)" />
     <g
        id="g1068"
-       transform="translate(97.895841,-92.509672)">
+       transform="translate(214.3125,-93.360141)">
       <rect
          style="opacity:1;fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:0.5127812;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.23809527"
          id="rect888-1"
@@ -1440,64 +1424,96 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="137.02048"
-       y="51.09375"
+       x="253.43715"
+       y="50.243279"
        id="text3814"><tspan
          sodipodi:role="line"
          id="tspan3812"
-         x="137.02048"
-         y="51.09375"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif Bold';fill:#000000;fill-opacity:1;stroke-width:0.26458332">EMEP scheme</tspan><tspan
+         x="253.43715"
+         y="50.243279"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif Bold';fill:#000000;fill-opacity:1;stroke-width:0.26458332">mOSaic scheme</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="57.267361"
+         x="253.43715"
+         y="56.416889"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan4724">Forests, Med.scrub</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="63.440971"
+         x="253.43715"
+         y="62.5905"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3816">Crops</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="69.614586"
+         x="253.43715"
+         y="68.764114"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3818">Moorland, Savanna</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="75.788193"
+         x="253.43715"
+         y="74.937721"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3820">Grassland</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="81.961807"
+         x="253.43715"
+         y="81.111336"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3822">Wetlands</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="88.135414"
+         x="253.43715"
+         y="87.284943"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;stroke-width:0.26458332"
          id="tspan3824">Tundra</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="94.309029"
+         x="253.43715"
+         y="93.458557"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3826">Desert</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="100.48264"
+         x="253.43715"
+         y="99.632172"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3828">Water</tspan><tspan
          sodipodi:role="line"
-         x="137.02048"
-         y="106.65625"
+         x="253.43715"
+         y="105.80578"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.26458332"
          id="tspan3830">Urban</tspan></text>
     <path
        style="opacity:1;fill:none;stroke:#000000;stroke-width:0.69456995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 132.2916,52.619477 58.73762,-0.26457"
+       d="m 248.70826,51.769004 58.73762,-0.26457"
        id="path4686-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-12.746155,-16.06457)"
+     sodipodi:insensitive="true">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.96499997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 247.65005,77.660402 243.4167,72.10415 v 2.645833 h -13.22916 v 5.291667 h 13.22916 v 2.645833 l 4.23335,-5.027081"
+       id="path1541"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:7.05555534px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="117.45889"
+       y="79.828102"
+       id="text1071"><tspan
+         sodipodi:role="line"
+         id="tspan1069"
+         x="117.45889"
+         y="79.828102"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif Bold';stroke-width:0.26458332">OR</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1075"
+       width="14.552083"
+       height="14.552083"
+       x="134.6548"
+       y="-39.75267"
+       transform="rotate(45)" />
   </g>
 </svg>
