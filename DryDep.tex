@@ -115,13 +115,12 @@
  High concentrations of ozone in ambient air are hazardous not only to humans but to the ecosystem in general. The impact of ozone damage on vegetation and agricultural plants in combination with advancing climate change may affect food security in the future. While the future scenarios in themselves are uncertain, there are limiting factors constraining the accuracy of surface ozone modeling also at present: The distribution and amount of ozone precursors and ozone depleting substances, the stratosphere-troposphere exchange as well as scavenging processes. Removal of any substance through gravitational settling or by uptake by plants and soil is referred to as dry deposition. The process of dry deposition is important for predicting surface ozone concentrations and understanding the observed amount and increase of tropospheric background ozone. The conceptual dry deposition velocities are calculated following a resistance-analogous approach wherein aerodynamic, quasi laminar, and canopy resistances are key components, but these are hard to measure explicitly. We present an update of the dry deposition scheme implemented in the Oslo~CTM3. We change from a purely empirical dry deposition parameterization to a more process-based one which is taking the state of the atmosphere and vegetation into account. Examining the sensitivity of the scheme to various parameters, our focus lies mainly on the stomatal conductance-based description of the canopy resistance. We evaluate the resulting modeled ozone dry deposition with respect to observations and multi-model studies and also estimate the impact on the modeled ozone concentrations at the surface. We show that the global annual total ozone dry deposition decreases with respect to the previous model version ($-47\,\unit{\%}$), leading to an increase in surface ozone of up to $100\,\unit{\%}$ in some regions. While high sensitivity to changes in dry deposition to vegetation is found in the tropics, the largest impact on global scales is associated to changes in dry deposition to the ocean and deserts.
 \end{abstract}
 
-
 %\copyrightstatement{TEXT}
 \introduction  %% \introduction[modified heading if necessary]
 \label{sec:intro}
 Ozone is an important trace gas for all lifeforms on Earth. Depending on the place of its occurrence it has either a positive or negative connotation. In the stratosphere, ozone absorbs most of the ultraviolet (UV)-light from the sun within the range of 100--315\,\unit{nm}, thus shielding the Earth's surface from the most harmful UV-radiation. In addition, ozone is a potent greenhouse gas in both, stratosphere and troposphere. With a radiative forcing of $0.40 \pm 0.20\,\unit{W\,m^{-2}}$, it is placed third, only surpassed by \chem{CO_2} and \chem{CH_4} \citep[Chapter 8]{IPCC2013}.\\
 In the troposphere and in particular in ambient air, ozone is considered as a highly toxic pollutant. Since the industrial revolution, tropospheric background ozone concentrations have been increasing in the northern hemisphere \citep[Chapter 2]{IPCC2013}. In recent years, the number of episodes of peak concentrations has been decreasing in North America and Europe due to the implementation of air quality regulations \citep[e.g.,][]{ESA:Fleming2018, ESA:Mills2018} {\bf TODO: Read through papers and confirm numbers.}. At the same time, fast developing countries, like e.g., China or India, saw a significant increase in ozone related air pollution. Continuously high concentrations of ambient air ozone are hazardous to the whole ecosystem. It is estimated that ozone is cause to an increase in pre-mature deaths \citep{WHO2008}, an average global loss of yield in the four major crops (wheat, rice, maize, and soybean) of about $3-15\,\unit{\%}$ \citep{PJ:Ainsworth2017} as well as $7\,\unit{\%}$ loss in primary production in forestry \citep{GCB:Wittig2009,EP:Matyssek2012}. The impact of ozone damage on vegetation and agricultural plants may affect food security in the future especially in Asia \citep{GCB:Tang2013,NCC:Tai2014,AE:Chuwah2015,GCB:Mills2018} {\bf TODO: Read through papers and confirm numbers.} and might be an important additional feedback to climate change \citep{Nat:Sitch2007}.\\
-{\bf TODO: Think about how to balance the wording of were ozone originates from transport VS local production.}Tropospheric ozone is mainly produced locally in complex photochemical cycles involving advected precursor gases such as carbon monoxide (\chem{CO}) or volatile organic substances (VOCs -- also known as hydrocarbons) in the presents of nitrogen oxides (\chem{NO_x}). A typical reaction mechanism for \chem{CO} is sketched in the following. In a sequence of rapid reactions a peroxyl radical \chem{HO_2^\bullet} is formed through an initial reaction of \chem{CO} with a hydroxyl radical \chem{^\bullet OH}.
+Elevated ozone levels at a site originate rather from the local production of ozone from its precursors, which are transported, than from advection of ozone itself. Although long-range ozone transport occurs and might be most important in regions that else lack precursors. Tropospheric ozone is produced in complex photochemical cycles involving precursor gases such as carbon monoxide (\chem{CO}) or volatile organic substances (VOCs -- also known as hydrocarbons) in the presents of nitrogen oxides (\chem{NO_x}). A typical reaction mechanism for \chem{CO} is sketched in the following. In a sequence of rapid reactions a peroxyl radical \chem{HO_2^\bullet} is formed through an initial reaction of \chem{CO} with a hydroxyl radical \chem{^\bullet OH}.
 Via a reaction between \chem{HO_2^\bullet} and \chem{NO}, \chem{NO_2} is formed which is then photolyzed. The resulting atomic oxygen reacts then with \chem{O_2} (and also under the presence of available co-reactants) to form an ozone molecule.
 Such a cycle leads to a net production via:
 \begin{reaction}
@@ -159,25 +158,27 @@ As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is ty
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
-{\bf ToDO: Implement \citet{AE:Erisman1994} formulation for Ra with d's from \citet{ACP:Simpson2012} and $\Psi_m$ from \citet{ACP:Seinfeld2006} and remove text about Monteith alternative!} The aerodynamic resistance is describing the turbulent transport of any substance down to the surface. Following \citet{AE:Garland1978}, \citet{WASP:Simpson2003,ACP:Simpson2012} has
+{\bf ToDO: Implement \citet{AE:Erisman1994} formulation for Ra with d's from \citet{ACP:Simpson2012} and note down the right $\Psi_m$ and remove text about Monteith alternative!} The aerodynamic resistance is describing the turbulent transport of any substance down to the surface. Following \citet{AE:Garland1978}, \citet{WASP:Simpson2003,ACP:Simpson2012} has
 \begin{equation}
   R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_m\left(\frac{z-d}{L}\right)+\Psi_m\left(\frac{z_0}{L}\right)}\right],
 \end{equation}
-with the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the friction velocity $u_*$, integrated stability equations for momentum $\Psi_m$,  a the deplacement height $d$ (typically $0.7\cdot h(N,\mathrm{lat})\,\unit{m}$ for vegetation other than forests), and the Obukhov length $L$. For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the mOSaic scheme at this point and fall back to
-For technical reasons, we used the method of \citet{Monteith1973}, wherein the sensible heat flux $\Phi_{Q_\text{sensible}}$ is written as
-\begin{equation}
-  \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\Delta T}{R_{a, H}}.
-  \label{eq:sens_heat}
-\end{equation}
-Herein, $\rho_\text{air}$ is the air density, $c_P$ the specific heat at constant pressure $P$, $R_{a, H}$ is the diffusion resistance to sensible heat between surface and the reference height $z$, and $\Delta T$ is the difference between the surface temperature $T_0$ and the temperature at a reference height $T_z$. From the eddy diffusion theorem, a similar formulation can be derived
-\begin{equation}
-  \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\partial T}{\partial u} \cdot u_*^2.
-  \label{eq:eddy_theo}
-\end{equation}
-For finite $z$, $\partial T \rightarrow \Delta T$. Comparing Eq.~(\ref{eq:sens_heat}) and Eq.~(\ref{eq:eddy_theo}) and assuming $R_{a, H} \equiv R_a$, we find the stability independent equation
-\begin{equation}
-  R_a = \frac{u_z}{u_*^2}.
-\end{equation}
+with the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the friction velocity $u_*$, integrated stability equations for momentum $\Psi_m$,  a the deplacement height $d$ (typically $0.7\cdot h(N,\mathrm{lat})\,\unit{m}$ for vegetation other than forests), and the Obukhov length $L$.
+
+%For certain values of $z$, $z_0$, and $L$, this may result in nonphysical (negative) values for $R_a$. For this reason, we diverge from the mOSaic scheme at this point and fall back to
+%For technical reasons, we used the method of \citet{Monteith1973}, wherein the sensible heat flux $\Phi_{Q_\text{sensible}}$ is written as
+%\begin{equation}
+%  \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\Delta T}{R_{a, H}}.
+%  \label{eq:sens_heat}
+%\end{equation}
+%Herein, $\rho_\text{air}$ is the air density, $c_P$ the specific heat at constant pressure $P$, $R_{a, H}$ is the diffusion resistance to sensible heat between surface and the reference height $z$, and $\Delta T$ is the difference between the surface temperature $T_0$ and the temperature at a reference height $T_z$. From the eddy diffusion theorem, a similar formulation can be derived
+%\begin{equation}
+%  \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\partial T}{\partial u} \cdot u_*^2.
+%  \label{eq:eddy_theo}
+%\end{equation}
+%For finite $z$, $\partial T \rightarrow \Delta T$. Comparing Eq.~(\ref{eq:sens_heat}) and Eq.~(\ref{eq:eddy_theo}) and assuming $R_{a, H} \equiv R_a$, we find the stability independent equation
+%\begin{equation}
+%  R_a = \frac{u_z}{u_*^2}.
+%\end{equation}
 As reference height $z$, we use the height at mid-level of the lowermost model level (on average $10\,\unit{m}$). From the meteorological input fields $u_z$ is directly available, while $u_*$ can be computed via
 \begin{equation}
   u_* = \sqrt{\frac{\tau_0}{\rho}},
@@ -224,7 +225,7 @@ with a gravitational acceleration $g = 9.836\,\unit{m\,s^{-2}}$. The allowed max
 \label{subsubsec:Rc}
 The surface resistance consists of both, stomatal and non-stomatal resistances. When computing gridbox averages, we use the sum of conductances (deposition velocities)
 \begin{equation}
-  G_c = \text{LAI} \cdot G_\text{sto} + G_\text{ns}, 
+  G_c = \text{LAI} \cdot g_\text{sto} + G_\text{ns}, 
 \end{equation}
 wherein $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR (zero for non-vegetated surfaces), $G_\text{sto}$ the stomatal conductance, and $G_\text{ns}$ the non-stomatal conductance.
 
@@ -308,7 +309,7 @@ Since $g_\text{max}$ in Eq.~(\ref{eq:stomatal}) is in units of \unit{mmol\,s^{-1
 \end{equation}
 Herein, $R$ is the universal gas constant. With these, the total gridbox stomatal conductance $G_\text{sto}$ is computed weighted by the land surface type fraction $f_L(N)$:
 \begin{equation}
-  G_\text{sto} = \sum_{N=0}^{N_\text{max}} f_L(N)\cdot g^\text{m}_{\text{sto}}(N)
+  g_\text{sto} = \sum_{N=0}^{N_\text{max}} f_L(N)\cdot g^\text{m}_{\text{sto}}(N)
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -328,7 +329,7 @@ Herein $F_T$ is a temperature correction factor for temperatures below $-1\,\uni
 \begin{equation}
   F_T = \exp{(-0.2\cdot(1+\theta_0))}.
 \end{equation}
-$\theta_0$ is the surface or $2\,\unit{m}$ temperature in \unit{^\circ C}. In general, $\text{SAI} \equiv \text{LAI}$ for all land types, except for: 
+$\theta_0$ is the $2\,\unit{m}$ temperature in \unit{^\circ C}. In general, $\text{SAI} \equiv \text{LAI}$ for all land types, except for: 
 %
 \begin{equation}
   \text{SAI} = 
@@ -394,7 +395,7 @@ As mentioned in the previous section, there are two variables needed for computi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Greening season}
 \label{subsubsec:greening}
-In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use prescribed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ ($d_\text{SGS}$, $d_\text{EGS}$) together with lapse rates ($\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$) to define phenology and dry deposition over agricultural areas. For the growing season of crops in the computation of non-stomatal conductances, we use also prescribed values (Table~\ref{tab:growing_season}), while for the stomatal conductances, as shown in Eq.~(\ref{eq:fphen}), we use the SGS and EGS derived parameters: day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. Since the eurocentric parameterization of SGS and EGS in \citet{ACP:Simpson2012} is not applicable in a global model, another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS; \href{https://www.epa.gov/air-emissions-modeling/biogenic-emission-inventory-system-beis}{model webpage}). SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses lapse rates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. As this parameterization is optimized for North America, it does not work well in Europe, e.g., most of northern Scandinavia has no allocated vegetation period.\\ 
+In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use prescribed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ ($d_\text{SGS}$, $d_\text{EGS}$) together with lapse rates ($\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$) to define phenology and dry deposition over agricultural areas. For the growing season of crops in the computation of non-stomatal conductances, we use also prescribed values (Table~\ref{tab:growing_season}), while for the stomatal conductances, as shown in Eq.~(\ref{eq:fphen}), we use the SGS and EGS derived parameters: day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. Since the parameterization of SGS and EGS in \citet{ACP:Simpson2012} is not applicable in a global model, another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS; \href{https://www.epa.gov/air-emissions-modeling/biogenic-emission-inventory-system-beis}{model webpage}). SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses lapse rates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. As this parameterization is optimized for North America, it does not work well in Europe, e.g., most of northern Scandinavia has no allocated vegetation period.\\ 
 
 In agriculture, there are different empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after $5$ consecutive days with a daily average temperature above $5\,\unit{^\circ C}$ and vice versa for EGS. Other estimates use growing degree days \citep{JC:Levis2004,PO:Fu2014}, include soil moisture \citep{GCB:Fu2014}, or rely on satellite observations. A comprehensive evaluation of different techniques is given by \citet{GCB:Anav2017}.
 
