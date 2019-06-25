@@ -151,33 +151,36 @@ While the meteorological data driving the Oslo~CTM3 is given in a resolution of 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ozone dry deposition scheme}
 \label{subsec:DryDep}
-In the original dry deposition scheme of the Oslo~CTM3, the state of the atmosphere was not taken into account. Dry deposition velocities were rather parameterized following the work of \citet{AE:Wesely1989} with parameter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land surface types (water, forest, grass, tundra/desert, and ice and snow) were in use. Day was distinguished from night by solar zenith angles below $90\,\unit{^\circ}$. Winter was defined by temperatures below $273.15\,\unit{K}$ for gridboxes containing land masses. For ocean, winter and summer parameters are equal in this parameterization, therefore no distinctive treatment is needed for ocean gridboxes. In addition, a reduced uptake due to snow cover above $1\,\unit{m}$ for forest and $10\,\unit{cm}$ for grass/tundra, respectively, was taken into account. We will refer to this parameterization as \emph{Wesely scheme}.\\
+In the original dry deposition scheme, the state of the atmosphere was not taken into account. Dry deposition velocities were rather parameterized following the work of \citet{AE:Wesely1989} with parameter updates from \citet{JGR:Hough1991}. This means that seasonal day and night average deposition velocities for different land surface types (water, forest, grass, tundra/desert, and ice and snow) were in use. Day was distinguished from night by solar zenith angles below $90\,\unit{^\circ}$. Winter was defined by temperatures below $273.15\,\unit{K}$ for gridboxes containing land masses. For ocean, winter and summer parameters are equal in this parameterization, therefore no distinctive treatment is needed for ocean gridboxes. In addition, a reduced uptake due to snow cover above $1\,\unit{m}$ for forest and $10\,\unit{cm}$ for grass/tundra, respectively, was taken into account. We will refer to this parameterization as \emph{Wesely scheme}.\\
 
-Regarding the new dry deposition scheme, we mainly follow \citet{ACP:Simpson2012} in their description of dry deposition used in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep[see also,][]{Emberson2000, WASP:Simpson2003, AE:Tuovinen2004}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to this as \emph{mOSaic scheme} throughout the rest of the paper. The mOSaic scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The mOSaic scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, \citet{ACP:Simpson2012} also has some of the aerosol deposition velocities modified, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols (\chem{SO_4}, \chem{MSA}) and secondary organic aerosols (SOA), but we do not update our model with respect to these.
+Regarding the new dry deposition scheme, we mainly follow \citet{ACP:Simpson2012} in their description of dry deposition used in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep[see also,][]{Emberson2000, WASP:Simpson2003, AE:Tuovinen2004}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to the new scheme as \emph{mOSaic scheme} throughout the rest of the paper. The mOSaic scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The mOSaic scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, \citet{ACP:Simpson2012} also modify aerosol deposition velocities, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols (\chem{SO_4}, \chem{MSA}) and secondary organic aerosols (SOA), but we have not updated our model with respect to these.
 
-As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is typically split into three different resistance contributions (aerodynamic $R_a$, quasi-laminar layer $R^i_b$, and canopy $R^i_c$) which we will recap in the following.
+As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is subdivided into contributions from three different resistances. The main idea of a mosaic approach is to calculate these resistences dependent on the fraction of land surface types $k$ in each grid cell: $R_a^k$,$R^{i,k}_b$, and $R^{i,k}_c$.
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
-{\bf ToDO: Implement \citet{AE:Erisman1994} formulation for Ra with d's from \citet{ACP:Simpson2012} and note down the right $\Psi_m$ and remove text about Monteith alternative!} The aerodynamic resistance is describing the turbulent transport of any substance down to the surface. Following \citet[]{AE:Garland1978}, \citet{WASP:Simpson2003,ACP:Simpson2012} has
+In general, the aerodynamic resistance is describing the turbulent transport of any substance down to the surface. To derive $R_a^k$, \citet{WASP:Simpson2003,ACP:Simpson2012} compute a local friction velocity at reference height $z_\mathrm{ref}$ \citep[Eq.~(52),][]{ACP:Simpson2012}
 \begin{equation}
-  R_a = \frac{1}{\kappa u_*}\left[{\ln{\left(\frac{z-d}{z_0}\right)}-\Psi_h\left(\frac{z-d}{L}\right)+\Psi_h\left(\frac{z_0}{L}\right)}\right],
+  u_*^k = \frac{\overline{u}(z_\mathrm{ref})\cdot\kappa}{\ln{(\frac{z_\mathrm{ref}-d_k}{z_0^k})}-\Psi_m(\frac{z_\mathrm{ref}-d_k}{L})+\Psi_m(\frac{z_0^k}{L})},
+  \label{eq:local_fric_vel}
 \end{equation}
-with the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the friction velocity $u_*$, integrated stability equations for momentum $\Psi_m$,  a the deplacement height $d$ (typically $0.7\cdot h(N,\mathrm{lat})\,\unit{m}$ for vegetation other than forests), and the Obukhov length $L$.
-
-As reference height $z$, we use the height at mid-level of the lowermost model level (on average $10\,\unit{m}$). From the meteorological input fields $u_z$ is directly available, while $u_*$ can be computed via
+with an average wind speed $\overline{u}(z_\mathrm{ref})$, the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the integrated stability equation for momentum $\Psi_m$ \citep[e.g.,][]{Garratt1992}, a grid average Obukhov length $L$, deplacement height $d_k$, and surface height $z_0^k$ ($d_k=0.78\cdot h_k(\mathrm{lat})$, $z_0^k=0.07\cdot h_k(\mathrm{lat})$ for forests, $d_k=0.7\cdot h_k(\mathrm{lat})$, $z_0^k=0.1\cdot h_k(\mathrm{lat})$ for vegetation other than forests). We have chosen a model level where $\overline{z}_\mathrm{ref}\approx 45\,\unit{m}$. From Eq.~(\ref{eq:local_fric_vel}), a local Obukhov length $L_k$ is found \citep[Eq.~(8),][]{ACP:Simpson2012}:
 \begin{equation}
-  u_* = \sqrt{\frac{\tau_0}{\rho}},
+  L_k = - \frac{\rho c_p T_\mathrm{2m} u_*^k}{\kappa g H}.
 \end{equation}
-with the turbulent surface stress $\tau_0^2 = \tau_v^2 + \tau_u^2$, and northward turbulent surface stress $\tau_v$, eastward turbulent surface stress $\tau_u$.
+Herein, $H$ is the sensible heat flux, $g$ is the standard gravitational acceleration, $c_p$ the specific heat capacity, and $T_{2m}$ the $2\,\unit{m}$ temperature. With this we get \citep[Eq.~(8.8),][]{WASP:Simpson2003}
+\begin{equation}
+  R_a^k = \frac{1}{\kappa u_*^k}\left[{\ln{\left(\frac{z_\mathrm{ref}-d_k}{z_0^k}\right)}-\Psi_h\left(\frac{z_\mathrm{ref}-d_k}{L_k}\right)+\Psi_h\left(\frac{z_0^k}{L_k}\right)}\right],
+\end{equation}
+with the integrated stability equation for heat $\Psi_h$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Quasi-laminar layer resistance}
 \label{subsubsec:Rb}
-The quasi-laminar layer resistance $R_b^i$ is species specific and differs over land and ocean surfaces. In case a gridbox contains both, a weighted mean is calculated.
+The quasi-laminar layer resistance $R_b^{i,k}$ is species specific and differs only over land and ocean surfaces.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Over land, we use \citep[Eq.~(53),][]{ACP:Simpson2012}
 \begin{equation}
-  R_b^i = \frac{2}{\kappa u_*} \cdot \left(\frac{\text{Sc}_i}{\text{Pr}}\right)^{\frac{2}{3}},
+  R_b^{i,k} = \frac{2}{\kappa u_*} \cdot \left(\frac{\text{Sc}_i}{\text{Pr}}\right)^{\frac{2}{3}},
   \label{eq:Rb}
 \end{equation}
 wherein $\text{Pr}$ is the Prandtl number (typically 0.72 for air and other gases) and $\text{Sc}_i$ is the Schmidt number for a gas $i$. Eq.~(\ref{eq:Rb}) differs from a similar formulation in \citet{ACP:Seinfeld2006} by a factor of roughly $1.25$. From $\text{Sc}_i = \nu/D_i$, with the kinematic viscosity of air $\nu$, we derive a Schmidt number in water equivalent:
@@ -200,7 +203,7 @@ The kinematic viscosity of air $\nu$ herein can be computed from
   \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T\cdot R_\text{air}}}.
   \label{eq:kinematic_viscosity}
 \end{equation}
-For the temperature dependent dynamic viscosity of air $\mu(T)$, we chose a linear fit to Sutherland's law through the origin within the temperature range $\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$: $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg\,m^{-1}\,s^{-1}\,K^{-1}} \cdot T$. But despite its rough accuracy, we found that the choice of $\mu(T)$ has no effect on $\overline{R}_b$ (Supplement~S.1: Figs.~S1--S2). In Eq.~(\ref{eq:kinematic_viscosity}), $\rho$ is substituted by the air density using the ideal gas law. $P_0$ is the surface pressure, as $T$ the $2\,\unit{m}$ temperature is chosen, and $R_\text{air}$ is the universal gas constant for air.
+For the temperature dependent dynamic viscosity of air $\mu(T)$, we chose a linear fit to Sutherland's law through the origin within the temperature range $\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$: $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg\,m^{-1}\,s^{-1}\,K^{-1}} \cdot T$. But despite its rough accuracy, we found that the choice of $\mu(T)$ has no effect on $\overline{R}_b^{i,k}$ (Supplement~S.1: Figs.~S1--S2). In Eq.~(\ref{eq:kinematic_viscosity}), $\rho$ is substituted by the air density using the ideal gas law. $P_0$ is the surface pressure, as $T$ the $2\,\unit{m}$ temperature is chosen, and $R_\text{air}$ is the universal gas constant for air.
 The rough sea case follows the method of \citet{QJRMS:Charnock1955,JPO:Wu1980}:
 \begin{equation}
   z_0^\text{rough} = \text{min}\left\{2\cdot10^{-3}, 0.018 \cdot \frac{u^2_*}{g}\right\}
