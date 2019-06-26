@@ -8,6 +8,7 @@
 \usepackage{url}
 \usepackage{multirow}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \thispagestyle{empty}
 
 \begin{document}
@@ -43,7 +44,7 @@ As far as I can tell from the text, $R_a$ is calculated once, with the same valu
       \label{eq:Gsto_corr}
       G_c = \mathrm{LAI} \cdot \overline{g^\mathrm{m}_\mathrm{sto}} + \overline{G_\mathrm{ns}}
     \end{equation}
-    We acknowledge that Eq.~(13) should not procede the other equations and that this might have caused additional confusion. 
+    We acknowledge that Eq.~(13) should not proceed the other equations and that this might have caused additional confusion. 
     
   \item {\color{blue} In any case, I think this approach has serious problems. Why average first for $G_s$ and then for $G_{ns}$ , when it is the fluxes ($F_k$ , or $V^i_{g,k}(z_\mathrm{ref}) \times \chi^i_\mathrm{avg}(z_\mathrm{ref})$) which need to be averaged? I also do not understand why they would use the same $u_*$ and $R_a$ for all land-covers. I think the authors need to make a case for their approach, or change it.}
     We have discussed the concerns raised within this comment and found that we have indeed made a mistake in our implementation of the \emph{mosaic approach} which forces us to revise our model and repeat the model experiments.
@@ -68,7 +69,7 @@ was tested from the manuscript though, since they state simply that $d$ is ’ty
 Did they use $d$ properly, consistent with the underlying land-cover and its $z_0$? Did
 they assume that their 8\,m meteorology was at a physical height of 8\,m, or at $d + 8\,\mathrm{m}$.
 If the latter, which $d$?}
-  At that point, it is indeed neither clear from the manuscript nor from our internal documentation. The assumption that Eq.~(2) (in the manuscript) would become negative, was most likly based on a wrong form of the integrated stability function $\Psi_m$.
+  At that point, it is indeed neither clear from the manuscript nor from our internal documentation. The assumption that Eq.~(2) (in the manuscript) would become negative, was most likely based on a wrong form of the integrated stability function $\Psi_m$.
 
   Given $z = z_\mathrm{ref} = 8\,\mathrm{m}$ and $d = 0.7\cdot 1\,\mathrm{m}$, it is right that neither the correct Eq.~(\ref{eq:aero_res}) nor the erroneous equation will result in negative $R_a$. The statement "$d$ is ’typically 0.7\,m’" is a typo. We correct: \emph{"[...] typically $d = 0.7\cdot h(N,\mathrm{lat})\,\mathrm{m}$ for vegetation other than forests [...]"}.
 
@@ -93,7 +94,7 @@ For finite $z$, $\partial T \rightarrow \Delta T$.
 \item {\color{blue} In any case, here
 the authors end up with a stability-independent equation for $R_a$, without mentioning or
 discussing that fact.}
-  In the revison of the model, we are going to implement the stability dependent $R_a$ following Eq.~(\ref{eq:aero_res}).
+  In the revision of the model, we are going to implement the stability dependent $R_a$ following Eq.~(\ref{eq:aero_res}).
   
 \item {\color{blue} This very shallow layer is also very problematic for deposition calculations in general,
 since the model cell seems to be run here with horizontal dimensions of $2.25 \times 2.25^\circ$,
@@ -136,7 +137,7 @@ is being tested here, but it certainly is not. [...]}
   \item {\color{blue} Many of the equations are from S2012, and many not. I would like the authors to
     make this very explicit, so that readers are not confused as to what comes from EMEP,
     and what has changed for CTM3.}
-    We are going to elaborate on this matter in a revised version and refere to our equations' sources more properly.
+    We are going to elaborate on this matter in a revised version and refer to our equations' sources more properly.
   \end{itemize}
 \end{itemize}
 \section{Minor points}
@@ -195,10 +196,10 @@ case between their equations (13) and (14).}
   
 \item {\color{blue}P8 L1. S2012 do not suggest using depths lower than 1\,m. We use SMI3 which
   is from 28-100 cm.}
-Thank you for the clarification. We might have mixed this up. Since we have to repeat our simulations, we will choose SWLV3 from the start.
+Thank you for the clarification. This may have been a misunderstanding on our side. Since we have to repeat our simulations, we will choose the appropriate SWVL from the start.
   
 \item {\color{blue}P8 L2. Why did you choose to use the surface (0--7\,cm) soil moisture?}
-  The reason for the initial choice of 0--7\,cm came from the project this work is related to. In our project, we are interested in ozone in boreal regions where the soil column is generally more shallow. 
+  Initially we choose 0--7\,cm due to the original scope of this work within our research project, in which we study ozone concentrations and uptake by plants in boreal regions where the soil columns are expected to be more shallow then, e.g., at mid-latitudes. We expect the stomatal conductance in these environments to be more sensitive to precipitation. Using the actual water availability to vegetation, would be better, but this is not feasible without a proper land surface model. 
   
 \item {\color{blue}P8 L18. This is wrong. Nothing in the EMEP model is used to ’mimic the
 time lag..’. We use the light function to modify stomatal conductance, as with the
@@ -228,7 +229,7 @@ phenology for non-European areas, because of such difficulties with tabulations.
 and so is the factor 0.008.SAI/10 used in Eqn (33), but here new $a_1$ coefficients
 are defined. Did the ’aerosol microphysic model’ referred to also mix equations
 in this way? Is there any publication as to the reliability of this method?}
-  The $a_1$ coefficients were calculated from deposition velocities taken from the Oslo~CTM2 which has been documented {\bfseries ToDo: Citation of CTM2?}. We do actually not used this new scheme for aerosols in the Oslo~CTM3, yet. Hence, we will remove this section from the paper and add: \emph{"In addition to the gaseous species, Simpson at al. (2012) also modify aerosol deposition velocities, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols (\chem{SO_4}, \chem{MSA}) and secondary organic aerosols (SOA), but we have not updated our model with respect to these."}.
+  The $a_1$ coefficients were calculated from deposition velocities taken from the Oslo~CTM2 (\href{http://folk.uio.no/mariantl/osloctm3/history.html}{Oslo~CTM2 list of publications}). We meant to use this new scheme for aerosols in the Oslo~CTM3, but as of now it has not been evaluated and is actually not used. Hence, we will remove this section from the paper and add: \emph{"In addition to the gaseous species, Simpson at al. (2012) also modify aerosol deposition velocities, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols ($\mathrm{SO_4}$, $\mathrm{MSA}$) and secondary organic aerosols (SOA), but we have not updated our model with respect to these."}.
   
 \item {\color{blue}P12 Fig.2. I didn’t understand what is being done here. The Figure suggests that
 the EMEP scheme has one category for ’Forests, Med. scrub’, whereas S2012

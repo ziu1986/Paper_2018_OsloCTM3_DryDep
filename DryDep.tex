@@ -155,28 +155,33 @@ In the original dry deposition scheme, the state of the atmosphere was not taken
 
 Regarding the new dry deposition scheme, we mainly follow \citet{ACP:Simpson2012} in their description of dry deposition used in the European Monitoring and Evaluation Programme (EMEP) MSC-W model \citep[see also,][]{Emberson2000, WASP:Simpson2003, AE:Tuovinen2004}, which is used for air quality modeling implementing the Convention on Long-Range Transboundary Air Pollution (CLRTAP). We will refer to the new scheme as \emph{mOSaic scheme} throughout the rest of the paper. The mOSaic scheme is a more physical approach compared to the previously used Wesely scheme, because it takes state (e.g., pressure, temperature)  of the atmosphere as well as dynamics (e.g., wind stress) of the boundary layer into account. To a certain degree, the global variety of plants and their variability throughout the seasons is also acknowledged. The mOSaic scheme is implemented for the gaseous species \chem{O_3}, \chem{H_2O_2}, \chem{NO_2}, \chem{PAN}, \chem{SO_2}, \chem{NH_3}, \chem{HCHO}, and \chem{CH_3CHO}. Since \chem{CO} has a very small uptake and is not included in \citet{WASP:Simpson2003,ACP:Simpson2012}, the Wesely parameterization is kept. In addition to the gaseous species, \citet{ACP:Simpson2012} also modify aerosol deposition velocities, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols (\chem{SO_4}, \chem{MSA}) and secondary organic aerosols (SOA), but we have not updated our model with respect to these.
 
-As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is subdivided into contributions from three different resistances. The main idea of a mosaic approach is to calculate these resistences dependent on the fraction of land surface types $k$ in each grid cell: $R_a^k$,$R^{i,k}_b$, and $R^{i,k}_c$.
+As displayed in Eq.~(\ref{eq:drydep_velo}), the dry deposition computation is subdivided into contributions from three different resistances. The main idea of a mosaic approach is to calculate these resistances separately for each land surface type $k$ in each grid cell: $R_a^k$,$R^{i,k}_b$, and $R^{i,k}_c$.
+The grid cell average dry deposition velocity $\overline{v}_\mathrm{DD}^{i}$ is then defined by weighting each individual $v_\mathrm{DD}^{i,k}$ by the corresponding land fraction factor $f_k$:
+\begin{equation}
+  \overline{v}_\mathrm{DD}^{i} = \sum_k{f_k v_\mathrm{DD}^{i,k}}
+  \label{eq:ddep_velo_wa}
+\end{equation}
 
 \subsubsection{Aerodynamic resistance}
 \label{subsubsec:Ra}
-In general, the aerodynamic resistance is describing the turbulent transport of any substance down to the surface. To derive $R_a^k$, \citet{WASP:Simpson2003,ACP:Simpson2012} compute a local friction velocity at reference height $z_\mathrm{ref}$ \citep[Eq.~(52),][]{ACP:Simpson2012}
+In general, the aerodynamic resistance is describing the turbulent transport of any substance down to the surface. To derive $R_a^k$, we follow \citet{WASP:Simpson2003,ACP:Simpson2012} and compute a local friction velocity at reference height $z_\mathrm{ref}$ \citep[Eq.~(52),][]{ACP:Simpson2012}
 \begin{equation}
   u_*^k = \frac{\overline{u}(z_\mathrm{ref})\cdot\kappa}{\ln{(\frac{z_\mathrm{ref}-d_k}{z_0^k})}-\Psi_m(\frac{z_\mathrm{ref}-d_k}{L})+\Psi_m(\frac{z_0^k}{L})},
   \label{eq:local_fric_vel}
 \end{equation}
-with an average wind speed $\overline{u}(z_\mathrm{ref})$, the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the integrated stability equation for momentum $\Psi_m$ \citep[e.g.,][]{Garratt1992}, a grid average Obukhov length $L$, deplacement height $d_k$, and surface height $z_0^k$ ($d_k=0.78\cdot h_k(\mathrm{lat})$, $z_0^k=0.07\cdot h_k(\mathrm{lat})$ for forests, $d_k=0.7\cdot h_k(\mathrm{lat})$, $z_0^k=0.1\cdot h_k(\mathrm{lat})$ for vegetation other than forests). We have chosen a model level where $\overline{z}_\mathrm{ref}\approx 45\,\unit{m}$. From Eq.~(\ref{eq:local_fric_vel}), a local Obukhov length $L_k$ is found \citep[Eq.~(8),][]{ACP:Simpson2012}:
+with the average wind speed $\overline{u}(z_\mathrm{ref})$ at reference height, the K\'{a}rm\'{a}n constant $\kappa = 0.40$, the integrated stability equation for momentum $\Psi_m$ \citep[e.g.,][]{Garratt1992}, a grid average Obukhov length $L$, deplacement height $d_k$, and roughness length $z_0^k$ ($d_k=0.78\cdot h_k(\mathrm{lat})$, $z_0^k=0.07\cdot h_k(\mathrm{lat})$ for forests, $d_k=0.7\cdot h_k(\mathrm{lat})$, $z_0^k=0.1\cdot h_k(\mathrm{lat})$ for vegetation other than forests). We have chosen the model level such that $\overline{z}_\mathrm{ref}\approx 45\,\unit{m}$. Using the derived $u_*^k$ from Eq.~(\ref{eq:local_fric_vel}), a local Obukhov length $L_k$ can by obtained with \citep[Eq.~(8),][]{ACP:Simpson2012}:
 \begin{equation}
   L_k = - \frac{\rho c_p T_\mathrm{2m} u_*^k}{\kappa g H}.
 \end{equation}
-Herein, $H$ is the sensible heat flux, $g$ is the standard gravitational acceleration, $c_p$ the specific heat capacity, and $T_{2m}$ the $2\,\unit{m}$ temperature. With this we get \citep[Eq.~(8.8),][]{WASP:Simpson2003}
+Herein, $H$ is the sensible heat flux, $g$ is the standard gravitational acceleration, $c_p$ the specific heat capacity, and $T_{2m}$ the $2\,\unit{m}$ temperature. With these, we get \citep[Eq.~(8.8),][]{WASP:Simpson2003}
 \begin{equation}
   R_a^k = \frac{1}{\kappa u_*^k}\left[{\ln{\left(\frac{z_\mathrm{ref}-d_k}{z_0^k}\right)}-\Psi_h\left(\frac{z_\mathrm{ref}-d_k}{L_k}\right)+\Psi_h\left(\frac{z_0^k}{L_k}\right)}\right],
 \end{equation}
-with the integrated stability equation for heat $\Psi_h$.
+with the integrated stability equation for heat $\Psi_h$ \citep[e.g.,][]{Garratt1992}. Both integrated stability functions ($\Psi_m$, $\Psi_h$) and corresponding parameters are listed in supplement~S.1.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Quasi-laminar layer resistance}
 \label{subsubsec:Rb}
-The quasi-laminar layer resistance $R_b^{i,k}$ is species specific and differs only over land and ocean surfaces.
+The quasi-laminar layer resistance $R_b^{i,k}$ is species specific and differs over land and ocean surfaces.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Over land, we use \citep[Eq.~(53),][]{ACP:Simpson2012}
 \begin{equation}
@@ -203,38 +208,33 @@ The kinematic viscosity of air $\nu$ herein can be computed from
   \nu = \frac{\mu}{\rho} = \frac{\mu(T)}{\frac{P_0}{T\cdot R_\text{air}}}.
   \label{eq:kinematic_viscosity}
 \end{equation}
-For the temperature dependent dynamic viscosity of air $\mu(T)$, we chose a linear fit to Sutherland's law through the origin within the temperature range $\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$: $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg\,m^{-1}\,s^{-1}\,K^{-1}} \cdot T$. But despite its rough accuracy, we found that the choice of $\mu(T)$ has no effect on $\overline{R}_b^{i,k}$ (Supplement~S.1: Figs.~S1--S2). In Eq.~(\ref{eq:kinematic_viscosity}), $\rho$ is substituted by the air density using the ideal gas law. $P_0$ is the surface pressure, as $T$ the $2\,\unit{m}$ temperature is chosen, and $R_\text{air}$ is the universal gas constant for air.
+For the temperature dependent dynamic viscosity of air $\mu(T)$, we chose a linear fit to Sutherland's law through the origin within the temperature range $\{T \in \mathbb{R} | (243.15 < T < 313.15)\,\unit{K}\}$: $\mu(T) = 6.2\cdot 10^{-8}\,\unit{kg\,m^{-1}\,s^{-1}\,K^{-1}} \cdot T$. But despite its rough accuracy, we found that the choice of $\mu(T)$ has no effect on $\overline{R}_b^{i,k}$ (Supplement~S.2: Figs.~S1--S2). In Eq.~(\ref{eq:kinematic_viscosity}), $\rho$ is substituted by the air density using the ideal gas law. $P_0$ is the surface pressure, as $T$ the $2\,\unit{m}$ temperature is chosen, and $R_\text{air}$ is the universal gas constant for air.
 The rough sea case follows the method of \citet{QJRMS:Charnock1955,JPO:Wu1980}:
 \begin{equation}
   z_0^\text{rough} = \text{min}\left\{2\cdot10^{-3}, 0.018 \cdot \frac{u^2_*}{g}\right\}
 \end{equation}
-with a gravitational acceleration $g = 9.836\,\unit{m\,s^{-2}}$. The allowed maximum roughness length in both cases is set to $2\,\unit{mm}$. Since the $z_0$ computed with this parameterization are rather small ($0 < z_0^\text{calm} < 1\cdot 10^{-4}\,\unit{m}$, $0 < z_0^\text{rough} < 2 \cdot 10^{-3}\,\unit{m}$), $R^i_b$ is set to its lower limit of $10\,\unit{s\,m^{-1}}$ in about $91\,\unit{\%}$ of all cases (see Supplement~S.1: Fig.~S3). 
+with a gravitational acceleration $g = 9.836\,\unit{m\,s^{-2}}$. The allowed maximum roughness length in both cases is set to $2\,\unit{mm}$. Since the $z_0$ computed with this parameterization are rather small ($0 < z_0^\text{calm} < 1\cdot 10^{-4}\,\unit{m}$, $0 < z_0^\text{rough} < 2 \cdot 10^{-3}\,\unit{m}$), $R^i_b$ is set to its lower limit of $10\,\unit{s\,m^{-1}}$ in about $91\,\unit{\%}$ of all cases (see Supplement~S.2: Fig.~S3). 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Surface resistance}
 \label{subsubsec:Rc}
-The surface resistance consists of both, stomatal and non-stomatal resistances. When computing gridbox averages, we use the sum of conductances (deposition velocities)
-\begin{equation}
-  G_c = \text{LAI} \cdot g_\text{sto} + G_\text{ns}, 
-\end{equation}
-wherein $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR (zero for non-vegetated surfaces), $G_\text{sto}$ the stomatal conductance, and $G_\text{ns}$ the non-stomatal conductance.
-
+The surface resistance consists of both, stomatal and non-stomatal resistances.\\ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection*{Stomatal conductance}
-The stomatal conductance is a measure of the rate of \chem{CO_2} exchange and evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence their capability of respiration (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}, but is not taken into account in our formulation. To reflect part of the underlying mechanism, the stomatal conductance $G_\text{sto}$ in the mOSaic scheme is computed using a multiplicative ansatz that is also explained in much detail in \citet{ICP:MappingManual2017}:
+The stomatal conductance is a measure of the rate of \chem{CO_2} exchange and evapotranspiration through the stomata of a leaf. There are several environmental conditions affecting the opening and closing of the stomata and hence the capability of respiration (e.g., light, available water, etc.). Stomata sluggishness, a state in which the stomata can no longer fully close, has been reported as ozone induced damage \citep{SR:Hoshika2015}, but is not taken into account in our formulation. To reflect part of the underlying mechanism, the leaf-level stomatal conductance in the mOSaic scheme is computed using a common multiplicative ansatz \citep{BallBerry1987, ICP:MappingManual2017}:
 %
 \begin{equation}
-  G_\text{sto} = g^\text{m}_\text{max} \cdot f_\text{phen} \cdot f_\text{light} \cdot \max{\left\{f_\text{min}, f_T \cdot f_D \cdot f_\text{SW}\right\}}.
+  g^k_\text{sto, m} = g^k_\text{max, m} \cdot f^k_\text{phen} \cdot f^k_\text{light} \cdot \max{\left\{f^k_\text{min}, f^k_T \cdot f^k_D \cdot f^k_\text{SW}\right\}}.
   \label{eq:stomatal}
 \end{equation}
 %
-The factors herein are normalized and vary within the range $0-1$. They account for leaf phenology ($f_\text{phen}$), light ($f_\text{light}$), temperature ($f_T$), water vapor pressure deficit ($f_D$), and soil water content ($f_\text{SW}$).
+The factors herein are normalized and vary within the range $0-1$ and account for leaf phenology ($f_\text{phen}$), light ($f_\text{light}$), temperature ($f_T$), water vapor pressure deficit ($f_D$), and soil water content ($f_\text{SW}$). All factors differ with land use type $k$. For clarity reasons, we drop this index in the following, as long is it not necessary for the equation.
 
-The temperature adjustment $f_T$ of plants is computed from
+The temperature adjustment $f_T$ is computed from
 %
 \begin{equation}
   f_T = \frac{T_\text{2m}-T_\text{min}}{T_\text{opt}-T_\text{min}} \cdot \left(\frac{T_{\text{max}}-T_\text{2m}}{T_{\text{max}}-T_\text{opt}}\right)^\beta, 
 \end{equation}
-with $\beta = \frac{T_\text{max}-T_\text{opt}}{T_\text{opt}-T_\text{min}}$. The parameters $T_\text{min}$, $T_\text{max}$ and $T_\text{opt}$ are tabulated for various land surface types. All parameters used in the mOSaic scheme can be found in the supplementary to \citet[][Tables S16, S19]{ACP:Simpson2012}. Since $f_T$ turns negative outside its range defined by $T_\text{min}$, $T_\text{max}$, we impose a lower limit of $0.01$.
+with $\beta = \frac{T_\text{max}-T_\text{opt}}{T_\text{opt}-T_\text{min}}$. The parameters $T_\text{min}$, $T_\text{max}$ and $T_\text{opt}$ are tabulated for various plant functional types. All parameters are taken from Supplementary \citet[][Tables S16, S19]{ACP:Simpson2012}. Since $f_T$ turns negative outside the range defined by $T_\text{min}$, $T_\text{max}$, we impose a lower limit of $0.01$.
 
 The water vapor deficit (VPD) is proportional to the saturation partial pressure of water ($P_\chem{H_2O}^s$) and relative humidity ($\text{RH}$)
 %
@@ -257,15 +257,15 @@ The penalty factor with respect to available soil water ($\text{SW}$) $f_\text{S
     2 \cdot \text{SW}  & \quad \emph{if} \quad \text{SW} < 0.5.
   \end{cases}
 \end{equation}
-\citet{ACP:Simpson2012} suggest using SW of soil depths below $1\,\unit{m}$ (SWVL4 in OpenIFS). Throughout most of our simulations (Section~\ref{sec:eval}), we have, however, used the soil water contained in the top layer (SWVL1, $0-7\,\unit{cm}$), which makes the canopy conductance more sensitive to precipitation than it would be otherwise.
+SW is evaluated at a soil depths of $0.28-1\,\unit{m}$, which corresponds to SWVL3 in OpenIFS.
 
-The phenology of a plant typically describes its life-cycle throughout a year, e.g., at mid latitudes and for deciduous species, it starts with the emergence of leafs in spring and ends in fall. In the mOSaic scheme, phenology is parameterized with respect to the start of the greening season (SGS) and its end (EGS). Details about our treatment of these are given in Section~\ref{subsubsec:greening}. In summary, our adaption of the $f_\text{phen}$ parameterization reads as follows:
+The phenology of a plant typically describes its life-cycle throughout a year, e.g., at mid latitudes and for deciduous species, it starts with the emergence of leafs in spring and ends in fall. In the mOSaic scheme, phenology is parameterized with respect to the start of greening season (SGS) and its end (EGS). Details about our treatment of these are given in Section~\ref{subsubsec:greening}. In summary, our adaption of the $f_\text{phen}$ parameterization reads as follows:
 %
 \begin{equation}
   f_\text{phen} =
   \begin{cases}
-    \emph{if} \quad \text{GDAY = 0}  & \quad 0 \\
     \emph{if} \quad \text{GLEN $\ge$ 365} & \quad 1 \quad \emph{(explicitly excluding tropics)} \\
+    \emph{if} \quad \text{GDAY = 0}  & \quad 0 \\
     \emph{else}  & \quad 
     \begin{cases}
       \emph{if} \quad \text{GDAY} \le \phi_\text{AS}  & \quad \phi_a \\
@@ -278,7 +278,7 @@ The phenology of a plant typically describes its life-cycle throughout a year, e
   \label{eq:fphen}
 \end{equation}
 %
-Herein, we use the SGS and EGS derived parameters day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end points in the five phases of phenology in the mOSaic scheme, while $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ control the temporal timing (Fig.~\ref{fig:phenology}). If GLEN is zero we are, e.g., in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}=0$. Before the start of the growing season ($\text{GDAY}=0$) $f_\text{phen}=0$. Since the mOSaic scheme is tuned to northern hemisphere (NH) mid latitudes, this phenology does not apply to the tropics, after evaluation of the model results (Section~\ref{subsec:sens}), we decided to set $f_\text{phen}=1$ if GLEN is greater or equal to 365 which is the case in the tropics.
+Herein, we use the SGS and EGS derived parameters day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end points in the five phases of phenology in the mOSaic scheme, while $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ control the temporal timing (Fig.~\ref{fig:phenology}). If GLEN is zero we are, e.g., in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}=0$. Before the start of the growing season ($\text{GDAY}=0$) $f_\text{phen}=0$. Since the mOSaic scheme is tuned to northern hemisphere (NH) mid latitudes, this phenology does not apply to the tropics. We therefore decided to set $f_\text{phen}=1$ if GLEN is greater or equal to 365 which is the case in the tropics.
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{fig01}
@@ -286,39 +286,34 @@ Herein, we use the SGS and EGS derived parameters day of greening season (GDAY),
   \label{fig:phenology}
 \end{figure}
 
-Light in the wavelength band $400-700\,\unit{nm}$ to which the plant chlorophyll is sensitive is called photosynthetic active radiation (PAR). The integral of PAR over these wavelengths is the photosynthetic photon flux density (PPFD). In the EMEP parameterization, this integrated photon flux is used to modify the stomatal conductance in response to light:
+Light in the wavelength band $400-700\,\unit{nm}$ to which the plant chlorophyll is sensitive is called photosynthetic active radiation (PAR). The integral of PAR over these wavelengths is the photosynthetic photon flux density (PPFD). The correction factor $f_\mathrm{light}$ in response to varying PPFD is:
 \begin{equation}
   f_\text{light} = 1-\text{exp}(-\alpha_\text{light}\cdot \text{PPFD}).
   \label{eq:flight}
 \end{equation}
 
-Since $g_\text{max}$ in Eq.~(\ref{eq:stomatal}) is in units of \unit{mmol\,s^{-1}\,m^{-2}}, a unit conversion is done:
+Since $g_\text{max, m}$ in Eq.~(\ref{eq:stomatal}) is in units of \unit{mmol\,s^{-1}\,m^{-2}}, a unit conversion to \unit{m\,s^{-1}} is necessary in our model:
 \begin{equation}
-  g^\text{m}_{\text{sto}}(N) = g_{\text{sto}}(N) \cdot R \cdot \frac{T_0}{P_0}.
+  g^k_{\text{sto}} = g_{\text{sto, m}}^k \cdot R \cdot \frac{T_0}{P_0}.
 \end{equation}
-Herein, $R$ is the universal gas constant. With these, the total gridbox stomatal conductance $G_\text{sto}$ is computed weighted by the land surface type fraction $f_L(N)$:
-\begin{equation}
-  g_\text{sto} = \sum_{N=0}^{N_\text{max}} f_L(N)\cdot g^\text{m}_{\text{sto}}(N)
-\end{equation}
-
+Herein, $R$ is the universal gas constant.\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection*{Non-stomatal conductance}
 In the mOSaic scheme, non-stomatal conductances are explicitly calculated for \chem{O_3}, \chem{SO_2}, \chem{HNO_3}, and \chem{NH_3}. For all other species, an interpolation between \chem{O_3} and \chem{SO_2} values is carried out.
-
-The non-stomatal conductance for \chem{O_3} consists of two terms, one depending on vegetation type and one depending on the soil/surface. For a land surface type $N$, we can write
+The non-stomatal conductance for \chem{O_3} consists of two terms, one depending on vegetation type and one depending on the soil/surface. For land surface types $k$, we can write
 \begin{equation}
-  G_\text{ns}^\chem{O_3}(N) = \frac{\text{SAI}(N)}{r_\text{ext}} + \frac{1}{R_\text{inc}(N) + R_\text{gs}^\chem{O_3}(N)}.
+  G_\text{ns}^{\chem{O_3}, k} = \frac{\text{SAI}_k}{r_\text{ext}} + \frac{1}{R_\text{inc}^k + R_\text{gs}^{\chem{O_3},k}}.
   \label{eq:non-stomata-cond}
 \end{equation}
-$\text{SAI}(N)$ is the surface area index for vegetation type $N$, which is $\text{LAI}$ plus some value representing cuticles and others surfaces. The external leaf resistance is defined by
+$\text{SAI}_k$ is the surface area index for vegetation type $k$, which is $\text{LAI}$ plus some value that represents cuticles and others surfaces. The external leaf resistance is defined by
 \begin{equation}
   r_\text{ext} = 2000\,\unit{s\,m^{-1}}\cdot F_T.
 \end{equation}
 Herein $F_T$ is a temperature correction factor for temperatures below $-1\,\unit{^\circ C}$ and $\{F_T \in \mathbb{R} | (1 \leq F_T \leq 2)\}$
 \begin{equation}
-  F_T = \exp{(-0.2\cdot(1+\theta_0))}.
+  F_T = \exp{(-0.2\cdot(1+\theta_\text{2m}))}.
 \end{equation}
-$\theta_0$ is the $2\,\unit{m}$ temperature in \unit{^\circ C}. In general, $\text{SAI} \equiv \text{LAI}$ for all land types, except for: 
+$\theta_\text{2m}$ is the $2\,\unit{m}$ temperature in \unit{^\circ C}. For most land surface types, $\text{SAI} \equiv \text{LAI}$. Some exceptions are: 
 %
 \begin{equation}
   \text{SAI} = 
@@ -331,7 +326,7 @@ $\theta_0$ is the $2\,\unit{m}$ temperature in \unit{^\circ C}. In general, $\te
   \label{eq:SAI}
 \end{equation}
 %
-Extending the mOSaic scheme to the southern hemisphere, the used growing season for crops is defined in Table~\ref{tab:growing_season}.
+Extending the mOSaic scheme to the southern hemisphere, we use the growing season for crops defined in Table~\ref{tab:growing_season}.
 %
 \begin{table}[t]
   \caption{Definition of growing season for crops used in the Oslo~CTM3 in northern hemisphere (NH) and southern hemisphere (SH).}
@@ -349,31 +344,33 @@ Extending the mOSaic scheme to the southern hemisphere, the used growing season 
 \end{table}
 %
 
-In this way, vegetation affects the conductance also by being there, not only by uptake through the stomata. The in-canopy resistance $R_\text{inc}$ \citep{AE:Erisman1994} is then modified with respect to each (vegetated) land type $N$
+In this way, vegetation affects the conductance also by being there, not only by uptake through the stomata. The in-canopy resistance $R_\text{inc}$ \citep{AE:Erisman1994} is then modified with respect to each (vegetated) land surface type in $k$
 \begin{equation}
-  R_\text{inc} = b \cdot \text{SAI}(N) \cdot \frac{h(N, \text{lat})}{u_*},
+  R_\text{inc} = b \cdot \text{SAI}_k \cdot \frac{h_k(\text{lat})}{u_*},
 \end{equation}
-where $h(N, \text{lat})$ is the latitude dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{m^{-1}}$ is an empirical constant. According to \citet{ACP:Simpson2012}, the canopy resistance in EMEP does not take temperature and snow into account and is zero for non-vegetated surfaces.\\
-$R_\text{gs}^\chem{O_3}(N)$ is tabulated and corrected for temperature by $F_T$ and snow cover fraction $f_\text{snow}$:
-\begin{equation}
-  \frac{1}{R_\text{gs}^\chem{O_3}(N)} = \frac{1-f_\text{snow}}{\hat{R}_\text{gs}^\chem{O_3}(N)} + \frac{f_\text{snow}}{R_\text{snow}^\chem{O_3}}.
-\end{equation}
+where $h_k(\text{lat})$ is the latitude dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{m^{-1}}$ is an empirical constant. The canopy resistance described in \citet{ACP:Simpson2012} does not take temperature and snow into account and is zero for non-vegetated surfaces, but we will adopt the correction previously used in the Oslo~CTM3 Wesely scheme.\\
 As initially mentioned, the necessary depth of snow to cover a certain type of vegetation differs. Therefore, we calculate a snow cover fraction $f_\text{snow}$ using the snow depth $S_D$, which is available in units of meter of water equivalent from the meteorological input data, scaled to $10\,\unit{\%}$ of the vegetation height.
-
-The total conductance $G_\text{ns}^\chem{O_3}$ in each gridbox is the sum of all $G_\text{ns}^\chem{O_3}(N)$ weighted by the land surface type fraction $f_L(N)$
+$R_\text{gs}^{\chem{O_3},k}$ is tabulated and we correct for temperature by $F_T$ and for snow cover fraction:
 \begin{equation}
-  G_\text{ns}^\chem{O_3} = \sum_{N=0}^{N_\text{max}}{G_\text{ns}^\chem{O_3}(N) \cdot f_L(N)}.
+  \frac{1}{R_\text{gs}^{\chem{O_3},k}} = \frac{1-f_\text{snow}}{\hat{R}_\text{gs}^{\chem{O_3},k}} + \frac{f_\text{snow}}{R_\text{snow}^\chem{O_3}}.
 \end{equation}
 
+The bulk canopy conductance is then defined as:
+\begin{equation}
+  G_c^k = \text{LAI} \cdot g^k_\text{sto, m} + G^k_\text{ns}, 
+\end{equation}
+wherein $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR (zero for non-vegetated surfaces), $g_\text{sto}$ the leaf-level stomatal conductance, and $G_\text{ns}$ the bulk non-stomatal conductance.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Latitude dependent vegetation height}
-The vegetation height $h(N, \text{lat})$ as decribed by \citet{ACP:Simpson2012} is linearly decreasing with latitude between $60\,\unit{^\circ}$ and $74\,\unit{^\circ N}$. To adapt this to a global model, we made a few additional assumptions. The tabulated height for each vegetation type $h(N)$ in the mOSaic scheme is regarded as constant at mid latitudes ($40\,\unit{^\circ}-60\,\unit{^\circ}$). Towards the poles, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of $74\,\unit{^\circ}$ a minimum height of $3/10 \cdot h(N)$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of $10\,\unit{^\circ}$ a maximum height of $2 \cdot h(N)$ is achieved which is then held constant. We also assume symmetry in both hemispheres. Presuming a typical tree height of $20\,\unit{m}$ at mid latitudes, this step-wise function yields a height of $8\,\unit{m}$ at high latitudes and $40\,\unit{m}$ in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (S.2, Fig.~S4). 
+The vegetation height $h_k(\text{lat})$ as described by \citet{ACP:Simpson2012} is linearly decreasing with latitude between $60\,\unit{^\circ}$ and $74\,\unit{^\circ N}$. To adapt this to a global model, we made a few additional assumptions. The tabulated height for each vegetation type $h_k$ in the mOSaic scheme is regarded as constant at mid latitudes ($40\,\unit{^\circ}-60\,\unit{^\circ}$). Towards the poles, we decrease the height of each vegetation type using the same rate as described in \citet{ACP:Simpson2012}. At a latitude of $74\,\unit{^\circ}$ a minimum height of $3/10 \cdot h_k$ is reached and kept constant. Towards the equator, we increase the height linearly so that at a latitude of $10\,\unit{^\circ}$ a maximum height of $2 \cdot h_k$ is reached which is then held constant. We also assume symmetry in both hemispheres. Presuming a typical tree height of $20\,\unit{m}$ at mid latitudes, this step-wise function yields a height of $8\,\unit{m}$ at high latitudes and $40\,\unit{m}$ in the tropics which is not unrealistic. For four example PFTs, results are shown in the Supplement (S.3, Fig.~S4). 
 
 \subsubsection{Mapping of land surface types}
-The Oslo~CTM3 is configured to read land surface types from, either \href{https://daac.ornl.gov/cgi-bin/dataset_lister.pl?p=29}{ISLSCP2} product from MODIS or Community Land Model (\href{http://www.cgd.ucar.edu/tss/clm/}{CLM})~2 categories, which have to be mapped to the nine land surface types used in the mOSaic scheme (Fig.~\ref{fig:pft_mapping}). For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From the MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert. This mapping differs from the one used in the Wesely scheme.
+The Oslo~CTM3 is configured to read land surface types from, either \href{https://daac.ornl.gov/cgi-bin/dataset_lister.pl?p=29}{ISLSCP2} product from MODIS or Community Land Model (\href{http://www.cgd.ucar.edu/tss/clm/}{CLM})~2 categories, which have to be mapped to the land surface types used in the mOSaic scheme (Fig.~\ref{fig:pft_mapping}). For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while $f_L^\text{water}$ is defined as $1-\sum_{k} f_L^k$. From the MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert. This mapping differs from the one used in the Wesely scheme.
 
 \begin{figure*}[t]
   \includegraphics[width=12cm]{fig02}
-  \caption{Mapping of land surface categories. Either land surface categories from ISLSCP2 product of MODIS or the Community Land Model (CLM)~2 can be chosen for mapping to the nine land surface types usedwe use in the mOSaic scheme. Water bodies and snow and ice categories of MODIS are actually not mapped. For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{N=0}^{N_\text{max}} f_L(N)$. From MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert.}
+  \caption{Mapping of land surface categories. Either land surface categories from ISLSCP2 product of MODIS or the Community Land Model (CLM)~2 can be chosen for mapping to the land surface types we use in the mOSaic scheme. Water bodies and snow and ice categories of MODIS are actually not mapped. For both, MODIS and CLM~2 land surface categories, snow and ice cover is estimated from input meteorology, while water is defined as $1-\sum_{k} f_L^k$. From MODIS category \emph{Barren or sparsely vegetated}, everything polward from $60\,\unit{^\circ}$ is defined as tundra, while everything equatorward is categorized as desert.}
   \label{fig:pft_mapping}
 \end{figure*}
 %
@@ -388,7 +385,7 @@ In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use p
 
 In agriculture, there are different empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after $5$ consecutive days with a daily average temperature above $5\,\unit{^\circ C}$ and vice versa for EGS. Other estimates use growing degree days \citep{JC:Levis2004,PO:Fu2014}, include soil moisture \citep{GCB:Fu2014}, or rely on satellite observations. A comprehensive evaluation of different techniques is given by \citet{GCB:Anav2017}.
 
-Based on the empirical rule ($5\,\unit{^\circ C}$-days), we have pre-processed our meteorological input data offline. We added some additional criteria to prevent for \emph{false spring}: If, within these $5$ days, the average temperature drops below or rises above $5\,\unit{^\circ C}$, the counter is reset, respectively. First, we used the $5\,\unit{^\circ C}$-days criteria for $45\,\unit{^\circ} < \text{lat} < 85\,\unit{^\circ}$ in the NH, but extended it also to $35\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$ in the SH. In all other cases and where the $5\,\unit{^\circ C}$-days criteria fails, we still use the SMOKE-BEIS parameterization. The described algorithm written in python~2.7 has been included as Supplement~S.3. An example map of the computed GLEN using the $5\,\unit{^\circ C}$-days criteria in both hemispheres is shown in Fig.~\ref{fig:glen_2015_she}.
+Based on the empirical rule ($5\,\unit{^\circ C}$-days), we have pre-processed our meteorological input data offline. We added some additional criteria to prevent for \emph{false spring}: If, within these $5$ days, the average temperature drops below or rises above $5\,\unit{^\circ C}$, the counter is reset, respectively. First, we used the $5\,\unit{^\circ C}$-days criteria for $45\,\unit{^\circ} < \text{lat} < 85\,\unit{^\circ}$ in the NH, but extended it also to $35\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$ in the SH. In all other cases and where the $5\,\unit{^\circ C}$-days criteria fails, we still use the SMOKE-BEIS parameterization. The described algorithm written in python~2.7 has been included as Supplement~S.4. An example map of the computed GLEN using the $5\,\unit{^\circ C}$-days criteria in both hemispheres is shown in Fig.~\ref{fig:glen_2015_she}.
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm, clip, trim={0.cm 1.75cm 0.cm 1.75cm}]{fig03}
@@ -398,23 +395,23 @@ Based on the empirical rule ($5\,\unit{^\circ C}$-days), we have pre-processed o
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Photosynthetic photon flux density}
-From OpenIFS an accumulated surface PAR is available which is already integrated presumably over the spectrum $400-700\,\unit{nm}$. For this reason, it will be refered to as PPFD instead of PAR. This PPFD field has not been de-accumulated in the post-processing of the OpenIFS output and it is not feasible to redo all of the post-processing for this work. But for practical use in Eq.~(\ref{eq:flight}), this field needs to be de-accumulated. The main obstacle is that PAR has been accumulated since model start, so that the first field kept from the original OpenIFS simulation ($00\,\unit{UTC}$) is $12$ hours after model start ($12\,\unit{UTC}$ on the previous day). In other words, the first time step of each day in the Oslo~CTM3 has already accumulated PAR from $12\,\unit{UTC}$ on the previous day.
+From OpenIFS an accumulated surface PAR is available which is already integrated presumably over the spectrum $400-700\,\unit{nm}$. For this reason, it will be referred to as PPFD instead of PAR. This PPFD field has not been de-accumulated in the post-processing of the OpenIFS output and it is not feasible to redo all of the post-processing for this work. But for practical use in Eq.~(\ref{eq:flight}), this field needs to be de-accumulated. The main obstacle is that PAR has been accumulated since model start, so that the first field kept from the original OpenIFS simulation ($00\,\unit{UTC}$) is $12$ hours after model start ($12\,\unit{UTC}$ on the previous day). In other words, the first time step of each day in the Oslo~CTM3 has already accumulated PAR from $12\,\unit{UTC}$ on the previous day.
 De-accumulation of times $03\,\unit{UTC}$ to $21\,\unit{UTC}$, simply means computing the difference
 \begin{equation}
   \text{PPFD}(t_i) = \text{PAR}(t_{i+1})-\text{PAR}(t_i).
 \end{equation}
-For de-accumulation of the remaining timestep, the best choice is subtracting the difference between $21\,\unit{UTC}$ and $12\,\unit{UTC}$ of the previous day
+For de-accumulation of the remaining time step, the best choice is subtracting the difference between $21\,\unit{UTC}$ and $12\,\unit{UTC}$ of the previous day
 %
 \begin{equation}
   \text{PPFD}(t=00\,\unit{UTC}) = \text{PAR}(t=00\,\unit{UTC}) - \left[\text{PAR}(t=21\,\unit{UTC}-1\,\unit{day})-\text{PAR}(t=12\,\unit{UTC}-1\,\unit{day})\right]
 \end{equation}
 %
-and limit the result to positive values only. An example PAR de-accumulation for January 2nd 2005 is shown in Supplement~S.4 (Figs.~S5--S7).
+and limit the result to positive values only. An example PAR de-accumulation for January 2nd 2005 is shown in Supplement~S.5 (Figs.~S5--S7).
 The resulting PPFD fields are still accumulated over a time period of $3$ hours and should be divided by $3$. A \href{https://confluence.ecmwf.int/display/CKB/ERA-Interim\%3A+surface+photosynthetically+active+radiation+\%28surface+PAR\%29+values+are+too+low}{known issue} in the OpenIFS (cycles $\le$ c41r2) causes surface PAR values to be about $30\,\unit{\%}$ below observations. To counter this, we decided to refrain from the division at this stage, but need to bear this in mind for later OpenIFS cycles.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 \section{Evaluation}
 \label{sec:eval}
-In this section, we present results from a manifold of Oslo~CTM3 model integrations testing different parameters of the mOSaic scheme. We focus on changes in ozone related to the stomatal conductance parameterization, e.g., total dry deposition $\sum\chem{O_3^\text{DD}}$, dry deposition velocities $v^\chem{O_3}_\text{DD}$, and surface concentration $[\chem{O_3}](z_0)$ or surface burden $\chem{O_3}(z_0)$ in units of \unit{kg}, respectively. We evaluate our results with respect to the multi-model comparison of ozone dry deposition by \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}) and observations (Section~\ref{subsec:obs}). The Oslo~CTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF -- OpenIFS cy38r1}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered in daily resolution by NASA's Global Fire Emissions Database, Version4 (GFEDv4). Biogenic emissions are taken from MEGAN-MACC output \citep{ACP:Sindelarova2014}, while emissions from soil and wetlands are computed by MEGAN. Resultant $\mathrm{NO_x}$ emissions are upscaled to match Global Emissions InitiAtive (GEIA) inventory. For oceanic emissions of \chem{CO}, we use predefined global fields from POET \citep{POET}. Emissions of \chem{CH_4} from surface data from the EU project (EU GOCE 037048) Hydrogen, Methane and Nitrous oxide: Trend variability, budgets and interactions with the biosphere (HYMN) for the year 2003 and scaled to oceanic amounts of $\mathrm{CH_4}$ from NASA. In the following (Section~\ref{subsec:sens}), we will present the various model sensitivity studies.
+In this section, we present results from a manifold of Oslo~CTM3 model integrations testing different parameters of the mOSaic scheme. We focus on changes in ozone related to the stomatal conductance parameterization, e.g., total dry deposition $\sum\chem{O_3^\text{DD}}$, dry deposition velocities $v^\chem{O_3}_\text{DD}$, and surface concentration $[\chem{O_3}](z_0)$ or surface burden $\chem{O_3}(z_0)$ in units of \unit{kg}, respectively. We evaluate our results with respect to the multi-model comparison of ozone dry deposition by \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}) and observations (Section~\ref{subsec:obs}). The Oslo~CTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF -- OpenIFS cy38r1}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered in daily resolution by NASA's Global Fire Emissions Database, Version4 (GFEDv4). Biogenic emissions are taken from MEGAN-MACC output \citep{ACP:Sindelarova2014}, while emissions from soil and wetlands are computed by MEGAN. Resultant $\mathrm{NO_x}$ emissions are up-scaled to match Global Emissions InitiAtive (GEIA) inventory. For oceanic emissions of \chem{CO}, we use predefined global fields from POET \citep{POET}. Emissions of \chem{CH_4} from surface data from the EU project (EU GOCE 037048) Hydrogen, Methane and Nitrous oxide: Trend variability, budgets and interactions with the biosphere (HYMN) for the year 2003 and scaled to oceanic amounts of $\mathrm{CH_4}$ from NASA. In the following (Section~\ref{subsec:sens}), we will present the various model sensitivity studies.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensitivity studies}
 \label{subsec:sens}
@@ -468,7 +465,7 @@ Herein, $c_\text{month} = \frac{\Delta h_\text{month}}{s_\text{month}}$, with th
 %
 The annual zonal average with respect to surface ozone concentration (Fig.~\ref{fig:mmm_drydep}a displays on average, in consistency with Fig.~\ref{fig:diff_maps}a, a global increase of surface ozone concentrations by up to $10\,\unit{ppb}$ when applying the mOSaic scheme compared to the Wesely scheme. This increase is largest in the zonal band $(25-50)\,\unit{^\circ N}$ which contains the major deserts. In the deep tropics ($5\,\unit{^\circ S}-5\,\unit{^\circ N}$), the increase is smallest ($\Delta[\chem{O_3}]\leq 5\,\unit{ppb}$). We find that the mOSaic scheme further intensifies the strong asymmetry between northern and southern hemisphere as a consequence of the distribution of the continental land masses and vegetation thereon. Among the sensitivity studies, there is only a low absolute variance. Most remarkable, but expected due to the much smaller prescribed dry deposition velocity over ice and snow, \emph{EMEP\_ppgssh\_ice} displays almost a doubling of surface ozone in the high Arctics compared to \emph{Wesely\_type} but affects ozone concentrations down to latitudes at about $50\,\unit{^\circ}$ in both hemispheres. Neglecting any dependence on solar radiation in the stomatal conductance formulation (\emph{EMEP\_offLight}) -- or in other words allowing photosynthesis 24/7 -- generally decreases the ozone concentration by about $2\,\unit{ppb}$, while choosing soil water at deeper levels than the surface layer (\emph{EMEP\_SWVL4}) increases $[\chem{O_3}](z_0)$ slightly. Rather surprisingly, switching off the phenology completely (\emph{EMEP\_offPhen}), amounts only to small difference (at most $3.5\,\unit{\%}$ increase in the deep tropics). Switching from the SMOKE-BEIS parameterization to the pre-processed greening season (\emph{EMEP\_ppgs} compared to \emph{EMEP\_full}), surface ozone increases on average by $6\,\unit{\%}$ between $(54-70)\,\unit{^\circ N}$. The scenario of differing emissions (2005 in comparison to 2014 or more specifically \emph{EMEP\_ppgs\_2005} compared to \emph{EMEP\_ppgs}), yields higher ozone concentrations in the northern hemisphere in 2005 in accordance to a reduction in sulfur and \chem{NO_x} emissions in south east Asia in later years. An opposite tendency is seen for latitudes south of $30\,\unit{^\circ N}$, probably owing to the industrial development of countries in these regions. 
 
-The $v^\chem{O_3}_\text{DD}$ are shown in Fig.~\ref{fig:mmm_drydep}b. The dry deposition velocities in the mOSaic scheme are on average $43\,\unit{\%}$ lower than in the Wesely scheme. In the Arctics, except for \emph{EMEP\_ppgssh\_ice}, all realizations of the mOSaic scheme are constantly above the multi-model-mean. This indicates, that with respect to other models, the updated dry deposition velocity above ice and snow should be considered as new standard for the Oslo~CTM3. This may, however, lead to an overcompensation of the current low-bias in surface ozone in the Oslo~CTM3. The dry deposition velocities are of course independent of the emission scenario, but display a strong dependence on $f_\text{light}$ and $f_\text{phen}$. The closer to $1$ these factors are the higher the dry deposition velocities become (compare \emph{EMEP\_offLight}, \emph{EMEP\_offPhen}, and \emph{EMEP\_ppgssh}). That highlights the importance of a proper PAR from meteorological input in CTMs or radiative transfer in PAR in global climate models (GCMs) and a proper choice of phenology for canopy conductance computation. Albeit, the total numbers are smaller, the shape of the normalized zonal average dry deposition velocities of the mOSaic scheme and the multi-model-mean are similar (Supplement~S.5: Fig.~S8). The biggest exceptions are the zonal bands $(50-70)\,\unit{^\circ S}$, which is almost entirely covered by ocean, $(12-30)\,\unit{^\circ S}$, which coincides with the location of Australia and its desert regions, as well as its counterpart in the northern hemisphere $(12-30)\,\unit{^\circ N}$. However, it is not clear whether diverging dry deposition velocities over ocean or deserts have the larger impact.
+The $v^\chem{O_3}_\text{DD}$ are shown in Fig.~\ref{fig:mmm_drydep}b. The dry deposition velocities in the mOSaic scheme are on average $43\,\unit{\%}$ lower than in the Wesely scheme. In the Arctics, except for \emph{EMEP\_ppgssh\_ice}, all realizations of the mOSaic scheme are constantly above the multi-model-mean. This indicates, that with respect to other models, the updated dry deposition velocity above ice and snow should be considered as new standard for the Oslo~CTM3. This may, however, lead to an overcompensation of the current low-bias in surface ozone in the Oslo~CTM3. The dry deposition velocities are of course independent of the emission scenario, but display a strong dependence on $f_\text{light}$ and $f_\text{phen}$. The closer to $1$ these factors are the higher the dry deposition velocities become (compare \emph{EMEP\_offLight}, \emph{EMEP\_offPhen}, and \emph{EMEP\_ppgssh}). That highlights the importance of a proper PAR from meteorological input in CTMs or radiative transfer in PAR in global climate models (GCMs) and a proper choice of phenology for canopy conductance computation. Albeit, the total numbers are smaller, the shape of the normalized zonal average dry deposition velocities of the mOSaic scheme and the multi-model-mean are similar (Supplement~S.6: Fig.~S8). The biggest exceptions are the zonal bands $(50-70)\,\unit{^\circ S}$, which is almost entirely covered by ocean, $(12-30)\,\unit{^\circ S}$, which coincides with the location of Australia and its desert regions, as well as its counterpart in the northern hemisphere $(12-30)\,\unit{^\circ N}$. However, it is not clear whether diverging dry deposition velocities over ocean or deserts have the larger impact.
 
 The annual total ozone dry deposition is shown in Fig.~\ref{fig:mmm_drydep}c. In accordance to the previously described features, we observe a reduction of the global total ozone dry deposition in all sensitivity studies to almost one-half of the amount given by \emph{Wesely\_type}. The occurrence of this reduction in the zonal bands, where the major deserts are located, points to a change in $v_\text{desert}^\chem{O_3}$. Consulting the parameter file used in the Wesely scheme, we indeed find $v_\text{desert}^\chem{O_3} \equiv v_\text{tundra}^\chem{O_3} = 0.26\,\unit{cm\,s^{-1}}$ \citep{JGR:Hough1991}, while in the mOSaic scheme $v_\text{desert}^\chem{O_3}=0.05\,\unit{cm\,s^{-1}}$ and $v^\chem{O_3}_\text{tundra} = 0.24\,\unit{cm\,s^{-1}}$, respectively. Similarly, dry deposition velocities over ice and snow and ocean have been even higher in the Wesely scheme ($v_\text{ice/snow}^\chem{O_3}\equiv v_\text{water}^\chem{O_3}=0.07\,\unit{cm\,s^{-1}}$) than in the original mOSaic scheme ($v_\text{ice/snow}^\chem{O_3}\equiv v_\text{water}^\chem{O_3}=0.05\,\unit{cm\,s^{-1}}$). These differences in baseline dry deposition velocities over huge parts of the unvegetated surface of the Earth amount to most of the quantitative difference between the Wesely and the mOSaic scheme. We further elaborate on this in the following section (Section~\ref{subsubsec:seasons}).
 
@@ -652,7 +649,7 @@ Future work on the Oslo~CTM3 should include a direct output of dry deposition ve
 
 
 
-\authorcontribution{Stefanie Falk has compiled the manuscript, finalized the implementation of the stomatal conductance in the EMEP-based dry deposition scheme of the Oslo~CTM3, conducted the simulations, and analysed and evaluated the results. Amund S{\o}vde Haslerud has implemented the EMEP-based dry deposition scheme and wrote the respective documentation. Both authors contributed to the writing and discussion of the paper.} %% this section is mandatory for the journals ACP and GMD. For all other journals it is strongly recommended to make use of this section
+\authorcontribution{Stefanie Falk has compiled the manuscript, finalized the implementation of the stomatal conductance in the EMEP-based dry deposition scheme of the Oslo~CTM3, conducted the simulations, and analyzed and evaluated the results. Amund S{\o}vde Haslerud has implemented the EMEP-based dry deposition scheme and wrote the respective documentation. Both authors contributed to the writing and discussion of the paper.} %% this section is mandatory for the journals ACP and GMD. For all other journals it is strongly recommended to make use of this section
 
 \competinginterests{The authors declare that they have no conflict of interest.} %% this section is mandatory even if you declare that no competing interests are present
 

@@ -11,7 +11,24 @@
 \setcounter{page}{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplement}
-%\subsection*{S.1 Aerodynamical resistance}
+\subsection*{S.1 Aerodynamical resistance}
+\begin{equation}
+  \Psi_m(\zeta) =
+  \begin{cases}
+   \log(\frac{1+x^2}{2}\cdot(\frac{1+x}{2})^2) - 2\cdot \arctan(x+\frac{\pi}{2}) & \quad \emph{if} \quad -2 < \zeta < 0,\\
+   - \beta \cdot \zeta & \quad \emph{if} \quad \zeta \ge 0.
+  \end{cases}
+  \label{eq:psim}
+\end{equation}
+\begin{equation}
+  \Psi_h(\zeta) =
+  \begin{cases}
+   2\cdot\log(\frac{1+x^2}{2}) & \quad \emph{if} \quad -2 < \zeta < 0,\\
+   - \beta \cdot \zeta & \quad \emph{if} \quad \zeta \ge 0.
+  \end{cases}
+  \label{eq:psim}
+\end{equation}
+$x = (1-\gamma\cdot\zeta)^\frac{1}{4}$, $\beta = 4.7$, $\gamma = 15$ (from Cansas experiment).
 %\begin{table}[!htbp]
 %  \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$, reactivity $f^i_0$, and effective Henry's Law constant $H^i_*$.}
 %  \begin{tabular}{lcrr@{$\cdot$}l}
@@ -31,7 +48,7 @@
   %\belowtable{} % Table Footnotes
 %\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{S.1 Dynamic viscosity of air and quasi-laminar resistance}
+\subsection*{S.2 Dynamic viscosity of air and quasi-laminar resistance}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight]{pictures/dynamic_viscosity.pdf}
@@ -110,18 +127,18 @@
 %    U & 1 & 0 & 1000 & 400 & 400 & 10 & 0 & 366 & 0 & 0\\% & 0 & 0 & 0 & 0\\
 %    \bottomhline
 %  \end{tabular}
-%  \belowtable{$^*$: CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean scrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
+%  \belowtable{$^*$: CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean shrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
 %\end{table*}
 
 %\clearpage
-\subsection*{S.2 Latitude dependent vegetation height}
+\subsection*{S.3 Latitude dependent vegetation height}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight]{pictures/tree_height.pdf}
-  \caption{Extension of the latitude dependent vegetation height from northern hemisphere mid latitudes only to a global description. Example heights are shown for coniferous, deciduous, needleleaf, and broadleaf forests as well as Mediterranean shrub. As reference the original range of EMEP is added.}
+  \caption{Extension of the latitude dependent vegetation height from northern hemisphere mid latitudes only to a global description. Example heights are shown for coniferous (CF), deciduous (DF), needleleaf (NF), and broadleaf (BF) forests as well as Mediterranean shrub (MS). As reference the original range of EMEP is added.}
 \end{figure}
 
-\subsection*{S.3 Temperature dependent greening season (python 2.7)}
+\subsection*{S.4 Temperature dependent greening season (python 2.7)}
 {\scriptsize
 \begin{verbatim}
 #----------------------------------------------------------------------------------
@@ -299,7 +316,7 @@ def growing_season_stadyn(xr_temp):
 }
 \clearpage
 
-\subsection*{S.4 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS}
+\subsection*{S.5 De-accumulation of photosynthetic active radiation (PAR) from OpenIFS}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.65cm}]{pictures/PAR_as_is.png}
@@ -319,7 +336,7 @@ def growing_season_stadyn(xr_temp):
 \end{figure}
 %\clearpage
 
-\subsection*{S.5 Normalized zonal average ozone dry deposition velocity}
+\subsection*{S.6 Normalized zonal average ozone dry deposition velocity}
 \begin{figure}[!htbp]
   \centering
   \includegraphics[height=0.4\textheight, clip, trim={0.7cm 0.7cm 0.7cm 0.55cm}]{pictures/final-norm_total_ozone_drydepvelo}
