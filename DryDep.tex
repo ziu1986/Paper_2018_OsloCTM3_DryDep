@@ -144,7 +144,7 @@ In Section~\ref{sec:model_des}, we will briefly describe the Oslo~CTM3, give a d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Model description}
 \label{sec:model_des}
-The Oslo~CTM3 is a three dimensional global chemistry transport model (CTM). The key components of the Oslo~CTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the Oslo~CTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. The Oslo~CTM3 can also be coupled to the Model of Emissions of Gases and Aerosols from Nature (MEGAN v2.10) \citep{ACP:Guenther2006}. A publication focusing on this is planed.
+The Oslo~CTM3 is an offline, three dimensional, global chemistry transport model (CTM). The key components of the Oslo~CTM3 have been described and evaluated by \citet{GMD:Sovde2012}. A detailed account of the capabilities of the Oslo~CTM3 in simulating anthropogenic aerosol forcing in the past and recent past using the Community Emission Data System (CEDS) historical emission inventory \citep{GMD:Hoesly2018} is given by \citet{GMD:Lund2018}. The Oslo~CTM3 can also be coupled to the Model of Emissions of Gases and Aerosols from Nature (MEGAN v2.10) \citep{ACP:Guenther2006}. A publication focusing on this is planed.
 
 %Although the ozone depleting events in the polar boundary layer (Section~\ref{sec:intro}) are important to understand surface ozone abundance in Arctic regions in spring-time, no parameterization of these processes is implemented in the Oslo~CTM3 as of now.\\
 While the meteorological data driving the Oslo~CTM3 is given in a resolution of T159N80L60, with the highest model level at $0.02\,\unit{hPa}$, it is very time and memory consuming to run the Oslo~CTM3 with full chemistry at this resolution. Therefore, we reduced the horizontal resolution to $2.25^\circ\times2.25^\circ$ in our experiments. In the following, we will give a detailed account of the new dry deposition scheme and the equations that we use.
@@ -173,7 +173,7 @@ with the average wind speed $\overline{u}(z_\mathrm{ref})$ at reference height, 
 \begin{equation}
   L_k = - \frac{\rho c_p T_\mathrm{2m} u_*^k}{\kappa g H}.
 \end{equation}
-Herein, $H$ is the sensible heat flux, $g$ is the standard gravitational acceleration, $c_p$ the specific heat capacity, and $T_{2m}$ the $2\,\unit{m}$ temperature. With these, we get \citep[Eq.~(8.8),][]{WASP:Simpson2003}
+Herein, $H$ is the sensible heat flux, $g$ is the standard gravitational acceleration, $c_p$ the specific heat capacity, and $T_{2m}$ the $2\,\unit{m}$ temperature. With these, we can compute the aerodynamical resistance for each land surface type \citep[Eq.~(8.8),][]{WASP:Simpson2003}
 \begin{equation}
   R_a^k = \frac{1}{\kappa u_*^k}\left[{\ln{\left(\frac{z_\mathrm{ref}-d_k}{z_0^k}\right)}-\Psi_h\left(\frac{z_\mathrm{ref}-d_k}{L_k}\right)+\Psi_h\left(\frac{z_0^k}{L_k}\right)}\right],
 \end{equation}
@@ -278,7 +278,7 @@ The phenology of a plant typically describes its life-cycle throughout a year, e
   \label{eq:fphen}
 \end{equation}
 %
-Herein, we use the SGS and EGS derived parameters day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end points in the five phases of phenology in the mOSaic scheme, while $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ control the temporal timing (Fig.~\ref{fig:phenology}). If GLEN is zero we are, e.g., in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}=0$. Before the start of the growing season ($\text{GDAY}=0$) $f_\text{phen}=0$. Since the mOSaic scheme is tuned to northern hemisphere (NH) mid latitudes, this phenology does not apply to the tropics. We therefore decided to set $f_\text{phen}=1$ if GLEN is greater or equal to 365 which is the case in the tropics.
+Herein, we use the SGS and EGS derived parameters day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. The parameters $\phi_a$, $\phi_b$, $\phi_c$, and $\phi_d$ define start or end points in the five phases of phenology in the mOSaic scheme, while $\phi_e$, $\phi_f$, $\phi_\text{AS}$, and $\phi_\text{AE}$ control the temporal timing (Fig.~\ref{fig:phenology}). If GLEN is zero we are, e.g., in Arctic regions and there is no vegetation anyway, therefore $f_\text{phen}=0$. Before the start of the greening season ($\text{GDAY}=0$) $f_\text{phen}=0$. Since this phenology is tuned to northern hemisphere (NH) mid latitudes, it does not apply to the tropics. We therefore decided to set $f_\text{phen}=1$ if GLEN is greater or equal to 365 which is the case in the tropics.
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{fig01}
@@ -350,16 +350,16 @@ In this way, vegetation affects the conductance also by being there, not only by
 \end{equation}
 where $h_k(\text{lat})$ is the latitude dependent vegetation height (see explanation at the end of this section) and $b = 14\,\unit{m^{-1}}$ is an empirical constant. The canopy resistance described in \citet{ACP:Simpson2012} does not take temperature and snow into account and is zero for non-vegetated surfaces, but we will adopt the correction previously used in the Oslo~CTM3 Wesely scheme.\\
 As initially mentioned, the necessary depth of snow to cover a certain type of vegetation differs. Therefore, we calculate a snow cover fraction $f_\text{snow}$ using the snow depth $S_D$, which is available in units of meter of water equivalent from the meteorological input data, scaled to $10\,\unit{\%}$ of the vegetation height.
-$R_\text{gs}^{\chem{O_3},k}$ is tabulated and we correct for temperature by $F_T$ and for snow cover fraction:
+$R_\text{gs}^{\chem{O_3},k}$ is tabulated. We correct for temperature by $F_T$ and for snow cover fraction:
 \begin{equation}
-  \frac{1}{R_\text{gs}^{\chem{O_3},k}} = \frac{1-f_\text{snow}}{\hat{R}_\text{gs}^{\chem{O_3},k}} + \frac{f_\text{snow}}{R_\text{snow}^\chem{O_3}}.
+  \frac{1}{R_\text{gs}^{\chem{O_3},k}} = \frac{1-f_\text{snow}^k}{\hat{R}_\text{gs}^{\chem{O_3},k}} + \frac{f_\text{snow}^k}{R_\text{snow}^{\chem{O_3},k}}.
 \end{equation}
 
 The bulk canopy conductance is then defined as:
 \begin{equation}
   G_c^k = \text{LAI} \cdot g^k_\text{sto, m} + G^k_\text{ns}, 
 \end{equation}
-wherein $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR (zero for non-vegetated surfaces), $g_\text{sto}$ the leaf-level stomatal conductance, and $G_\text{ns}$ the bulk non-stomatal conductance.\\
+wherein $\text{LAI}$ is the one-sided leaf area index taken from ISLSCP2 FASIR, $g_\text{sto}$ the leaf-level stomatal conductance, and $G_\text{ns}$ the bulk non-stomatal conductance.\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Latitude dependent vegetation height}
@@ -422,22 +422,22 @@ All simulations discussed in this section are summarized in Table~\ref{tab:simsu
   \caption{Summary of specifications of all simulations discussed in this section. For simplicity, only the tested parameters are listed. An x denotes that the model was run exactly in the configuration as has been described in Section~\ref{sec:model_des}.}
   \begin{tabular}{lccccccccc}
     \tophline
-    \multirow{2}{*}{Simulation} & Wesely scheme & \multicolumn{3}{c}{mOSaic scheme} & \multicolumn{2}{c}{Greening season} & $v^\chem{O_3}_\text{ice/snow}$ & Emissions\\
-    & & $f_\text{phen}$ & $f_\text{light}$ & $f_\text{SW}$ & SMOKE-BEIS & $5\,\unit{^\circ C}$-days & (\unit{m\,s^{-1}}) & (year)\\
+    \multirow{2}{*}{Simulation} & \multicolumn{3}{c}{mOSaic scheme} & \multicolumn{2}{c}{Greening season} & $R^\chem{O_3}$ & Emissions\\
+    & $f_\text{phen}$ & $f_\text{light}$ & $f_\text{SW}$ & SMOKE-BEIS & $5\,\unit{^\circ C}$-days & & (year)\\
     \middlehline
-    Wesely\_type      & x & \multicolumn{3}{c}{n/a}  & x & n/a   & 1/2000  & 2014 \\
-    EMEP\_full        &   & incl. TR & x & SWLV1     & x &       & 1/2000  & 2014 \\
-    EMEP\_offLight    &   & incl. TR & 1 & SWLV1     & x &       & 1/2000  & 2014 \\
-    EMEP\_offPhen     &   & 1        & x & SWLV1     & x &       & 1/2000  & 2014 \\
-    EMEP\_SWVL4       &   & incl. TR & x & SWLV4     & x &       & 1/2000  & 2014 \\
-    EMEP\_ppgs        &   & incl. TR & x & SWLV1     &   & NH    & 1/2000  & 2014 \\
-    EMEP\_ppgs\_2005  &   & incl. TR & x & SWLV1     &   & NH    & 1/2000  & 2005 \\
-    EMEP\_ppgssh      &   & excl. TR & x & SWLV1     &   & NH+SH & 1/2000  & 2014 \\
-    EMEP\_ppgssh\_ice &   & excl. TR & x & SWLV1     &   & NH+SH & 1/10000 & 2014 \\
+    Wesely\_type      &  \multicolumn{3}{c}{n/a}   & x & n/a& \citet{AE:Wesely1989, JGR:Hough1991}  & 2005 \\
+    mOSaic            &   x & x & x                &   &  x & x  & 2005 \\
+    mOSaic\_offLight  &   x & 1 & x                &   &  x & x  & 2005 \\
+    mOSaic\_offPhen   &   1 & x & x                &   &  x & x  & 2005 \\
+    mOSaic\_SWVL1     &   x & x & SWLV1            &   &  x & x  & 2005 \\
+    mOSaic\_ice       &   x & x & x                &   &  x & x; \citet{ACP:Helmig2007}$^\dagger$ & 2005 \\
+    mOSaic\_desert    &   x & x & x                &   &  x & x; \citet{AE:Gusten1995}$^*$  & 2005 \\
+    mOSaic\_emis2014  &   x & x & x                &   &  x & x  & 2014 \\
+    mOSaic\_hough     &   x & x & x                &   &  x & \citet{AE:Wesely1989, JGR:Hough1991}$^\star$  & 2005 \\
     \bottomhline
   \end{tabular}
   \label{tab:simsum}
-  %\belowtable{} % Table Footnotes
+  \belowtable{$^\dagger\,R^\chem{O_3}_\text{ice/snow}=10000\,\unit{s\,m^{-1}}$; $^*\,R^\chem{O_3}_\text{desert}=800\,\unit{s\,m^{-1}}$; $^\star\,$Supplement~S.7} % Table Footnotes
 \end{table*}
 %
 \begin{figure}[t]

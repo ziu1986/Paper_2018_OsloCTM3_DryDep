@@ -26,9 +26,9 @@
    2\cdot\log(\frac{1+x^2}{2}) & \quad \emph{if} \quad -2 < \zeta < 0,\\
    - \beta \cdot \zeta & \quad \emph{if} \quad \zeta \ge 0.
   \end{cases}
-  \label{eq:psim}
+  \label{eq:psih}
 \end{equation}
-$x = (1-\gamma\cdot\zeta)^\frac{1}{4}$, $\beta = 4.7$, $\gamma = 15$ (from Cansas experiment).
+$x = (1-\gamma\cdot\zeta)^\frac{1}{4}$, $\beta = 4.7$, $\gamma = 15$ (from Kansas experiment).
 %\begin{table}[!htbp]
 %  \caption{Molecular diffusivity for a gas $i$ given as ration $D_\chem{H_2O}/D_i$, reactivity $f^i_0$, and effective Henry's Law constant $H^i_*$.}
 %  \begin{tabular}{lcrr@{$\cdot$}l}
@@ -343,4 +343,30 @@ def growing_season_stadyn(xr_temp):
   \caption{Normalized zonal average ozone dry deposition velocity.}
 \end{figure}
 
+\subsection*{S.7 Wesely-Hough $R^\chem{O_3}$}
+\begin{table*}[!htbp]
+  \caption{Surface resistance of ozone: $^*$ CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean shrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
+  \begin{tabular}{lc}
+    \tophline
+    Code$^*$ & $R_\chem{O_3}$\\
+         & (\unit{s\,m^{-1}})\\
+    \middlehline
+    CF &  1000\\
+    DF &  1000 \\
+    NF &  1000 \\
+    BF &  1000 \\
+    TC &  200 \\
+    SNL & 400 \\
+    GR  & 1000 \\
+    MS  & 1000 \\
+    WE  & 400 \\
+    TU  & 385 \\
+    DE  & 385 \\
+    W   & 1430 \\
+    U   & 400 \\
+    ICE & 1430\\
+    \bottomhline
+ \end{tabular}
+  %\belowtable{}
+\end{table*}
 \end{document}
