@@ -383,7 +383,7 @@ As mentioned in the previous section, there are two variables needed for computi
 \label{subsubsec:greening}
 In Eqs.~(\ref{eq:non-stomata-cond}--\ref{eq:SAI}), \citet{ACP:Simpson2012} use prescribed start of growing season (SGS) and end of growing season (EGS) at $50\,\unit{^\circ N}$ ($d_\text{SGS}$, $d_\text{EGS}$) together with lapse rates ($\nabla d_\text{SGS}$, and $\nabla d_\text{EGS}$) to define phenology and dry deposition over agricultural areas. For the growing season of crops in the computation of non-stomatal conductances, we use also prescribed values (Table~\ref{tab:growing_season}), while for the stomatal conductances, as shown in Eq.~(\ref{eq:fphen}), we use the SGS and EGS derived parameters: day of greening season (GDAY), the time elapsed starting at the SGS, and the total length of the greening season (GLEN), the time span between EGS and SGS. Since the parameterization of SGS and EGS in \citet{ACP:Simpson2012} is not applicable in a global model, another latitude dependent parameterization is needed. First, we have used a parameterization as implemented in the Sparse Matrix Operational Kernel Emissions -- Biogenic Emission Inventory System (SMOKE-BEIS; \href{https://www.epa.gov/air-emissions-modeling/biogenic-emission-inventory-system-beis}{model webpage}). SMOKE-BEIS has fixed values for SGS and EGS for all regions but NH mid latitudes ($23\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$), where it uses lapse rates of $\nabla d_\text{SGS} = 4.5$ and $\nabla d_\text{EGS} = 3.3$. As this parameterization is optimized for North America, it does not work well in Europe, e.g., most of northern Scandinavia has no allocated vegetation period.\\ 
 
-In agriculture, there are different empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after $5$ consecutive days with a daily average temperature above $5\,\unit{^\circ C}$ and vice versa for EGS. Other estimates use growing degree days \citep{JC:Levis2004,PO:Fu2014}, include soil moisture \citep{GCB:Fu2014}, or rely on satellite observations. A comprehensive evaluation of different techniques is given by \citet{GCB:Anav2017}.
+In agriculture, there are different empirical rules to estimate the SGS and EGS. The simplest assumption is that greening starts after $5$ consecutive days with a daily average temperature above $5\,\unit{^\circ C}$ and vice versa for EGS. Other estimates use growing degree days \citep{JC:Levis2004,PO:Fu2014}, include soil moisture \citep{GCB:Fu2014}, or rely on satellite observations. A comprehensive evaluation of different techniques is given by \citet{GCB:Anav2017}. Another solution would be the usage of a proper landsurface model, e.g. LPJ-GUESS, CLM, but the integration of such into the Oslo~CTM3 is not planed at the moment.
 
 Based on the empirical rule ($5\,\unit{^\circ C}$-days), we have pre-processed our meteorological input data offline. We added some additional criteria to prevent for \emph{false spring}: If, within these $5$ days, the average temperature drops below or rises above $5\,\unit{^\circ C}$, the counter is reset, respectively. First, we used the $5\,\unit{^\circ C}$-days criteria for $45\,\unit{^\circ} < \text{lat} < 85\,\unit{^\circ}$ in the NH, but extended it also to $35\,\unit{^\circ} < \text{lat} < 65\,\unit{^\circ}$ in the SH. In all other cases and where the $5\,\unit{^\circ C}$-days criteria fails, we still use the SMOKE-BEIS parameterization. The described algorithm written in python~2.7 has been included as Supplement~S.4. An example map of the computed GLEN using the $5\,\unit{^\circ C}$-days criteria in both hemispheres is shown in Fig.~\ref{fig:glen_2015_she}.
 %
@@ -408,10 +408,11 @@ For de-accumulation of the remaining time step, the best choice is subtracting t
 %
 and limit the result to positive values only. An example PAR de-accumulation for January 2nd 2005 is shown in Supplement~S.5 (Figs.~S5--S7).
 The resulting PPFD fields are still accumulated over a time period of $3$ hours and should be divided by $3$. A \href{https://confluence.ecmwf.int/display/CKB/ERA-Interim\%3A+surface+photosynthetically+active+radiation+\%28surface+PAR\%29+values+are+too+low}{known issue} in the OpenIFS (cycles $\le$ c41r2) causes surface PAR values to be about $30\,\unit{\%}$ below observations. To counter this, we decided to refrain from the division at this stage, but need to bear this in mind for later OpenIFS cycles.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%      
 \section{Evaluation}
 \label{sec:eval}
-In this section, we present results from a manifold of Oslo~CTM3 model integrations testing different parameters of the mOSaic scheme. We focus on changes in ozone related to the stomatal conductance parameterization, e.g., total dry deposition $\sum\chem{O_3^\text{DD}}$, dry deposition velocities $v^\chem{O_3}_\text{DD}$, and surface concentration $[\chem{O_3}](z_0)$ or surface burden $\chem{O_3}(z_0)$ in units of \unit{kg}, respectively. We evaluate our results with respect to the multi-model comparison of ozone dry deposition by \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}) and observations (Section~\ref{subsec:obs}). The Oslo~CTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF -- OpenIFS cy38r1}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered in daily resolution by NASA's Global Fire Emissions Database, Version4 (GFEDv4). Biogenic emissions are taken from MEGAN-MACC output \citep{ACP:Sindelarova2014}, while emissions from soil and wetlands are computed by MEGAN. Resultant $\mathrm{NO_x}$ emissions are up-scaled to match Global Emissions InitiAtive (GEIA) inventory. For oceanic emissions of \chem{CO}, we use predefined global fields from POET \citep{POET}. Emissions of \chem{CH_4} from surface data from the EU project (EU GOCE 037048) Hydrogen, Methane and Nitrous oxide: Trend variability, budgets and interactions with the biosphere (HYMN) for the year 2003 and scaled to oceanic amounts of $\mathrm{CH_4}$ from NASA. In the following (Section~\ref{subsec:sens}), we will present the various model sensitivity studies.
+In this section, we present results from a manifold of Oslo~CTM3 model integrations testing different parameters of the mOSaic scheme. We focus on changes in ozone related to the stomatal conductance parameterization, e.g., total dry deposition $\sum\chem{O_3^\text{DD}}$, dry deposition velocities $v^\chem{O_3}_\text{DD}$, ozone concentrations in the lowermost model level $[\chem{O_3}](p_0)$, and tropospheric burden $\sum_\text{trop}\chem{O_3}$. We evaluate our results with respect to the multi-model comparison of ozone dry deposition by \citet{ACP:Hardacre2015} (Section~\ref{subsec:model}), the MACC-reanalysis (Section~\ref{subsec:macc}), and observations (Section~\ref{subsec:obs}). The Oslo~CTM3 is driven by meteorological input fields from \href{https://www.ecmwf.int/en/forecasts/documentation-and-support/evolution-ifs/cycle-38r1-summary-changes}{ECMWF -- OpenIFS cy38r1}. CEDS historical emission inventory is used for anthropogenic emissions, while biomass burning is covered in daily resolution by NASA's Global Fire Emissions Database, Version4 (GFEDv4). Biogenic emissions are taken from MEGAN-MACC output \citep{ACP:Sindelarova2014}, while emissions from soil and wetlands are computed by MEGAN. Resultant $\mathrm{NO_x}$ emissions are up-scaled to match Global Emissions InitiAtive (GEIA) inventory. For oceanic emissions of \chem{CO}, we use predefined global fields from POET \citep{POET}. Emissions of \chem{CH_4} from surface data from the EU project (EU GOCE 037048) Hydrogen, Methane and Nitrous oxide: Trend variability, budgets and interactions with the biosphere (HYMN) for the year 2003 and scaled to oceanic amounts of $\mathrm{CH_4}$ from NASA. In the following (Section~\ref{subsec:sens}), we will present the various model sensitivity studies.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensitivity studies}
 \label{subsec:sens}
@@ -426,27 +427,27 @@ All simulations discussed in this section are summarized in Table~\ref{tab:simsu
     & $f_\text{phen}$ & $f_\text{light}$ & $f_\text{SW}$ & SMOKE-BEIS & $5\,\unit{^\circ C}$-days & & (year)\\
     \middlehline
     Wesely\_type      &  \multicolumn{3}{c}{n/a}   & x & n/a& \citet{AE:Wesely1989, JGR:Hough1991}  & 2005 \\
-    mOSaic            &   x & x & x                &   &  x & x  & 2005 \\
-    mOSaic\_offLight  &   x & 1 & x                &   &  x & x  & 2005 \\
-    mOSaic\_offPhen   &   1 & x & x                &   &  x & x  & 2005 \\
-    mOSaic\_SWVL1     &   x & x & SWLV1            &   &  x & x  & 2005 \\
-    mOSaic\_ice       &   x & x & x                &   &  x & x; \citet{ACP:Helmig2007}$^\dagger$ & 2005 \\
-    mOSaic\_desert    &   x & x & x                &   &  x & x; \citet{AE:Gusten1995}$^*$  & 2005 \\
-    mOSaic\_emis2014  &   x & x & x                &   &  x & x  & 2014 \\
+    mOSaic            &   x & x & x                &   &  x & \citet{ACP:Simpson2012}  & 2005 \\
+    mOSaic\_offLight  &   x & 1 & x                &   &  x & \citet{ACP:Simpson2012}  & 2005 \\
+    mOSaic\_offPhen   &   1 & x & x                &   &  x & \citet{ACP:Simpson2012}  & 2005 \\
+    mOSaic\_SWVL1     &   x & x & LV1              &   &  x & \citet{ACP:Simpson2012}  & 2005 \\
+    mOSaic\_ice       &   x & x & x                &   &  x & \citet{ACP:Simpson2012}; \citet{ACP:Helmig2007}$^\dagger$ & 2005 \\
+    mOSaic\_desert    &   x & x & x                &   &  x & \citet{ACP:Simpson2012}; \citet{AE:Gusten1995}$^*$  & 2005 \\
+    mOSaic\_emis2014  &   x & x & x                &   &  x & \citet{ACP:Simpson2012}  & 2014 \\
     mOSaic\_hough     &   x & x & x                &   &  x & \citet{AE:Wesely1989, JGR:Hough1991}$^\star$  & 2005 \\
     \bottomhline
   \end{tabular}
   \label{tab:simsum}
-  \belowtable{$^\dagger\,R^\chem{O_3}_\text{ice/snow}=10000\,\unit{s\,m^{-1}}$; $^*\,R^\chem{O_3}_\text{desert}=800\,\unit{s\,m^{-1}}$; $^\star\,$Supplement~S.7} % Table Footnotes
+  \belowtable{$^\dagger\,R^\chem{O_3}_\text{ice/snow}=10000\,\unit{s\,m^{-1}}$; $^*\,R^\chem{O_3}_\text{desert}=800\,\unit{s\,m^{-1}}$; $^\star\,$For adapted values see Supplement~S.7} % Table Footnotes
 \end{table*}
 %
 \begin{figure}[t]
   \includegraphics[width=8.3cm]{fig04}
-  \caption{Relative difference between the sensitivity simulation \emph{EMEP\_ppgsssh} and the \emph{Wesely\_type} in (a) total surface ozone; (b) average ozone dry deposition velocity; (c) total amount of ozone removed from the atmosphere by dry deposition.}
+  \caption{Relative difference between the sensitivity simulation \emph{mOSaic} and the \emph{Wesely\_type} in (a) total surface ozone; (b) average ozone dry deposition velocity; (c) total amount of ozone removed from the atmosphere by dry deposition.}
   \label{fig:diff_maps}
 \end{figure}
 %
-In Fig.~\ref{fig:diff_maps}, we show the average relative difference between \emph{EMEP\_ppgsssh} and \emph{Wesely\_type} on global maps by means of surface ozone burden, dry deposition velocity and total ozone dry deposition. Surface ozone increases globally except for regions covered by tropical forest. Especially in desert regions in Africa and Asia, surface ozone increases by up to $100\,\unit{\%}$. Consistently, dry deposition velocities decrease globally by the same order of magnitude in these regions, while they increase over tropical forest. With respect to total dry deposition, the picture is a bit less clear. We find a decrease of total dry deposition of ozone in desert regions and ocean covered areas and an increase in regions covered by tropical forest, while at mid and high latitudes in both hemispheres only small changes are visible. A possible explanation to this divergence especially in desert regions is the difference between the prescribed dry deposition velocities in the Wesely scheme in comparison to those used in the mOSaic scheme. We cover this in more detail in the following section.
+In Fig.~\ref{fig:diff_maps}, we show the average relative difference between \emph{mOSaic} and \emph{Wesely\_type} on global maps by means of surface ozone burden, dry deposition velocity and total ozone dry deposition. Surface ozone increases globally except for regions covered by tropical forest. Especially in desert regions in Africa and Asia, surface ozone increases by up to $100\,\unit{\%}$. Consistently, dry deposition velocities decrease globally by the same order of magnitude in these regions, while they increase over tropical forest. With respect to total dry deposition, the picture is a bit less clear. We find a decrease of total dry deposition of ozone in desert regions and ocean covered areas and an increase in regions covered by tropical forest, while at mid and high latitudes in both hemispheres only small changes are visible. A possible explanation to this divergence especially in desert regions is the difference between the prescribed dry deposition velocities in the Wesely scheme in comparison to those used in the mOSaic scheme. We cover this in more detail in the following section.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with modeling results}
@@ -514,18 +515,18 @@ Finally, we take a look at the different global as well as hemispheric dry depos
     & NH & SH & Global & NH & SH & Global & NH & SH & Global & NH & SH & Global\\
     & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & \multicolumn{3}{c}{(\unit{Tg\,a^{-1}})} & (\unit{\%})\\
     \middlehline
-    Wesely\_type & 159.7 & 147.8 & 307.5 & 3.6 & 6.3 & 9.9 & 446.6 & 193.7 & 640.3 & 612.4 & 347.9 & 960.2 & 46.8\\
-    EMEP\_full & 107.6 & 105.2 & 212.8 & 2.5 & 5.5 & 8.0 & 296.6 & 135.0 & 431.6 & 408.6 & 245.6 & 654.2 & 0.0\\
-    EMEP\_offLight & 110.0 & 105.8 & 215.8 & 2.5 & 5.4 & 7.9 & 337.1 & 156.0 & 493.0 & 451.3 & 267.2 & 718.6 & 9.8\\
-    EMEP\_offPhen & 108.0 & 105.3 & 213.2 & 2.5 & 5.5 & 8.0 & 301.6 & 139.1 & 440.7 & 413.9 & 249.9 & 663.7 & 1.5\\
-    EMEP\_SWVL4 & 109.2 & 107.0 & 216.2 & 2.6 & 5.5 & 8.1 & 303.6 & 138.2 & 441.8 & 417.2 & 250.7 & 667.9 & 2.1\\
-    EMEP\_ppgs & 107.6 & 105.2 & 212.7 & 2.5 & 5.5 & 8.0 & 299.5 & 135.3 & 434.9 & 411.4 & 246.0 & 657.4 & 0.5\\
-    EMEP\_ppgssh & 108.3 & 105.4 & 213.6 & 2.5 & 5.5 & 8.0 & 306.8 & 142.8 & 449.6 & 419.4 & 253.6 & 673.0 & 2.9\\
-    EMEP\_ppgssh\_ice & 107.4 & 105.3 & 212.7 & 1.2 & 1.6 & 2.8 & 303.0 & 144.1 & 447.2 & 413.0 & 251.1 & 664.1 & 1.5\\
-    EMEP\_ppgs\_2005 & 106.9 & 103.5 & 210.4 & 2.6 & 5.4 & 8.0 & 297.9 & 131.8 & 429.7 & 409.2 & 240.7 & 649.9 & -0.7\\
+    Wesely\_type & 160.5 & 147.7 & 308.2 & 7.0 & 6.4 & 13.4 & 417.3 & 190.8 & 608.2 & 613.4 & 344.9 & 958.3 & 36.7\\
+    mOSaic & 108.1 & 105.3 & 213.4 & 4.3 & 3.1 & 7.4 & 236.2 & 130.3 & 366.4 & 368.3 & 238.6 & 606.9 & 0.0\\
+    mOSaic\_offLight & 110.5 & 106.3 & 216.8 & 4.3 & 3.0 & 7.4 & 263.1 & 145.3 & 408.4 & 399.9 & 254.7 & 654.6 & 7.3\\
+    mOSaic\_offPhen & 108.3 & 105.3 & 213.6 & 4.3 & 3.1 & 7.4 & 246.9 & 132.2 & 379.1 & 379.5 & 240.5 & 620.0 & 2.1\\
+    mOSaic\_SWVL1 & 108.1 & 105.2 & 213.3 & 4.3 & 3.1 & 7.4 & 234.6 & 128.8 & 363.4 & 366.6 & 237.1 & 603.7 & -0.5\\
+    mOSaic\_ice & 105.6 & 103.0 & 208.6 & 2.6 & 1.0 & 3.6 & 232.7 & 130.2 & 362.9 & 358.3 & 234.2 & 592.6 & -2.4\\
+    mOSaic\_desert & 109.1 & 105.5 & 214.6 & 4.3 & 3.1 & 7.4 & 250.4 & 132.6 & 383.0 & 383.4 & 241.2 & 624.6 & 2.8\\
+    mOSaic\_emis2014 & 108.9 & 107.0 & 215.9 & 4.3 & 3.1 & 7.3 & 238.3 & 133.8 & 372.1 & 370.8 & 243.9 & 614.7 & 1.3\\
+    mOSaic\_hough & 133.3 & 131.1 & 264.4 & 4.9 & 3.6 & 8.4 & 265.8 & 132.0 & 397.8 & 423.6 & 266.7 & 690.3 & 12.1\\
     \bottomhline
   \end{tabular}
-  \belowtable{$^\dagger$: Difference of global annual total relative to \emph{EMEP\_full}.}% Table Footnotes
+  \belowtable{$^\dagger$: Relative change of global annual total in comparison to \emph{mOSaic}.}% Table Footnotes
   \label{tab:ozone_sinks}
 \end{table*}
 %
@@ -537,19 +538,25 @@ Finally, we take a look at the different global as well as hemispheric dry depos
     Experiment & \multicolumn{3}{c}{Trop. \chem{O_3}}\\
     &  \multicolumn{3}{c}{(Tg)}\\
     \middlehline
-    Wesely type & 361 & $\pm$ & 21\\
-    EMEP\_full & 392 & $\pm$ & 28\\
-    EMEP\_offLight & 388 & $\pm$ & 26\\
-    EMEP\_offPhen & 392 & $\pm$ & 27\\
-    EMEP\_SWVL4 & 402 & $\pm$ & 31\\
-    EMEP\_ppgs & 392 & $\pm$ & 28\\
-    EMEP\_ppgssh & 391 & $\pm$ & 27\\
-    EMEP\_ppgssh\_ice & 403 & $\pm$ & 31\\
-    EMEP\_ppgs\_2005 & 386 & $\pm$ & 26\\
+    Wesely\_type & 364 & $\pm$ & 23 \\
+    mOSaic & 399 & $\pm$ & 31 \\
+    mOSaic\_offLight & 395 & $\pm$ & 30 \\
+    mOSaic\_offPhen & 398 & $\pm$ & 31 \\
+    mOSaic\_SWVL1 & 399 & $\pm$ & 31 \\
+    mOSaic\_ice & 401 & $\pm$ & 31 \\
+    mOSaic\_desert & 398 & $\pm$ & 31 \\
+    mOSaic\_emis2014 & 405 & $\pm$ & 32 \\
+    mOSaic\_hough & 393 & $\pm$ & 30 \\
     \bottomhline
   \end{tabular}
   \label{tab:trop_ozone_burden}
 \end{table*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Comparison with MACC-reanalysis}
+\label{subsec:macc}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with observations}
 \label{subsec:obs}

@@ -343,28 +343,20 @@ def growing_season_stadyn(xr_temp):
   \caption{Normalized zonal average ozone dry deposition velocity.}
 \end{figure}
 
-\subsection*{S.7 Wesely-Hough $R^\chem{O_3}$}
+\subsection*{S.7 Surface resistance of ozone}
 \begin{table*}[!htbp]
-  \caption{Surface resistance of ozone: $^*$ CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean shrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
+  \caption{Surface resistance of ozone $R^\chem{O_3}$ adapted from  Wesely (1989); Hough (1991): $^*$ CF -- temperate/boreal coniferous; DF -- temperate/boreal deciduous; NF -- Mediterranean needleleaf; BF -- Mediterranean broadleaf; TC -- temperate crop; MC -- Mediterranean crop; RC -- root crop; SNL -- moorland; GR -- grass; MS -- Mediterranean shrub; WE -- wetlands; TU -- tundra; DE -- desert; W -- water; ICE -- ice.}
   \begin{tabular}{lc}
     \tophline
     Code$^*$ & $R_\chem{O_3}$\\
          & (\unit{s\,m^{-1}})\\
     \middlehline
-    CF &  1000\\
-    DF &  1000 \\
-    NF &  1000 \\
-    BF &  1000 \\
+    CF, DF, NF, BF &  1000\\
     TC &  200 \\
-    SNL & 400 \\
-    GR  & 1000 \\
-    MS  & 1000 \\
-    WE  & 400 \\
-    TU  & 385 \\
-    DE  & 385 \\
-    W   & 1430 \\
-    U   & 400 \\
-    ICE & 1430\\
+    SNL, WE, U & 400 \\
+    GR, MS  & 1000 \\
+    TU, DE  & 385 \\
+    W, ICE  & 1430 \\
     \bottomhline
  \end{tabular}
   %\belowtable{}
