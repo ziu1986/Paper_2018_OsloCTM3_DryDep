@@ -1,0 +1,50 @@
+% Authors' response
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+\thispagestyle{empty}
+
+\begin{document}
+\section*{Final response}
+We thank both referees for their thorough review of our paper and the evaluation of the formulation of the dry deposition scheme.
+In consideration of all comments, it became necessary to revise a major part of the dry deposition implementation in our model. Particularly, we  
+\begin{itemize}
+  \item have addressed and corrected the used equations and the implementation of the mosaic approach in the model,
+  \item have fixed all related issues in the manuscript,
+  \item have included a diagnostic output of dry deposition velocities,
+  \item now refer to our new dry deposition scheme as \emph{mOSaic scheme},
+  \item have refined the definition of our model experiments to make them more consistent, especially
+    \begin{itemize}
+    \item using SWVL3 and
+    \item CEDS emissions in accordance to the meteorological year.
+    \end{itemize}
+    This also includes replacement or removal of some previous experiments
+    \begin{itemize}
+    \item \emph{EMEP\_SWVL4} $\rightarrow$ \emph{mOSaic\_SWVL1},
+    \item \sout{\emph{EMEP\_ppgs}},
+    \item \sout{\emph{EMEP\_ppgssh}}, and
+    \item \emph{EMEP\_ppgs\_2005} $\rightarrow$ \emph{mOSaic\_emis2014}.
+    \end{itemize}
+    We have added two experiments in which we explicitly change the prescribed ozone surface resistance $R^\mathrm{O_3}$:
+    \begin{itemize}
+    \item \emph{mOSaic\_desert},
+    \item\emph{mOSaic\_hough}.
+    \end{itemize}
+  \item have elaborated on the evaluation and discussion of the results and included a section in which we compare our results to the MACC-reanalysis.
+\end{itemize}
+In the following, we include a detailed account of all referee comments and the track-change-version of the manuscript. We have not updated the responses already published in gmdd (RC1, RC3). Hence, the referenced numbers will be different in the final manuscript.
+\newpage
+\input{response_version_1}
+\input{response_version_1_rc2}
+\input{response_version_1_rc3}
+\newpage
+
+\end{document}
