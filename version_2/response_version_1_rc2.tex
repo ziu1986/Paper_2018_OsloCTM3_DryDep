@@ -47,7 +47,7 @@ As far as I can tell from the text, $R_a$ is calculated once, with the same valu
     We acknowledge that Eq.~(13) should not proceed the other equations and that this might have caused additional confusion. 
     
   \item {\color{blue} In any case, I think this approach has serious problems. Why average first for $G_s$ and then for $G_{ns}$ , when it is the fluxes ($F_k$ , or $V^i_{g,k}(z_\mathrm{ref}) \times \chi^i_\mathrm{avg}(z_\mathrm{ref})$) which need to be averaged? I also do not understand why they would use the same $u_*$ and $R_a$ for all land-covers. I think the authors need to make a case for their approach, or change it.}
-    We have discussed the concerns raised within this comment and found that we have indeed made a mistake in our implementation of the \emph{mosaic approach} which forces us to revise our model and repeat the model experiments.
+    We have discussed the concerns raised and found that we have indeed made a mistake in our implementation of the \emph{mosaic approach} which forces us to revise our model and repeat the model experiments. We update the equations in the revised manuscript accordingly.
   \end{itemize}
   
 \item {\color{blue} Calculation of $R_a$:}
@@ -71,30 +71,28 @@ they assume that their 8\,m meteorology was at a physical height of 8\,m, or at 
 If the latter, which $d$?}
   At that point, it is indeed neither clear from the manuscript nor from our internal documentation. The assumption that Eq.~(2) (in the manuscript) would become negative, was most likely based on a wrong form of the integrated stability function $\Psi_m$.
 
-  Given $z = z_\mathrm{ref} = 8\,\mathrm{m}$ and $d = 0.7\cdot 1\,\mathrm{m}$, it is right that neither the correct Eq.~(\ref{eq:aero_res}) nor the erroneous equation will result in negative $R_a$. The statement "$d$ is ’typically 0.7\,m’" is a typo. We correct: \emph{"[...] typically $d = 0.7\cdot h(N,\mathrm{lat})\,\mathrm{m}$ for vegetation other than forests [...]"}.
+  Given $z = z_\mathrm{ref} = 8\,\mathrm{m}$ and $d = 0.7\cdot 1\,\mathrm{m}$, it is right that neither the correct Eq.~(\ref{eq:aero_res}) nor the erroneous equation will result in negative $R_a$. The statement "$d$ is ’typically 0.7\,m’" is incorrect, indeed. We correct: \emph{"[...] $d_k=0.78\cdot h_k(\mathrm{lat})$, $z_0^k=0.07\cdot h_k(\mathrm{lat})$ for forests, $d_k=0.7\cdot h_k(\mathrm{lat})$, $z_0^k=0.1\cdot h_k(\mathrm{lat})$ for vegetation other than forests [...]"}.
 
-  Correction note: The average height of the lowermost model level is actually $20\,\mathrm{m}$ ($10\,\mathrm{m}$ for mid-level).
+  Side note: The average height of the lowermost model level is actually $20\,\mathrm{m}$ ($10\,\mathrm{m}$ for mid-level).
   
 \item {\color{blue} Lines 19--30 of this section explain the Monteith alternative, but in a rather confusing
 way. For example, when is $z_0$ ever zero, as stated on line 23, or why does $\partial_z R_a \rightarrow R_a $
 for finite $z$? (I know what they intend to say, but it isn’t at all clear.)}
-  The referee is right. The text and derivation of the Monteith relation is confusing and also erroneous. If we do not implement Eq.~(\ref{eq:aero_res}), we will elaborate on this in a revised version of the manuscript: \emph{"
+  The referee is right. The text and derivation of the Monteith relation is confusing and also erroneous. In a revised version of the dry deposition scheme, we do no longer use these formulations, hence they are removed from the revised manuscript. Nevertheless, the correct form should have read as follows: 
 \begin{equation}
   \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\Delta T}{R_{a, H}}.
   \label{eq:sens_heat}
 \end{equation}
-Herein, $\rho_\text{air}$ is the air density, $c_P$ the specific heat at constant pressure $P$, $R_{a, H}$ is the diffusion resistance to sensible heat between surface and the reference height $z$, and $\Delta T$ is the difference between the surface temperature $T_0$ and the temperature at a reference height $T_z$. From the eddy diffusion theorem, a similar formulation can be derived
 \begin{equation}
   \Phi_{Q_\text{sensible}} = \rho_\text{air}\,c_P \cdot \frac{\partial T}{\partial u} \cdot u_*^2.
   \label{eq:eddy_theo}
 \end{equation}
 For finite $z$, $\partial T \rightarrow \Delta T$.
-  "}
 
 \item {\color{blue} In any case, here
 the authors end up with a stability-independent equation for $R_a$, without mentioning or
 discussing that fact.}
-  In the revision of the model, we are going to implement the stability dependent $R_a$ following Eq.~(\ref{eq:aero_res}).
+  In the revision of the model, we are going to implement the stability dependent $R_a$ following Eq.~(\ref{eq:aero_res}) and update the manuscript accordingly.
   
 \item {\color{blue} This very shallow layer is also very problematic for deposition calculations in general,
 since the model cell seems to be run here with horizontal dimensions of $2.25 \times 2.25^\circ$,
@@ -108,7 +106,7 @@ we showed in Schwede et al. (2018) that differences
 between the grid-average and forest specific deposition rates of N-compounds could be
 as much as a factor of two and up to more than a factor of five in extreme cases. These
 differences were largely dependent on how much forest occupied each grid cell.)}
-  Thank you for pointing this out. In S2012 we find, $R_a$ evaluated "at around $45\,\mathrm{m}$" which is similar to the center of our second lowest model level. We can easily correct for this in a revised model version. 
+  Thank you for pointing this out. Indeed, an evaluation of winds at $8\,\mathrm{m}$ does not make much sense, given that forests in the tropics reach heights up to $40\,\mathrm{m}$. In S2012, $R_a$ is actually evaluated "at around $45\,\mathrm{m}$" which is similar to the center of our second lowest model level. We correct for this in the revised model version. 
   \end{itemize}
   
 \item {\color{blue} Why so much focus on sea areas?: The text seems rather unbalanced with regard to the different land-covers. Sect. 2 uses 1/2 page on various $z_0$ corrections for oceans, but say nothing about the ecosystem
@@ -229,7 +227,7 @@ phenology for non-European areas, because of such difficulties with tabulations.
 and so is the factor 0.008.SAI/10 used in Eqn (33), but here new $a_1$ coefficients
 are defined. Did the ’aerosol microphysic model’ referred to also mix equations
 in this way? Is there any publication as to the reliability of this method?}
-  The $a_1$ coefficients were calculated from deposition velocities taken from the Oslo~CTM2 (\href{http://folk.uio.no/mariantl/osloctm3/history.html}{Oslo~CTM2 list of publications}). We meant to use this new scheme for aerosols in the Oslo~CTM3, but as of now it has not been evaluated and is actually not used. Hence, we will remove this section from the paper and add: \emph{"In addition to the gaseous species, Simpson at al. (2012) also modify aerosol deposition velocities, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols ($\mathrm{SO_4}$, $\mathrm{MSA}$) and secondary organic aerosols (SOA), but we have not updated our model with respect to these."}.
+  The $a_1$ coefficients were calculated from deposition velocities taken from the Oslo~CTM2 (\href{http://folk.uio.no/mariantl/osloctm3/history.html}{Oslo~CTM2 list of publications, online}). We meant to use this new scheme for aerosols in the Oslo~CTM3, but as of now it has not been evaluated and is actually not used. Hence, we will remove this section from the paper and add: \emph{"In addition to the gaseous species, Simpson at al. (2012) also modify aerosol deposition velocities, namely black carbon (BC) and organic carbon (OC), sulfuric aerosols ($\mathrm{SO_4}$, $\mathrm{MSA}$) and secondary organic aerosols (SOA), but we have not updated our model with respect to these."}.
   
 \item {\color{blue}P12 Fig.2. I didn’t understand what is being done here. The Figure suggests that
 the EMEP scheme has one category for ’Forests, Med. scrub’, whereas S2012
@@ -237,7 +235,7 @@ lists 4 types of forest, as well as Mediterranean scrub as a separate ecosystem.
 This figure also suggests that EMEP has savanna, which it doesn’t, but do have
 many other categories (Table 3 of S2012 lists 16 main categories. The current
 EMEP model has 32.)}
-  The caption may become clearer after we changed the name of our scheme, so that it can no longer be confused with the actual EMEP model. The purpose of the mapping is to project the more detailed categories for stomatal conductance to the 10 ground-surface resistance categories (Table~S19 in S2012 supplement).
+  The caption may become clearer after we changed the name of our scheme, so that it can no longer be confused with the actual EMEP model. The purpose of the mapping is to project the more detailed categories for stomatal conductance to the ground-surface resistance categories (Table~S19 in S2012 supplement). We have updated figure and text in accordance to the corrections made in the model code. It should be clearer now.
   
 \item {\color{blue}P12 L13. Again, the current EMEP model is not eurocentric, and uses global
   phenology calculations.}
@@ -247,6 +245,7 @@ EMEP model has 32.)}
 reading further do I see what they mean by ’de-accumulated’. If working with
 IFS PPFD is so hard, why didn’t the authors just calculate hourly (or minute-by-
 minute) PPFD using cloud-cover and zenith angles?}
+  We elaborate on the comprehensibility of this paragraph: \emph{"From OpenIFS an accumulated surface PAR is available. It is integrated both, spectral (presumably $400-60\,\mathrm{nm}$) and temporally. For practical use in Eq.~(18), we de-accumulate this field with respect to time and refer to the result as PPFD."}
 We have not used that ansatz, because we do not have the radiation fields in the relevant wavelengths available from OpenIFS output.
 \end{itemize}
 %\newpage
