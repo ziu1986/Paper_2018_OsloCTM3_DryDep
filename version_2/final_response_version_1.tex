@@ -1,29 +1,33 @@
 % Authors' response
-\documentclass{scrartcl}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+%\documentclass{scrartcl}
+%\usepackage[utf8]{inputenc}
+%\usepackage[english]{babel}
 %\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{xcolor}
-\usepackage{url}
-\usepackage{multirow}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage[normalem]{ulem}
-\thispagestyle{empty}
+%\usepackage{amsmath}
+%\usepackage{xcolor}
+%\usepackage{url}
+%\usepackage{multirow}
+%\usepackage{graphicx}
+%\usepackage{hyperref}
+%\usepackage[normalem]{ulem}
+%\thispagestyle{empty}
 
-\begin{document}
+%\begin{document}
 \section*{Final response}
 We thank both referees for their thorough review of our paper and the evaluation of the formulation of the dry deposition scheme.
 In consideration of all comments, it became necessary to revise a major part of the dry deposition implementation in our model. Particularly, we  
 \begin{itemize}
-  \item have addressed and corrected the used equations and the implementation of the mosaic approach in the model,
-  \item have fixed all related issues in the manuscript,
+\item have addressed and corrected the equations in
+  \begin{itemize}
+  \item the implementation of the mosaic approach,
+  \item the computation of $R_a$.
+  \end{itemize}
+  \item have fixed the equations with respect to comprehensibility (e.g., indexing),
   \item have included a diagnostic output of dry deposition velocities,
   \item now refer to our new dry deposition scheme as \emph{mOSaic scheme},
   \item have refined the definition of our model experiments to make them more consistent, especially
     \begin{itemize}
-    \item using SWVL3 and
+    \item using the soil moisture at a more appropriate level (SWVL3) and
     \item CEDS emissions in accordance to the meteorological year.
     \end{itemize}
     This also includes replacement or removal of some previous experiments
@@ -38,13 +42,14 @@ In consideration of all comments, it became necessary to revise a major part of 
     \item \emph{mOSaic\_desert},
     \item\emph{mOSaic\_hough}.
     \end{itemize}
-  \item have elaborated on the evaluation and discussion of the results and included a section in which we compare our results to the MACC-reanalysis.
+  \item have elaborated on the evaluation and discussion of the results and
+  \item included a section in which we compare our results to the MACC-reanalysis.
 \end{itemize}
-In the following, we include a detailed account of all referee comments and the track-change-version of the manuscript. We have not updated the responses already published in gmdd (RC1, RC3). Hence, the referenced numbers will be different in the final manuscript.
+In the following, we account for all referee comments in detail and include the track-change-version of the manuscript. {\bf Remark:} We have not updated the responses that have been already published in gmdd (RC1, RC3). Hence, the referenced values therein differ from the final manuscript.
 \newpage
-\input{response_version_1}
-\input{response_version_1_rc2}
-\input{response_version_1_rc3}
+\input{version_2/response_version_1}
+\input{version_2/response_version_1_rc2}
+\input{version_2/response_version_1_rc3}
 \newpage
 
-\end{document}
+%\end{document}
